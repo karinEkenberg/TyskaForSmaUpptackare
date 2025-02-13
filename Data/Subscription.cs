@@ -14,7 +14,7 @@ namespace TyskaForSmaUpptackare.Data
         [Required]
         public int ProductId { get; set; }
         [ForeignKey("ProductId")]
-        public Product Product { get; set; }
+        public required Product Product { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         [Required]
