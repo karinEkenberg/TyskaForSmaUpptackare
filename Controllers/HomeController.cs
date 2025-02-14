@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using TyskaForSmaUpptackare.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TyskaForSmaUpptackare.Controllers
 {
@@ -13,13 +14,17 @@ namespace TyskaForSmaUpptackare.Controllers
             _logger = logger;
         }
 
+        [ResponseCache(Duration = 10,
+            Location = ResponseCacheLocation.Any)]
         public IActionResult Index()
         {
             return View();
         }
 
+        [Route("private")]
+        [Authorize(Roles = "Administrators")]
         public IActionResult Privacy()
-        {
+        {            
             return View();
         }
 
