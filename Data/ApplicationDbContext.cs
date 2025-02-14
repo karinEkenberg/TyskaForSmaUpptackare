@@ -54,7 +54,8 @@ namespace TyskaForSmaUpptackare.Data
                 .HasForeignKey(i => i.ProductPartId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.Entity<ProductItem>()
+                // 🔹 Self-referencing relation (ProductItem → ChildItems)
+                builder.Entity<ProductItem>()
                 .HasOne(i => i.ParentItem)
                 .WithMany(i => i.ChildItems)
                 .HasForeignKey(i => i.ParentItemId)
