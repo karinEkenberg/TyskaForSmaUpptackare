@@ -1,3 +1,18 @@
+:root {
+    --color-bg-light: #A7D3C6; /* "ljusgrön" */
+    --color-bg-dark: #626E63; /* "darker" */
+    --color-primary: #C2E8D8; /* "hover" */
+    --color-secondary: #C6C8BA; /* "beige" */
+    --color-grey-1: #7D7D7D; /* text/detaljer */
+    --color-grey-2: #DEDEDE; /* ljusare grå */
+    --color-grey-3: #F1F1F1; /* ännu ljusare grå */
+    --color-link-normal: #0084B4;
+    --color-link-hover: #005A79;
+    --color-link-active: #003C52;
+    --color-link-visited: #551A8B;
+    --color-text-primary: #333333;
+}
+
 html {
   font-size: 14px;
 }
