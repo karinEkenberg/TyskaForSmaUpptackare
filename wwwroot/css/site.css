@@ -79,6 +79,9 @@ a {
         color: var(--color-text-black);
     }
 
+.navbar {
+    background-color: var(--color-primary-blue) !important;
+}
 
 
 html {
