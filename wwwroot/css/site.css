@@ -1,3 +1,86 @@
+:root {
+    --color-primary-yellow: #FFF8DF;
+    --color-primary-blue: #C6d4e9;
+    --color-primary-green: #d1e9c6;
+    --color-primary-darkblue: #a7b0c0;
+    --color-button-hover: #B8D8AD;
+    --color-button-active: #A3C798;
+    --color-button-disabled: #E8F2E0;
+    --color-link-normal: #4A7D79;
+    --color-link-hover: #1B3A4B;
+    --color-link-active: #0F222E;
+    --color-link-visited: #5A4B76;
+    --color-text-black: #272829;
+    --color-white: #F5F5F5;
+    --color-button-disabled-text: #A7B0C0;
+}
+
+@font-face {
+    font-family: 'Andika';
+    src: url(https://fonts.googleapis.com/css2?family=Andika:ital,wght@0,400;0,700;1,400;1,700&display=swap) format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+body {
+    font-family: 'Andika', sans-serif;
+    background-color: var(--color-primary-yellow);
+    color: var(--color-text-primary);
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: var(--color-link-normal);
+    text-decoration: underline;
+}
+
+    a:hover {
+        color: var(--color-link-hover);
+        text-decoration: underline;
+    }
+
+    a:active {
+        color: var(--color-link-active);
+    }
+
+    a:visited {
+        color: var(--color-link-visited);
+    }
+
+.btn {
+    background-color: var(--color-primary-green);
+    color: var(--color-text-black);
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--color-text-black);
+    cursor: pointer;
+}
+
+    .btn:hover {
+        background-color: var(--color-button-hover);
+        color: var(--color-text-black);
+    }
+
+    .btn:active {
+        background-color: var(--color-button-active);
+        color: var(--color-text-black);
+    }
+
+    .btn:disabled {
+        background-color: var(--color-button-disabled);
+        cursor: not-allowed;
+        color: var(--color-button-disabled-text);
+    }
+
+    .btn:focus {
+        background-color: var(--color-primary-green);
+        border: 2px dotted var(--color-text-black);
+        color: var(--color-text-black);
+    }
+
+
+
 html {
   font-size: 14px;
 }
