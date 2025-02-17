@@ -79,5 +79,15 @@ namespace TyskaForSmaUpptackare.Controllers
                 return View();
             }
         }
+
+        public ActionResult Details()
+        {
+            return View();
+        }
+
+        public ActionResult Explore()
+        {
+            return View();
+        }
     }
 }
