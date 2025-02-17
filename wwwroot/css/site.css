@@ -55,6 +55,7 @@ a {
     padding: 0.5rem 1rem;
     border: 2px solid var(--color-text-black);
     cursor: pointer;
+    border-radius: 7px;
 }
 
     .btn:hover {
