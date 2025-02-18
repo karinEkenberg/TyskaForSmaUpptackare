@@ -22,7 +22,7 @@ namespace TyskaForSmaUpptackare.Controllers
         }
 
         [Route("private")]
-        [Authorize(Roles = "Administrators")]
+        [Authorize(Roles = "Administrators, Customer")]
         public IActionResult Privacy()
         {            
             return View();

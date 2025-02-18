@@ -131,5 +131,62 @@ namespace TyskaForSmaUpptackare.Controllers
 
             return Content($"Kunden {CustomerEmail} har lagts till i rollen '{CustomerRole}'.");
         }
+
+        public IActionResult CreateCustomer()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateCustomer(TyskaForSmaUpptackare.Models.CustomerViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            string customerRole = "Customer";
+
+            if (!await roleManager.RoleExistsAsync(customerRole))
+            {
+                await roleManager.CreateAsync(new IdentityRole(customerRole));
+            }
+
+            var customer = await userManager.FindByEmailAsync(model.Email);
+            if (customer == null)
+            {
+                customer = new IdentityUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email
+                };
+
+                var createResult = await userManager.CreateAsync(customer, "Pa$$w0rd123");
+                if (!createResult.Succeeded)
+                {
+                    foreach (var error in createResult.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                    return View(model);
+                }
+            }
+
+            if (!await userManager.IsInRoleAsync(customer, customerRole))
+            {
+                var roleResult = await userManager.AddToRoleAsync(customer, customerRole);
+                if (!roleResult.Succeeded)
+                {
+                    foreach (var error in roleResult.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                    return View(model);
+                }
+            }
+
+            return RedirectToAction("Index", "Home"); 
+        }
+
     }
 }
