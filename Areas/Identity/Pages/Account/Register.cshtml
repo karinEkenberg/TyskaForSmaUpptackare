@@ -1,7 +1,7 @@
 ﻿@page
 @model RegisterModel
 @{
-    ViewData["Title"] = "Registrera dig";
+    ViewData["Title"] = "Registrera";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -13,17 +13,17 @@
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
             <div class="form-floating mb-3">
-                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="namn@exempel.se" />
                 <label asp-for="Input.Email">E-post</label>
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
-                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="lösenord" />
                 <label asp-for="Input.Password">Lösenord</label>
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
-                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="lösenord" />
                 <label asp-for="Input.ConfirmPassword">Bekräfta lösenord</label>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
@@ -41,7 +41,8 @@
                         <p>
                             Det finns inga externa autentiseringstjänster konfigurerade. Se den här <a href="https://go.microsoft.com/fwlink/?LinkID=532715">
                                 artikeln
-                                om att konfigurera denna ASP.NET-applikation för att stödja inloggning via externa tjänster.
+                                om att konfigurera denna ASP.NET-applikation för att stödja inloggning via externa tjänster
+                            </a>.
                         </p>
                     </div>
                 }
@@ -52,7 +53,7 @@
                             <p>
                                 @foreach (var provider in Model.ExternalLogins!)
                                 {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Logga in med ditt @provider.DisplayName account">@provider.DisplayName</button>
+                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Logga in genom att använda ditt @provider.DisplayName konto">@provider.DisplayName</button>
                                 }
                             </p>
                         </div>

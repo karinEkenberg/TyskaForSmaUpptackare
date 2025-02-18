@@ -3,7 +3,6 @@
 #nullable disable
 
 using System;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -14,13 +13,15 @@ using Microsoft.AspNetCore.WebUtilities;
 
 namespace TyskaForSmaUpptackare.Areas.Identity.Pages.Account
 {
-    public class ConfirmEmailModel : PageModel
+    public class ConfirmEmailChangeModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
 
-        public ConfirmEmailModel(UserManager<IdentityUser> userManager)
+        public ConfirmEmailChangeModel(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
         {
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         /// <summary>
@@ -29,9 +30,10 @@ namespace TyskaForSmaUpptackare.Areas.Identity.Pages.Account
         /// </summary>
         [TempData]
         public string StatusMessage { get; set; }
-        public async Task<IActionResult> OnGetAsync(string userId, string code)
+
+        public async Task<IActionResult> OnGetAsync(string userId, string email, string code)
         {
-            if (userId == null || code == null)
+            if (userId == null || email == null || code == null)
             {
                 return RedirectToPage("/Index");
             }
@@ -43,8 +45,24 @@ namespace TyskaForSmaUpptackare.Areas.Identity.Pages.Account
             }
 
             code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
-            var result = await _userManager.ConfirmEmailAsync(user, code);
-            StatusMessage = result.Succeeded ? "Tack för att du bekräftar din e-post." : "Det gick inte att bekräfta din e-post.";
+            var result = await _userManager.ChangeEmailAsync(user, email, code);
+            if (!result.Succeeded)
+            {
+                StatusMessage = "Fel vid ändring av e-post.";
+                return Page();
+            }
+
+            // In our UI email and user name are one and the same, so when we update the email
+            // we need to update the user name.
+            var setUserNameResult = await _userManager.SetUserNameAsync(user, email);
+            if (!setUserNameResult.Succeeded)
+            {
+                StatusMessage = "Fel vid ändring av användarnamn.";
+                return Page();
+            }
+
+            await _signInManager.RefreshSignInAsync(user);
+            StatusMessage = "Tack för att du bekräftade din e-poständring.";
             return Page();
         }
     }

@@ -95,7 +95,7 @@ namespace TyskaForSmaUpptackare.Areas.Identity.Pages.Account
             /// </summary>
             [DataType(DataType.Password)]
             [Display(Name = "Bekräfta lösenord")]
-            [Compare("Lösenord", ErrorMessage = "Lösenordet och bekräftelselösenordet stämmer inte överens.")]
+            [Compare("Password", ErrorMessage = "Lösenordet och bekräftelselösenordet stämmer inte överens.")]
             public string ConfirmPassword { get; set; }
         }
 
@@ -131,8 +131,8 @@ namespace TyskaForSmaUpptackare.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Bekräfta din E-post",
-                        $"Var god bekräfta ditt konto genom att <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>klicka här</a>.");
+                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                        $"Vänligen bekräfta ditt konto genom att <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>klicka här</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
@@ -163,7 +163,7 @@ namespace TyskaForSmaUpptackare.Areas.Identity.Pages.Account
             catch
             {
                 throw new InvalidOperationException($"Det går inte att skapa en instans av '{nameof(IdentityUser)}'. " +
-                    $"Se till att '{nameof(IdentityUser)}' är inte en abstrakt klass och har en parameterlös konstruktor, eller alternativt " +
+                    $"Säkerställ att '{nameof(IdentityUser)}' inte är en abstrakt klass och har en parameterlös konstruktor, eller alternativt " +
                     $"åsidosätt registersidan in /Areas/Identity/Pages/Account/Register.cshtml");
             }
         }
