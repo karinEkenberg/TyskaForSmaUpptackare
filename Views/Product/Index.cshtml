@@ -1,5 +1,32 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<TyskaForSmaUpptackare.Data.Product>
+
 @{
+    ViewData["Title"] = "Produkter";
 }
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+    @foreach (var product in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                @if (!string.IsNullOrEmpty(product.ImageUrl))
+                {
+                    <img src="@product.ImageUrl" class="card-img-top" alt="@product.Name" />
+                }
+                <div class="card-body">
+                    <h5 class="card-title">@product.Name</h5>
+                    <p class="card-text">@product.Description</p>
+                    <p class="card-text"><strong>Pris:</strong> @product.Price.ToString("C")</p>
+                    <a asp-controller="Product" asp-action="Details" asp-route-id="@product.ProductId" class="btn btn-primary">Visa produkt</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+@if (User.IsInRole("Administrators"))
+{
+    <a href="@Url.Action("Create", "Product")">Lägg till produkt</a>
+}
+

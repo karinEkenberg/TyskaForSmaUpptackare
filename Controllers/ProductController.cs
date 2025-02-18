@@ -1,93 +1,131 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using TyskaForSmaUpptackare.Data;
 
 namespace TyskaForSmaUpptackare.Controllers
 {
     public class ProductController : Controller
     {
-        // GET: ProductController
-        public ActionResult Index()
+
+        private readonly ApplicationDbContext _context;
+
+        public ProductController (ApplicationDbContext context)
         {
-            return View();
+            _context = context;
+        }
+
+        // GET: ProductController
+        public async Task<IActionResult> Index()
+        {
+            var products = await _context.Products.ToListAsync();
+            return View(products);
         }
 
         // GET: ProductController/Details/5
-        public ActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            return View();
+            var product = await _context.Products.FirstOrDefaultAsync(p => p.ProductId == id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            return View(product);
         }
 
         // GET: ProductController/Create
-        public ActionResult Create()
+        [Authorize(Roles = "Administrators")]
+        public IActionResult Create()
         {
             return View();
         }
 
         // POST: ProductController/Create
+        [Authorize(Roles = "Administrators")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> Create(Product product)
         {
-            try
+            if (ModelState.IsValid)
             {
+                _context.Add(product);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            return View(product);
         }
 
         // GET: ProductController/Edit/5
-        public ActionResult Edit(int id)
+        [Authorize(Roles = "Administrators")]
+        public async Task<IActionResult> Edit(int id)
         {
-            return View();
+            var product = await _context.Products.FindAsync(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            return View(product);
         }
 
         // POST: ProductController/Edit/5
+        [Authorize(Roles = "Administrators")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(int id, Product product)
         {
-            try
+           if (id != product.ProductId)
             {
+                return NotFound();
+            }
+           if (ModelState.IsValid)
+            {
+                _context.Update(product);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+           return View(product);
         }
 
         // GET: ProductController/Delete/5
-        public ActionResult Delete(int id)
+        [Authorize(Roles = "Administrators")]
+        public async Task<IActionResult> Delete(int id)
         {
-            return View();
+            var product = await _context.Products.FirstOrDefaultAsync(p => p.ProductId == id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            return View(product);
         }
 
         // POST: ProductController/Delete/5
+        [Authorize(Roles = "Administrators")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            try
+            var product = await _context.Products.FindAsync(id);
+            if (product != null)
             {
-                return RedirectToAction(nameof(Index));
+                _context.Products.Remove(product);
+                await _context.SaveChangesAsync();
             }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction(nameof(Index));
         }
 
-        public ActionResult Details()
+        [Authorize(Roles = "Administrators, Customers")]
+        public async Task<IActionResult> Explore(int id)
         {
-            return View();
-        }
-
-        public ActionResult Explore()
-        {
-            return View();
+            var product = await _context.Products
+                .Include(p => p.Parts)  
+                .ThenInclude(part => part.Items)  
+                .FirstOrDefaultAsync(p => p.ProductId == id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            return View(product);
         }
     }
 }

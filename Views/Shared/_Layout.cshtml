@@ -3,12 +3,12 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - TyskaForSmaUpptackare</title>
+    <title>TFSU</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/TyskaForSmaUpptackare.styles.css" asp-append-version="true" />
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
             <div class="container-fluid">
@@ -47,7 +47,14 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Contact" asp-action="Index">Kontakt</a>
                         </li>
                     </ul>
+           
+               
                     <partial name="_LoginPartial" />
+                    <a class="navbar-brand" asp-area="" asp-controller="Cart" asp-action="Index">
+                        <button>
+                            <img src="~/img/shopping-cart-svgrepo-com.svg" alt="Kundvagn" style="height: 30px;" />
+                        </button>
+                    </a>
                 </div>
             </div>
         </nav>
@@ -58,7 +65,7 @@
         </main>
     </div>
 
-    <footer class="navbar border-top footer text-muted mt-5">
+    <footer class="navbar border-top footer text-muted mt-auto">
         <div class="container">
             &copy; 2025 - TyskaForSmaUpptackare - En sida av Karin Ekenberg<a asp-area="" asp-controller="Home" asp-action="Privacy">Sekretesspolicy</a>
         </div>
