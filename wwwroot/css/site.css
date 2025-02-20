@@ -26,7 +26,7 @@
 body {
     font-family: 'Andika', sans-serif;
     background-color: var(--color-primary-yellow);
-    color: var(--color-text-primary);
+    color: var(--color-text-primary)!important;
     margin: 0;
     padding: 0;
 }
@@ -82,6 +82,10 @@ a {
 
 .navbar {
     background-color: var(--color-primary-blue) !important;
+}
+
+footer {
+    background-color: var(--color-primary-blue);
 }
 
 
