@@ -2,11 +2,38 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center w-100" style="top:0;">
-    <img src="~/img/tfsu-hero-desktop.PNG" class="w-100 d-md-block d-none" />
-    <img src="~/img/tfsu-hero-mobile.PNG" class="w-100 d-md-none d-block" />
-    <div class="position-absolute w-50 h-100 top-0 d-flex flex-column justify-content-center align-items-center">
-        <h1 class="display-5 bottom-50 bg-white rounded p-1 bg-opacity-75">Tyska för små upptäckare</h1>
-        <button class="btn btn-primary">Kom igång</button>
+<!-- Hero -->
+<div class="p-5 text-center bg-image rounded-3 d-none d-md-block" style="
+    background-image: url('/img/tfsu-hero-desktop.PNG');
+    height: 400px;  
+    background-repeat: no-repeat;
+    background-size: cover;
+  ">
+    <div class="mask">
+        <div class="d-flex justify-content-start align-items-end h-100">
+            <div class="text-dark text-start">
+                <h1 class="mb-3">Tyska för små upptäckare</h1>
+                <h4 class="mb-3">Lär dig tyska</h4>
+                <a data-mdb-ripple-init class="btn btn-primary btn-lg" href="#!" role="button">Kom igång</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Hero -->
+<!-- Hero mobile -->
+<div class="p-5 text-center bg-image rounded-3 d-block d-md-none" style="
+    background-image: url('/img/tfsu-hero-mobile.PNG');
+    height: 600px;
+    background-size: cover;
+    background-repeat: no-repeat;
+  ">
+    <div class="mask">
+        <div class="d-flex justify-content-start align-items-start h-100">
+            <div class="text-dark text-start">
+                <h1 class="mb-3">Tyska för små upptäckare</h1>
+                <h4 class="mb-3">Lär dig tyska</h4>
+                <a data-mdb-ripple-init class="btn btn-primary btn-lg" href="#!" role="button">Kom igång</a>
+            </div>
+        </div>
     </div>
 </div>
