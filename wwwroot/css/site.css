@@ -91,6 +91,9 @@ footer {
 
 html {
   font-size: 14px;
+  color: var(--color-text-black);
+  margin: 0;
+  padding: 0;
 }
 
 @media (min-width: 768px) {
@@ -106,8 +109,4 @@ html {
 html {
   position: relative;
   min-height: 100%;
-}
-
-body {
-  margin-bottom: 60px;
 }
