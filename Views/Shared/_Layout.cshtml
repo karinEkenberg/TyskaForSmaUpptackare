@@ -60,14 +60,72 @@
         </nav>
     </header>
     <div>
-        <main role="main" class="">
+        <main role="main" class="container-fluid">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="navbar border-top footer text-muted mt-auto">
+    <footer class="border-top" style="margin-top: 60px; margin-bottom: 0;">
+ 
+        <div class="container pt-5">
+            <div class="row justify-content-between">
+                <div class="col-4">
+                    <div class="d-flex">
+                        <img src="~/img/chains-chain-svgrepo-com.svg" style="height: 30px;"/>
+                        <h3>Snabblänkar</h3>
+                    </div>
+                    <div><a asp-area="" asp-controller="Home" asp-action="Index">Hem</a></div>
+
+                    <div> <a asp-area="" asp-controller="Product" asp-action="Index">Produkter</a></div>
+
+                    <div><a asp-area="" asp-controller="About" asp-action="Index">Om Oss</a></div>
+
+                    <div><a asp-area="" asp-controller="Contact" asp-action="Index">Kontakt</a></div>
+
+                </div>
+                <div class="col-4 text-start">
+                    <div class="d-flex">
+                        <img src="~/img/book-and-people-spring-svgrepo-com.svg" style="height: 30px;" />
+                        <h3>Info</h3>
+                    </div>
+                    <p class="lead">Denna sida är skapad för att göra <br />
+                        tyskainlärning roligt för barn. <br />
+                        Här finns inga annonser eller dolda köp.</p>
+                </div>
+                <div class="col-4 text-start">
+                     <div class="d-flex">
+                        <img src="~/img/paper-document-file-data-svgrepo-com.svg" style="height: 30px;"/>
+                        <h3>Copyright</h3>
+                    </div>
+                        <a asp-area="" asp-controller="Home" asp-action="Privacy">Sekretesspolicy</a>
+                    
+                </div>
+            </div>
+        </div>
         <div class="container">
-            &copy; 2025 - TyskaForSmaUpptackare - En sida av Karin Ekenberg<a asp-area="" asp-controller="Home" asp-action="Privacy">Sekretesspolicy</a>
+            <div class="row">
+                <div class="col-2">
+                    <img src="~/img/house-outdoot-snow-svgrepo-com.svg" class="w-100"  />
+                </div>
+                       <div class="col-2">
+                    <img src="~/img/kitchen-pack-cook-svgrepo-com.svg" class="img-fluid" />
+                </div>
+                       <div class="col-2">
+                    <img src="~/img/kitchen-pack-spoon-svgrepo-com.svg" class="img-fluid" />
+                </div>
+                       <div class="col-2">
+                    <img src="~/img/kitchen-pack-pot-svgrepo-com.svg" class="img-fluid" />
+                </div>
+                       <div class="col-2">
+                    <img src="~/img/house-svgrepo-com.svg" class="img-fluid" />
+                </div>
+                <div class="col-2">
+                    <img src="~/img/blocks-abc-svgrepo-com.svg" class="w-100" />
+                </div>
+            </div>
+        </div>
+        <div class="container text-center">
+            &copy; 2025 - TyskaForSmaUpptackare - En sida av Karin Ekenberg
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

@@ -26,7 +26,7 @@
 body {
     font-family: 'Andika', sans-serif;
     background-color: var(--color-primary-yellow);
-    color: var(--color-text-primary);
+    color: var(--color-text-primary)!important;
     margin: 0;
     padding: 0;
 }
@@ -84,9 +84,16 @@ a {
     background-color: var(--color-primary-blue) !important;
 }
 
+footer {
+    background-color: var(--color-primary-blue);
+}
+
 
 html {
   font-size: 14px;
+  color: var(--color-text-black);
+  margin: 0;
+  padding: 0;
 }
 
 @media (min-width: 768px) {
@@ -102,8 +109,4 @@ html {
 html {
   position: relative;
   min-height: 100%;
-}
-
-body {
-  margin-bottom: 60px;
 }
