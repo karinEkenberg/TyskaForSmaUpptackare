@@ -1,5 +1,24 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using TyskaForSmaUpptackare.Data
+@model TyskaForSmaUpptackare.Data.Product
+
 @{
+    ViewData["Title"] = Model.Name;
 }
+
+<section class="container text-center p-5">
+    <h1>@ViewData["Title"]</h1>
+    <div>
+        <p>@Model.Description</p>
+        <p>Pris: @Model.Price.ToString("C")</p>
+        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+        {
+            <img src="@Model.ImageUrl" alt="@Model.Name" class="img-fluid" />
+        }
+        @if (!string.IsNullOrEmpty(Model.AudioUrl))
+        {
+            <audio controls src="@Model.AudioUrl" >Din webbläsare stödjer inte ljud</audio>
+        }
+    </div>
+    <button type="button" class="btn btn-primary" onclick="window.location.href='@Url.Action("Index", "Product")'">Tillbaka</button>
+
+</section>
