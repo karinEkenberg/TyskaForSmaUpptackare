@@ -19,6 +19,8 @@ namespace TyskaForSmaUpptackare.Data
         public DbSet<Subscription> Subscriptions { get; set; }
         public DbSet<ProductItem> ProductItems { get; set; }
         public DbSet<ProductPart> ProductParts { get; set; }
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -60,6 +62,13 @@ namespace TyskaForSmaUpptackare.Data
                 .WithMany(i => i.ChildItems)
                 .HasForeignKey(i => i.ParentItemId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Cart>()
+                .HasMany(c => c.CartItems)
+                .WithOne(ci => ci.Cart)
+                .HasForeignKey(ci => ci.CartId)
+                .OnDelete(DeleteBehavior.Cascade);
+
         }
     }
 }
