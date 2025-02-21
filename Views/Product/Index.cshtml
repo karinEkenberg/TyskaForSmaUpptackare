@@ -26,14 +26,15 @@
             </div>
             @if (User.IsInRole("Administrators"))
             {
-                <a href="@Url.Action("Create", "Product")">Lägg till produkt</a>
                 <a href="@Url.Action("Edit", "Product", new { id = product.ProductId })">Ändra produkt</a>
                 <a href="@Url.Action("Delete", "Product", new { id = product.ProductId})">Ta bort produkt</a>
-
             }
         }
     </div>
-
+    @if (User.IsInRole("Administrators"))
+    {
+        <a href="@Url.Action("Create", "Product")">Lägg till produkt</a>        
+    }
 
 </div>
 
