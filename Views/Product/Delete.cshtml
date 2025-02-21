@@ -20,8 +20,43 @@
         }
     </section>
     <form asp-action="Delete" method="post">
-        <input type="hidden" asp-for="ProductId" />
-        <button type="submit" class="btn btn-danger">Ta bort</button>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Ta bort
+        </button>
         <button asp-action="Index" class="btn btn-secondary">Avbryt</button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content" style="background-color: var(--color-primary-blue);">
+                    <div class="modal-header">
+                        <h2 class="modal-title fs-5 text-danger fw-bold" id="exampleModalLabel">Är du helt säker?</h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Denna produkt tas bort permanent...</p>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" asp-for="ProductId" />
+                        <button type="submit" class="btn btn-danger">Ta bort</button>
+                        <button asp-action="Index" class="btn btn-secondary">Avbryt</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </form>
 </section>
+
+
+
+
+
+<script>
+    const myModal = document.getElementById('myModal')
+    const myInput = document.getElementById('myInput')
+
+    myModal.addEventListener('shown.bs.modal', () => {
+        myInput.focus()
+    })
+</script>

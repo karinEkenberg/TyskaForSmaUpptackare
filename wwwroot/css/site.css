@@ -22,6 +22,12 @@
     font-style: normal;
 }
 
+.andika-bold {
+    font-family: "Andika", serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
 
 body {
     font-family: 'Andika', sans-serif;
@@ -49,32 +55,31 @@ a {
         color: var(--color-link-visited);
     }
 
-.btn {
+.btn-primary {
     background-color: var(--color-primary-green);
     color: var(--color-text-black);
-    padding: 0.5rem 1rem;
     border: 2px solid var(--color-text-black);
     cursor: pointer;
     border-radius: 7px;
 }
 
-    .btn:hover {
+    .btn-primary:hover {
         background-color: var(--color-button-hover);
         color: var(--color-text-black);
     }
 
-    .btn:active {
+    .btn-primary:active {
         background-color: var(--color-button-active);
         color: var(--color-text-black);
     }
 
-    .btn:disabled {
+    .btn-primary:disabled {
         background-color: var(--color-button-disabled);
         cursor: not-allowed;
         color: var(--color-button-disabled-text);
     }
 
-    .btn:focus {
+    .btn-primary:focus {
         background-color: var(--color-primary-green);
         border: 2px dotted var(--color-text-black);
         color: var(--color-text-black);
