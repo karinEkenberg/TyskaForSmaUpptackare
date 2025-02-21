@@ -1,14 +1,67 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using TyskaForSmaUpptackare.Data;
+using TyskaForSmaUpptackare.Models;
+using static TyskaForSmaUpptackare.Models.CartViewModel;
 
 namespace TyskaForSmaUpptackare.Controllers
 {
+    [Authorize]
     public class CartController : Controller
     {
-        // GET: CartController
-        public ActionResult Index()
+        private readonly ApplicationDbContext _context;
+
+        public CartController (ApplicationDbContext context)
         {
-            return View();
+            _context = context;
+        }
+
+        // GET: CartController
+        public async Task<IActionResult> Index()
+        {
+            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+            if (userIdClaim == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            var userId = userIdClaim.Value;
+
+            var cart = await _context.Carts
+                .Include(c => c.CartItems)
+                .ThenInclude(ci => ci.Product)
+                .FirstOrDefaultAsync(c => c.UserId == userId);
+
+            if (cart == null)
+            {
+                cart = new Cart { UserId = userId };
+                _context.Carts.Add(cart);
+                await _context.SaveChangesAsync();
+            }
+
+            var viewModel = new CartViewModel
+            {
+                CartId = cart.CartId,
+                Items = cart.CartItems.Select(ci => new CartViewModel.CartItemViewModel
+                {
+                    CartItemId = ci.CartItemId,
+                    ProductId = ci.ProductId,
+                    ProductName = ci.Product.Name,
+                    Price = ci.Product.Price,
+                    Quantity = ci.Quantity,
+                    ImageUrl = ci.Product.ImageUrl
+                }).ToList()
+            };
+
+            return View(viewModel);
+        }
+
+
+        public IActionResult Cart()
+        {
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: CartController/Details/5
@@ -79,5 +132,8 @@ namespace TyskaForSmaUpptackare.Controllers
                 return View();
             }
         }
-    }
+
+
+
+    } 
 }
