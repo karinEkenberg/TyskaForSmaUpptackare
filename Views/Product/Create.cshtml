@@ -8,32 +8,34 @@
 
 <form asp-action="Create" method="post">
     <div class="form-group">
-        <label asp-for="Name" class="control-label"></label>
+        <label asp-for="Name" class="control-label">Namn</label>
         <input asp-for="Name" class="form-control" />
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Description" class="control-label"></label>
+        <label asp-for="Description" class="control-label">Beskrivning</label>
         <textarea asp-for="Description" class="form-control"></textarea>
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Price" class="control-label"></label>
+        <label asp-for="Price" class="control-label">Pris</label>
         <input asp-for="Price" class="form-control" />
         <span asp-validation-for="Price" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="ImageUrl" class="control-label"></label>
+        <label asp-for="ImageUrl" class="control-label">Bild URL (/img/bild.png)</label>
         <input asp-for="ImageUrl" class="form-control" />
         <span asp-validation-for="ImageUrl" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="AudioUrl" class="control-label"></label>
+        <label asp-for="AudioUrl" class="control-label">Ljud URL (/audio/bild.mp3)</label>
         <input asp-for="AudioUrl" class="form-control" />
         <span asp-validation-for="AudioUrl" class="text-danger"></span>
     </div>
     <div class="form-group">
         <input type="submit" value="Skapa" class="btn btn-primary" />
+        <button type="button" class="btn btn-primary" onclick="window.location.href='@Url.Action("Index", "Product")'">Tillbaka</button>
+
     </div>
 </form>
 

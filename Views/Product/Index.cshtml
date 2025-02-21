@@ -1,4 +1,5 @@
-﻿@model IEnumerable<TyskaForSmaUpptackare.Data.Product>
+﻿@using TyskaForSmaUpptackare.Data
+@model IEnumerable<TyskaForSmaUpptackare.Data.Product>
 
 @{
     ViewData["Title"] = "Produkter";
@@ -23,12 +24,17 @@
                     </div>
                 </div>
             </div>
+            @if (User.IsInRole("Administrators"))
+            {
+                <a href="@Url.Action("Edit", "Product", new { id = product.ProductId })" class="btn btn-primary" >Ändra produkt</a>
+                <a href="@Url.Action("Delete", "Product", new { id = product.ProductId})" class="btn btn-danger">Ta bort produkt</a>
+            }
         }
     </div>
+    @if (User.IsInRole("Administrators"))
+    {
+        <a href="@Url.Action("Create", "Product")" class="btn btn-primary">Lägg till produkt</a>        
+    }
 
 </div>
-@if (User.IsInRole("Administrators"))
-{
-    <a href="@Url.Action("Create", "Product")">Lägg till produkt</a>
-}
 

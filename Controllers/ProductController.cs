@@ -101,7 +101,7 @@ namespace TyskaForSmaUpptackare.Controllers
 
         // POST: ProductController/Delete/5
         [Authorize(Roles = "Administrators")]
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
