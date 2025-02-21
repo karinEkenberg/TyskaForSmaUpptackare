@@ -3,13 +3,14 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TFSU</title>
+    <title>Tyska För Små Upptäckare</title>
+    <link href="/img/house-svgrepo-com.svg" rel="icon" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/TyskaForSmaUpptackare.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
+    <header class="sticky-top">
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">TyskaForSmaUpptackare</a>
@@ -50,7 +51,7 @@
            
                
                     <partial name="_LoginPartial" />
-                    <a class="navbar-brand" asp-area="" asp-controller="Cart" asp-action="Index">
+                    <a class="navbar-brand" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas" aria-controls="cartOffcanvas" asp-area="" asp-controller="Cart" asp-action="Index">
                         <button>
                             <img src="~/img/shopping-cart-svgrepo-com.svg" alt="Kundvagn" style="height: 30px;" />
                         </button>
@@ -128,6 +129,7 @@
             &copy; 2025 - TyskaForSmaUpptackare - En sida av Karin Ekenberg
         </div>
     </footer>
+    @await Html.PartialAsync("_CartOffcanvas")
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
