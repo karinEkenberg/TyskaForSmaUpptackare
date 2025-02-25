@@ -5,7 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using TyskaForSmaUpptackare.Data;
 using TyskaForSmaUpptackare.Models;
-using static TyskaForSmaUpptackare.Models.CartViewModel;
+using TyskaForSmaUpptackare.ViewModel;
+using static TyskaForSmaUpptackare.ViewModel.CartViewModel;
 
 namespace TyskaForSmaUpptackare.Controllers
 {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace TyskaForSmaUpptackare.Data
+namespace TyskaForSmaUpptackare.Models
 {
     public class ProductItem
     {
@@ -13,7 +13,7 @@ namespace TyskaForSmaUpptackare.Data
         public int ProductPartId { get; set; }
         [ForeignKey("ProductPartId")]
         public ProductPart ProductPart { get; set; } = default!;
-        public string ImageUrl { get; set; } = string.Empty;  
+        public string ImageUrl { get; set; } = string.Empty;
         public string AudioUrl { get; set; } = string.Empty;
         public int? ParentItemId { get; set; }
         public ProductItem ParentItem { get; set; }
