@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using TyskaForSmaUpptackare.Data;
 
-namespace TyskaForSmaUpptackare.Data
+namespace TyskaForSmaUpptackare.Models
 {
     public class Subscription
     {

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using System;
 using System.Threading.Tasks;
 using static System.Console;
+using TyskaForSmaUpptackare.ViewModel;
 
 namespace TyskaForSmaUpptackare.Controllers
 {
@@ -138,7 +139,7 @@ namespace TyskaForSmaUpptackare.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateCustomer(TyskaForSmaUpptackare.Models.CustomerViewModel model)
+        public async Task<IActionResult> CreateCustomer(CustomerViewModel model)
         {
             if (!ModelState.IsValid)
             {

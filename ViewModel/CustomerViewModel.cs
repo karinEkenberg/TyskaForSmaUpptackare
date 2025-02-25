@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TyskaForSmaUpptackare.Models
+namespace TyskaForSmaUpptackare.ViewModel
 {
     public class CustomerViewModel
     {

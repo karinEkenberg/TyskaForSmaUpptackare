@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using TyskaForSmaUpptackare.Models;
 
 namespace TyskaForSmaUpptackare.Data
 {

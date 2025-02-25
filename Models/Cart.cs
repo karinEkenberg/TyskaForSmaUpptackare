@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using TyskaForSmaUpptackare.Data;
 
-namespace TyskaForSmaUpptackare.Data
+namespace TyskaForSmaUpptackare.Models
 {
     public class Cart
     {

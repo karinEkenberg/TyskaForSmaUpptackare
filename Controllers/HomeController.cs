@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using TyskaForSmaUpptackare.Models;
+using TyskaForSmaUpptackare.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 
 namespace TyskaForSmaUpptackare.Controllers

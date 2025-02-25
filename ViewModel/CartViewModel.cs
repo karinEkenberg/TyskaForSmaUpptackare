@@ -1,4 +1,4 @@
-﻿namespace TyskaForSmaUpptackare.Models
+﻿namespace TyskaForSmaUpptackare.ViewModel
 {
     public class CartViewModel
     {
