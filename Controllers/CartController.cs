@@ -160,7 +160,7 @@ namespace TyskaForSmaUpptackare.Controllers
             var cartItem = cart.CartItems.FirstOrDefault(ci => ci.ProductId == productId);
             if (cartItem != null)
             {
-                cartItem.Quantity++;
+                TempData["Message"] = "Produkten finns redan i din kundvagn.";
             }
             else
             {
@@ -171,6 +171,7 @@ namespace TyskaForSmaUpptackare.Controllers
                     Quantity = 1
                 };
                 _context.CartItems.Add(cartItem);
+                TempData["Message"] = "Produkten lades till i kundvagnen.";
             }
             await _context.SaveChangesAsync();
             return RedirectToAction("Index", "Cart");

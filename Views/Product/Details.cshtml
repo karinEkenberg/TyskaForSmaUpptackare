@@ -5,6 +5,13 @@
     ViewData["Title"] = Model.Name;
 }
 
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-info">
+        @TempData["Message"]
+    </div>
+}
+
 <section class="container text-center p-5">
     <h1>@ViewData["Title"]</h1>
     <div>
