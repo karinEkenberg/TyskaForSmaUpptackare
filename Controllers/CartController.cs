@@ -137,12 +137,12 @@ namespace TyskaForSmaUpptackare.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddToCart(int productId)
+        public async Task<IActionResult> AddToCart(int productId, string returnUrl)
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (userId == null)
             {
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction("Login", "Account", new { returnUrl = Url.Content("~/Cart")});
             }
 
             var cart = await _context.Carts
@@ -174,6 +174,11 @@ namespace TyskaForSmaUpptackare.Controllers
                 TempData["Message"] = "Produkten lades till i kundvagnen.";
             }
             await _context.SaveChangesAsync();
+
+            if (!string.IsNullOrEmpty(returnUrl))
+            {
+                return LocalRedirect(returnUrl);
+            }
             return RedirectToAction("Index", "Cart");
         }
 

@@ -6,7 +6,20 @@
 
 <div class="container mt-4">
     <h1>@ViewData["Title"]</h1>
+    @{
+        var message = TempData["Message"];
+        if (message != null)
+        {
+            TempData.Remove("Message"); 
+        }
+    }
 
+    @if (message != null)
+    {
+        <div class="alert alert-info">
+            @message
+        </div>
+    }
     @if (Model.Items != null && Model.Items.Any())
     {
         <table class="table">

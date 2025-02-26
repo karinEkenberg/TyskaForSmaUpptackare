@@ -105,6 +105,11 @@ namespace TyskaForSmaUpptackare.Areas.Identity.Pages.Account
         {
             returnUrl ??= Url.Content("~/");
 
+            if (returnUrl.Contains("AddToCart"))
+            {
+                returnUrl = Url.Content("~/Cart");
+            }
+
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             if (ModelState.IsValid)
