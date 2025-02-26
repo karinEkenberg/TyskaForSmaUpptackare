@@ -46,7 +46,7 @@ namespace TyskaForSmaUpptackare.Controllers
             var viewModel = new CartViewModel
             {
                 CartId = cart.CartId,
-                Items = cart.CartItems.Select(ci => new CartViewModel.CartItemViewModel
+                Items = (cart.CartItems ?? new List<CartItem>()).Select(ci => new CartViewModel.CartItemViewModel
                 {
                     CartItemId = ci.CartItemId,
                     ProductId = ci.ProductId,
@@ -137,12 +137,12 @@ namespace TyskaForSmaUpptackare.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddToCart(int productId)
+        public async Task<IActionResult> AddToCart(int productId, string returnUrl)
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (userId == null)
             {
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction("Login", "Account", new { returnUrl = Url.Content("~/Cart")});
             }
 
             var cart = await _context.Carts
@@ -160,7 +160,7 @@ namespace TyskaForSmaUpptackare.Controllers
             var cartItem = cart.CartItems.FirstOrDefault(ci => ci.ProductId == productId);
             if (cartItem != null)
             {
-                cartItem.Quantity++;
+                TempData["Message"] = "Produkten finns redan i din kundvagn.";
             }
             else
             {
@@ -171,8 +171,14 @@ namespace TyskaForSmaUpptackare.Controllers
                     Quantity = 1
                 };
                 _context.CartItems.Add(cartItem);
+                TempData["Message"] = "Produkten lades till i kundvagnen.";
             }
             await _context.SaveChangesAsync();
+
+            if (!string.IsNullOrEmpty(returnUrl))
+            {
+                return LocalRedirect(returnUrl);
+            }
             return RedirectToAction("Index", "Cart");
         }
 
