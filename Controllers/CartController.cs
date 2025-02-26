@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Security.Claims;
 using TyskaForSmaUpptackare.Data;
 using TyskaForSmaUpptackare.Models;
 using TyskaForSmaUpptackare.ViewModel;
@@ -134,7 +135,46 @@ namespace TyskaForSmaUpptackare.Controllers
             }
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddToCart(int productId)
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
 
+            var cart = await _context.Carts
+                .Include(c => c.CartItems)
+                .FirstOrDefaultAsync(c => c.UserId == userId);
+
+            if (cart == null)
+            {
+                cart = new Cart { UserId = userId };
+                _context.Carts.Add(cart);
+                await _context.SaveChangesAsync();
+
+            }
+
+            var cartItem = cart.CartItems.FirstOrDefault(ci => ci.ProductId == productId);
+            if (cartItem != null)
+            {
+                cartItem.Quantity++;
+            }
+            else
+            {
+                cartItem = new CartItem
+                {
+                    CartId = cart.CartId,
+                    ProductId = productId,
+                    Quantity = 1
+                };
+                _context.CartItems.Add(cartItem);
+            }
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index", "Cart");
+        }
 
     } 
 }
