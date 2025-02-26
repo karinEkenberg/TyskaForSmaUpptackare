@@ -60,81 +60,6 @@ namespace TyskaForSmaUpptackare.Controllers
             return View(viewModel);
         }
 
-
-        public IActionResult Cart()
-        {
-            return RedirectToAction(nameof(Index));
-        }
-
-        // GET: CartController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: CartController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: CartController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: CartController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: CartController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: CartController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: CartController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddToCart(int productId, string returnUrl)
@@ -182,5 +107,37 @@ namespace TyskaForSmaUpptackare.Controllers
             return RedirectToAction("Index", "Cart");
         }
 
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RemoveFromCart(int productId, string returnUrl)
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Account", new { ReturnUrl = returnUrl ?? Url.Content("~/Cart")});
+            }
+
+            var cart = await _context.Carts
+                .Include(c => c.CartItems)
+                .FirstOrDefaultAsync(c => c.UserId == userId);
+
+            if (cart != null)
+            {
+                var cartItem = cart.CartItems.FirstOrDefault(ci => ci.ProductId == productId);
+                if (cartItem != null)
+                {
+                    _context.CartItems.Remove(cartItem);
+                    await _context.SaveChangesAsync();
+                    TempData["Message"] = "Produkten togs bort från kundvagnen.";
+                }
+            }
+
+            if(!string.IsNullOrEmpty(returnUrl))
+            {
+                return LocalRedirect(returnUrl);
+            }
+            return RedirectToAction("Index", "Cart");
+        }
     } 
 }

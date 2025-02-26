@@ -39,6 +39,14 @@
                         <td>@item.Quantity</td>
                         <td>@item.Price.ToString("C")</td>
                         <td>@((item.Price * item.Quantity).ToString("C"))</td>
+                        <td>
+                            <form asp-controller="Cart" asp-action="RemoveFromCart" method="post">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="productId" value="@item.ProductId" />
+                                <input type="hidden" name="returnUrl" value="@Url.Action("Index", "Cart")" />
+                                <button type="submit" class="btn btn-danger">Ta bort</button>
+                            </form>
+                        </td>
                     </tr>
                 }
             </tbody>
