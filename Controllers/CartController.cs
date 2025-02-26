@@ -46,7 +46,7 @@ namespace TyskaForSmaUpptackare.Controllers
             var viewModel = new CartViewModel
             {
                 CartId = cart.CartId,
-                Items = cart.CartItems.Select(ci => new CartViewModel.CartItemViewModel
+                Items = (cart.CartItems ?? new List<CartItem>()).Select(ci => new CartViewModel.CartItemViewModel
                 {
                     CartItemId = ci.CartItemId,
                     ProductId = ci.ProductId,
