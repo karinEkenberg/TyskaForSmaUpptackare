@@ -5,7 +5,19 @@
 }
 
 <h1>@ViewData["Title"]</h1>
-
+@{
+    var message = TempData["Message"];
+    if (message != null)
+    {
+        TempData.Remove("Message");
+    }
+}
+@if (message != null)
+{
+    <div class="alert alert-info">
+        @message
+    </div>
+}
 <form asp-action="Edit" method="post">
     <input type="hidden" asp-for="ProductId" />
     <div class="form-group">
