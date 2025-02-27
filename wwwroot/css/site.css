@@ -22,6 +22,15 @@
     font-style: normal;
 }
 
+.alfabet {
+    background-color: var(--color-primary-green);
+    border: 2px solid;
+    border-color: black;
+    border-radius: 5px;
+    padding: 5px;
+    text-align: center;
+}
+
 .andika-bold {
     font-family: "Andika", serif;
     font-weight: 700;
