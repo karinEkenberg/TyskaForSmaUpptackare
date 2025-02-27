@@ -1,43 +1,57 @@
 ﻿@model TyskaForSmaUpptackare.Models.Product
 
 @{
-    ViewData["Title"] = "Skapa Produkt";
+    ViewData["Title"] = "Lägg in ny produkt";
 }
 
-<h1>Skapa Produkt</h1>
 
-<form asp-action="Create" method="post">
-    <div class="form-group">
-        <label asp-for="Name" class="control-label">Namn</label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h1 class="text-center pt-5 pb-5">@ViewData["Title"]</h1>
+            <div class="row pb-5">
+                <div class="col-6">
+                    <p>Tänk på att dina produkter läggs in som ett grid, ha det i åtanke av ordningen när du lägger in dem.</p>
+                </div>
+                <div class="col-6">
+                    <img src="~/img/tfsu-produktgrid.PNG" alt="Produkt grid" class="img-fluid" />
+                </div>
+            </div>
+            <form asp-action="Create" method="post">
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label">Namn</label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label">Beskrivning</label>
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Price" class="control-label">Pris</label>
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ImageUrl" class="control-label">Bild URL (/img/bild.png)</label>
+                    <input asp-for="ImageUrl" class="form-control" />
+                    <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="AudioUrl" class="control-label">Ljud URL (/audio/bild.mp3)</label>
+                    <input asp-for="AudioUrl" class="form-control" />
+                    <span asp-validation-for="AudioUrl" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-3 pb-5 pt-2">
+                    <input type="submit" value="Skapa" class="btn btn-primary me-2" />
+                    <button type="button" class="btn btn-primary" onclick="window.location.href='@Url.Action("Index", "Product")'">Tillbaka</button>
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="form-group">
-        <label asp-for="Description" class="control-label">Beskrivning</label>
-        <textarea asp-for="Description" class="form-control"></textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Price" class="control-label">Pris</label>
-        <input asp-for="Price" class="form-control" />
-        <span asp-validation-for="Price" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="ImageUrl" class="control-label">Bild URL (/img/bild.png)</label>
-        <input asp-for="ImageUrl" class="form-control" />
-        <span asp-validation-for="ImageUrl" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="AudioUrl" class="control-label">Ljud URL (/audio/bild.mp3)</label>
-        <input asp-for="AudioUrl" class="form-control" />
-        <span asp-validation-for="AudioUrl" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <input type="submit" value="Skapa" class="btn btn-primary" />
-        <button type="button" class="btn btn-primary" onclick="window.location.href='@Url.Action("Index", "Product")'">Tillbaka</button>
+</div>
 
-    </div>
-</form>
 
 @section Scripts {
     @{
