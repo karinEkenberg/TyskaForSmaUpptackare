@@ -7,6 +7,23 @@
 
 <div class="container">
     <h1>@ViewData["Title"]</h1>
+    @if (User.IsInRole("Administrators"))
+    {
+        <a href="@Url.Action("Create", "Product")" class="btn btn-primary">Lägg till produkt</a>
+    }
+    @{
+        var message = TempData["Message"];
+        if(message != null)
+        {
+            TempData.Remove("Message");
+        }
+    }
+    @if (message != null)
+    {
+        <div class="alert alert-info">
+            @message
+        </div>
+    }
     <div class="row">
         @foreach (var product in Model)
         {
@@ -21,20 +38,18 @@
                         <p class="card-text">@product.Description</p>
                         <p class="card-text"><strong>Pris:</strong> @product.Price.ToString("C")</p>
                         <a asp-controller="Product" asp-action="Details" asp-route-id="@product.ProductId" class="btn btn-primary">Visa produkt</a>
+                        @if (User.IsInRole("Administrators"))
+                        {
+                            <a href="@Url.Action("Edit", "Product", new { id = product.ProductId })" class="btn btn-primary">Ändra produkt</a>
+                            <a href="@Url.Action("Delete", "Product", new { id = product.ProductId})" class="btn btn-danger">Ta bort produkt</a>
+                        }
                     </div>
                 </div>
             </div>
-            @if (User.IsInRole("Administrators"))
-            {
-                <a href="@Url.Action("Edit", "Product", new { id = product.ProductId })" class="btn btn-primary" >Ändra produkt</a>
-                <a href="@Url.Action("Delete", "Product", new { id = product.ProductId})" class="btn btn-danger">Ta bort produkt</a>
-            }
+    
         }
     </div>
-    @if (User.IsInRole("Administrators"))
-    {
-        <a href="@Url.Action("Create", "Product")" class="btn btn-primary">Lägg till produkt</a>        
-    }
+
 
 </div>
 

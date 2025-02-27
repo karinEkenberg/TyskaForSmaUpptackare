@@ -52,6 +52,7 @@ namespace TyskaForSmaUpptackare.Controllers
             {
                 _context.Add(product);
                 await _context.SaveChangesAsync();
+                TempData["Message"] = "Produkten har skapats";
                 return RedirectToAction(nameof(Index));
             }
             return View(product);
@@ -83,6 +84,7 @@ namespace TyskaForSmaUpptackare.Controllers
             {
                 _context.Update(product);
                 await _context.SaveChangesAsync();
+                TempData["Message"] = "Produkten har ändrats";
                 return RedirectToAction(nameof(Index));
             }
            return View(product);
@@ -110,6 +112,7 @@ namespace TyskaForSmaUpptackare.Controllers
             if (product != null)
             {
                 _context.Products.Remove(product);
+                TempData["Message"] = "Produkten har tagits bort";
                 await _context.SaveChangesAsync();
             }
             return RedirectToAction(nameof(Index));
