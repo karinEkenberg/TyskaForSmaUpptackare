@@ -93,6 +93,9 @@ footer {
     background-color: var(--color-primary-blue);
 }
 
+h1, h2 {
+    text-align: center;
+}
 
 html {
   font-size: 14px;

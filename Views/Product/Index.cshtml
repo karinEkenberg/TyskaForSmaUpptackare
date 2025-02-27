@@ -9,7 +9,7 @@
     <h1>@ViewData["Title"]</h1>
     @if (User.IsInRole("Administrators"))
     {
-        <a href="@Url.Action("Create", "Product")" class="btn btn-primary">Lägg till produkt</a>
+        <a href="@Url.Action("Create", "Product")" class="btn btn-primary">Lägg till</a>
     }
     @{
         var message = TempData["Message"];
@@ -37,11 +37,11 @@
                         <h5 class="card-title">@product.Name</h5>
                         <p class="card-text">@product.Description</p>
                         <p class="card-text"><strong>Pris:</strong> @product.Price.ToString("C")</p>
-                        <a asp-controller="Product" asp-action="Details" asp-route-id="@product.ProductId" class="btn btn-primary">Visa produkt</a>
+                        <a asp-controller="Product" asp-action="Details" asp-route-id="@product.ProductId" class="btn btn-primary me-2">Visa</a>
                         @if (User.IsInRole("Administrators"))
                         {
-                            <a href="@Url.Action("Edit", "Product", new { id = product.ProductId })" class="btn btn-primary">Ändra produkt</a>
-                            <a href="@Url.Action("Delete", "Product", new { id = product.ProductId})" class="btn btn-danger">Ta bort produkt</a>
+                            <a href="@Url.Action("Edit", "Product", new { id = product.ProductId })" class="btn btn-primary me-2">Ändra</a>
+                            <a href="@Url.Action("Delete", "Product", new { id = product.ProductId})" class="btn btn-danger">Ta bort</a>
                         }
                     </div>
                 </div>
