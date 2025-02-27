@@ -8,5 +8,30 @@ namespace TyskaForSmaUpptackare.Controllers
         {
             return View();
         }
+
+        public IActionResult Abc()
+        {
+            return View();
+        }
+
+        public IActionResult Animals()
+        {
+            return View();
+        }
+
+        public IActionResult OneTwoThree()
+        {
+            return View();
+        }
+
+        public IActionResult TenTwenty()
+        {
+            return View();
+        }
+
+        public IActionResult Hundred()
+        {
+            return View();
+        }
     }
 }
