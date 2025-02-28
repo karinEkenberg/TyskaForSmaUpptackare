@@ -14,22 +14,23 @@ namespace TyskaForSmaUpptackare.Controllers
             return View();
         }
 
-        public IActionResult Animals()
+        public IActionResult Djur()
         {
             return View();
         }
 
-        public IActionResult OneTwoThree()
+        public IActionResult EttTvaTre()
         {
             return View();
         }
 
-        public IActionResult TenTwenty()
+        public IActionResult Tiotal()
+
         {
             return View();
         }
 
-        public IActionResult Hundred()
+        public IActionResult Hundratal()
         {
             return View();
         }
