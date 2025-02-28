@@ -9,7 +9,7 @@
     <h1>@ViewData["Title"]</h1>
     @if (User.IsInRole("Administrators"))
     {
-        <a href="@Url.Action("Create", "Product")" class="btn btn-primary">Lägg till</a>
+        <a href="@Url.Action("Create", "Produkt")" class="btn btn-primary">Lägg till</a>
     }
     @{
         var message = TempData["Message"];
@@ -29,12 +29,12 @@
         <div class="col-6">
             <h3 class="pb-2">Lär dig det tyska alfabetet</h3>
             <img class="img-fluid mb-5" src="img/tfsu-abc.PNG" alt="Alfabetet" />
-            <a asp-controller="Product" asp-action="Testa"  class="btn btn-primary" >Testa</a>
+            <a asp-controller="Testa" asp-action="Abc"  class="btn btn-primary">Testa</a>
         </div>
         <div class="col-6">
             <h3 class="pb-2">Lär dig det tyska alfabetet</h3>
             <img class="img-fluid mb-5" src="img/tfsu-abc.PNG" alt="Alfabetet" />
-            <a asp-controller="Product" asp-action="Testa" class="btn btn-primary">Testa</a>
+            <a asp-controller="Testa" asp-action="Abc" class="btn btn-primary">Testa</a>
             </a>
         </div>
     </div>
@@ -51,11 +51,11 @@
                         <h5 class="card-title">@product.Name</h5>
                         <p class="card-text">@product.Description</p>
                         <p class="card-text"><strong>Pris:</strong> @product.Price.ToString("C")</p>
-                        <a asp-controller="Product" asp-action="Details" asp-route-id="@product.ProductId" class="btn btn-primary me-2">Visa</a>
+                        <a asp-controller="Produkt" asp-action="Details" asp-route-id="@product.ProductId" class="btn btn-primary me-2">Visa</a>
                         @if (User.IsInRole("Administrators"))
                         {
-                            <a href="@Url.Action("Edit", "Product", new { id = product.ProductId })" class="btn btn-primary me-2">Ändra</a>
-                            <a href="@Url.Action("Delete", "Product", new { id = product.ProductId})" class="btn btn-danger">Ta bort</a>
+                            <a href="@Url.Action("Edit", "Produkt", new { id = product.ProductId })" class="btn btn-primary me-2">Ändra</a>
+                            <a href="@Url.Action("Delete", "Produkt", new { id = product.ProductId})" class="btn btn-danger">Ta bort</a>
                         }
                     </div>
                 </div>

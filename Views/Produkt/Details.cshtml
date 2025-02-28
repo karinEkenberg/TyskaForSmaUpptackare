@@ -21,7 +21,7 @@
             <audio controls src="@Model.AudioUrl" >Din webbläsare stödjer inte ljud</audio>
         }
     </div>
-    <button type="button" class="btn btn-primary" onclick="window.location.href='@Url.Action("Index", "Product")'">Tillbaka</button>
+    <button type="button" class="btn btn-primary" onclick="window.location.href='@Url.Action("Index", "Produkt")'">Tillbaka</button>
     <form asp-controller="Kundvagn" asp-action="AddToCart" method="post">
         @Html.AntiForgeryToken()
         <input type="hidden" name="productId" value="@Model.ProductId" />
