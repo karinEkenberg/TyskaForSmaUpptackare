@@ -2,7 +2,7 @@
 
 namespace TyskaForSmaUpptackare.Controllers
 {
-    public class AboutController : Controller
+    public class OmOss : Controller
     {
         public IActionResult Index()
         {
