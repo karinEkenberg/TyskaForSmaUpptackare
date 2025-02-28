@@ -24,8 +24,7 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseExceptionHandler("/Hem/Fel");
     app.UseHsts();
 }
 
@@ -38,7 +37,9 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Hem}/{action=Index}/{id?}");
+
 app.MapRazorPages();
 
+app.MapFallbackToController("Index", "Hem");
 app.Run();
