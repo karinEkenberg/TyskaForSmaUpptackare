@@ -35,6 +35,11 @@ namespace TyskaForSmaUpptackare.Controllers
             return View(product);
         }
 
+        public async Task<IActionResult> Testa()
+        {
+            return View();
+        }
+
         // GET: ProductController/Create
         [Authorize(Roles = "Administrators")]
         public IActionResult Create()

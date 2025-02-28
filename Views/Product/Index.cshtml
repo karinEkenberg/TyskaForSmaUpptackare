@@ -24,6 +24,20 @@
             @message
         </div>
     }
+    <div class="row g-3 mb-5">
+        <h2>Testa gratis</h2>
+        <div class="col-6">
+            <h3 class="pb-2">Lär dig det tyska alfabetet</h3>
+            <img class="img-fluid mb-5" src="img/tfsu-abc.PNG" alt="Alfabetet" />
+            <a asp-controller="Product" asp-action="Testa"  class="btn btn-primary" >Testa</a>
+        </div>
+        <div class="col-6">
+            <h3 class="pb-2">Lär dig det tyska alfabetet</h3>
+            <img class="img-fluid mb-5" src="img/tfsu-abc.PNG" alt="Alfabetet" />
+            <a asp-controller="Product" asp-action="Testa" class="btn btn-primary">Testa</a>
+            </a>
+        </div>
+    </div>
     <div class="row">
         @foreach (var product in Model)
         {
