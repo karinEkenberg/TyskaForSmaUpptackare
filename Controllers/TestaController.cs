@@ -2,7 +2,7 @@
 
 namespace TyskaForSmaUpptackare.Controllers
 {
-    public class TestController : Controller
+    public class TestaController : Controller
     {
         public IActionResult Index()
         {
