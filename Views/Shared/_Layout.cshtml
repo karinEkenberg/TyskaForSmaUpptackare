@@ -32,9 +32,12 @@
                                 Testa
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Testa" asp-action="Index">Testa gratis</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Testa" asp-action="Abc">Lär dig ABC</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Testa" asp-action="OneTwoThree">Räkna 1 2 3</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Testa" asp-action="TenTwenty">Räkna 10 20 30</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Testa" asp-action="Hundred">Räkna 100 200 300</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Testa" asp-action="Animals">Lär dig djuren</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -93,7 +96,7 @@
             <div class="row justify-content-between">
                 <div class="col-4">
                     <div class="d-flex">
-                        <img src="~/svg/chains-chain-svgrepo-com.svg" style="height: 30px;"/>
+                        <img src="~/svg/chains-chain-svgrepo-com.svg" style="height: 30px;" />
                         <h3>Snabblänkar</h3>
                     </div>
                     <div><a asp-area="" asp-controller="Home" asp-action="Index">Hem</a></div>
@@ -106,13 +109,15 @@
                         <img src="~/svg/book-and-people-spring-svgrepo-com.svg" style="height: 30px;" />
                         <h3>Info</h3>
                     </div>
-                    <p class="lead">Denna sida är skapad för att göra <br />
+                    <p class="lead">
+                        Denna sida är skapad för att göra <br />
                         tyskainlärning roligt för barn. <br />
-                        Här finns inga annonser eller dolda köp.</p>
+                        Här finns inga annonser eller dolda köp.
+                    </p>
                 </div>
                 <div class="col-4 text-start">
                     <div class="d-flex">
-                        <img src="~/svg/paper-document-file-data-svgrepo-com.svg" style="height: 30px;"/>
+                        <img src="~/svg/paper-document-file-data-svgrepo-com.svg" style="height: 30px;" />
                         <h3>Copyright</h3>
                     </div>
                     <a asp-area="" asp-controller="Home" asp-action="Privacy">Sekretesspolicy</a>
@@ -122,7 +127,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-2">
-                    <img src="~/svg/house-outdoot-snow-svgrepo-com.svg" class="w-100"  />
+                    <img src="~/svg/house-outdoot-snow-svgrepo-com.svg" class="w-100" />
                 </div>
                 <div class="col-2">
                     <img src="~/svg/kitchen-pack-cook-svgrepo-com.svg" class="img-fluid" />
