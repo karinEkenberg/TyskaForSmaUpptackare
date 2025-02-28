@@ -22,10 +22,10 @@
                     <!-- Desktop Menu -->
                     <ul class="navbar-nav flex-grow-1 justify-content-center gap-3 d-none d-lg-flex">
                         <li class="nav-item">
-                            <a class="nav-link btn btn-primary text-black mx-1" asp-area="" asp-controller="Home" asp-action="Index">Hem</a>
+                            <a class="nav-link btn btn-primary text-black mx-1" asp-area="" asp-controller="Hem" asp-action="Index">Hem</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn btn-primary text-black mx-1" asp-area="" asp-controller="Product" asp-action="Index">Produkter</a>
+                            <a class="nav-link btn btn-primary text-black mx-1" asp-area="" asp-controller="Produkt" asp-action="Index">Lär dig tyska</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link btn btn-primary text-black mx-1 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -41,20 +41,20 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn btn-primary text-black mx-1" asp-area="" asp-controller="About" asp-action="Index">Om Oss</a>
+                            <a class="nav-link btn btn-primary text-black mx-1" asp-area="" asp-controller="OmOss" asp-action="Index">Om Oss</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn btn-primary text-black mx-1" asp-area="" asp-controller="Contact" asp-action="Index">Kontakt</a>
+                            <a class="nav-link btn btn-primary text-black mx-1" asp-area="" asp-controller="Kontakt" asp-action="Index">Kontakt</a>
                         </li>
                     </ul>
 
                     <!-- Mobile Menu -->
                     <ul class="navbar-nav flex-grow-1 justify-content-center gap-3 d-lg-none">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Hem</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Hem" asp-action="Index">Hem</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">Produkter</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Produkt" asp-action="Index">Lär dig tyska</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link text-dark dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -70,16 +70,16 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="About" asp-action="Index">Om Oss</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="OmOss" asp-action="Index">Om Oss</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Contact" asp-action="Index">Kontakt</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Kontakt" asp-action="Index">Kontakt</a>
                         </li>
                     </ul>
 
                     <!-- Login Partial and Cart -->
                     <partial name="_LoginPartial" />
-                    <a class="navbar-brand" asp-area="" asp-controller="Cart" asp-action="Index">
+                    <a class="navbar-brand" asp-area="" asp-controller="Kundvagn" asp-action="Index">
                         <button>
                             <img src="~/svg/shopping-cart-svgrepo-com.svg" alt="Kundvagn" style="height: 30px;" />
                         </button>
@@ -102,10 +102,10 @@
                         <img src="~/svg/chains-chain-svgrepo-com.svg" style="height: 30px;" />
                         <h3>Snabblänkar</h3>
                     </div>
-                    <div><a asp-area="" asp-controller="Home" asp-action="Index">Hem</a></div>
-                    <div><a asp-area="" asp-controller="Product" asp-action="Index">Produkter</a></div>
-                    <div><a asp-area="" asp-controller="About" asp-action="Index">Om Oss</a></div>
-                    <div><a asp-area="" asp-controller="Contact" asp-action="Index">Kontakt</a></div>
+                    <div><a asp-area="" asp-controller="Hem" asp-action="Index">Hem</a></div>
+                    <div><a asp-area="" asp-controller="Produkt" asp-action="Index">Lär dig tyska</a></div>
+                    <div><a asp-area="" asp-controller="OmOss" asp-action="Index">Om Oss</a></div>
+                    <div><a asp-area="" asp-controller="Kontakt" asp-action="Index">Kontakt</a></div>
                 </div>
                 <div class="col-4 text-start">
                     <div class="d-flex">
@@ -123,7 +123,7 @@
                         <img src="~/svg/paper-document-file-data-svgrepo-com.svg" style="height: 30px;" />
                         <h3>Copyright</h3>
                     </div>
-                    <a asp-area="" asp-controller="Home" asp-action="Privacy">Sekretesspolicy</a>
+                    <a asp-area="" asp-controller="Hem" asp-action="Privacy">Sekretesspolicy</a>
                 </div>
             </div>
         </div>

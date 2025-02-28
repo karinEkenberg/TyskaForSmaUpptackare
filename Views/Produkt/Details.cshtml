@@ -21,11 +21,11 @@
             <audio controls src="@Model.AudioUrl" >Din webbläsare stödjer inte ljud</audio>
         }
     </div>
-    <button type="button" class="btn btn-primary" onclick="window.location.href='@Url.Action("Index", "Product")'">Tillbaka</button>
-    <form asp-controller="Cart" asp-action="AddToCart" method="post">
+    <button type="button" class="btn btn-primary" onclick="window.location.href='@Url.Action("Index", "Produkt")'">Tillbaka</button>
+    <form asp-controller="Kundvagn" asp-action="AddToCart" method="post">
         @Html.AntiForgeryToken()
         <input type="hidden" name="productId" value="@Model.ProductId" />
-        <input type="hidden" name="returnUrl" value="@Url.Action("Index", "Cart", new { id = Model.ProductId })" />
+        <input type="hidden" name="returnUrl" value="@Url.Action("Index", "Kundvagn", new { id = Model.ProductId })" />
         <button type="submit" class="btn btn-primary">Lägg i varukorg</button>
     </form>
 </section>

@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace TyskaForSmaUpptackare.Controllers
 {
-    public class HomeController : Controller
+    public class HemController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<HemController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HemController(ILogger<HemController> logger)
         {
             _logger = logger;
         }

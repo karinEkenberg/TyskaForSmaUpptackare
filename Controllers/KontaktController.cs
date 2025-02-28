@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace TyskaForSmaUpptackare.Controllers
 {
-    public class ContactController : Controller
+    public class KontaktController : Controller
     {
         // GET: ContactController
         public ActionResult Index()

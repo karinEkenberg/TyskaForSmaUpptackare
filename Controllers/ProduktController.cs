@@ -7,12 +7,12 @@ using TyskaForSmaUpptackare.Models;
 
 namespace TyskaForSmaUpptackare.Controllers
 {
-    public class ProductController : Controller
+    public class ProduktController : Controller
     {
 
         private readonly ApplicationDbContext _context;
 
-        public ProductController (ApplicationDbContext context)
+        public ProduktController (ApplicationDbContext context)
         {
             _context = context;
         }
