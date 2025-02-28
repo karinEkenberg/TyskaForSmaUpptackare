@@ -12,11 +12,11 @@ using static TyskaForSmaUpptackare.ViewModel.CartViewModel;
 namespace TyskaForSmaUpptackare.Controllers
 {
     [Authorize]
-    public class CartController : Controller
+    public class KundvagnController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public CartController (ApplicationDbContext context)
+        public KundvagnController (ApplicationDbContext context)
         {
             _context = context;
         }

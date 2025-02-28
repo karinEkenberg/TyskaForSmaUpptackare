@@ -40,10 +40,10 @@
                         <td>@item.Price.ToString("C")</td>
                         <td>@((item.Price * item.Quantity).ToString("C"))</td>
                         <td>
-                            <form asp-controller="Cart" asp-action="RemoveFromCart" method="post">
+                            <form asp-controller="Kundvagn" asp-action="RemoveFromCart" method="post">
                                 @Html.AntiForgeryToken()
                                 <input type="hidden" name="productId" value="@item.ProductId" />
-                                <input type="hidden" name="returnUrl" value="@Url.Action("Index", "Cart")" />
+                                <input type="hidden" name="returnUrl" value="@Url.Action("Index", "Kundvagn")" />
                                 <button type="submit" class="btn btn-danger">Ta bort</button>
                             </form>
                         </td>
