@@ -16,7 +16,7 @@ namespace TyskaForSmaUpptackare.Controllers
             StripeConfiguration.ApiKey = _stripeSettings.SecretKey;
         }
 
-        [HttpPost]
+        [HttpPost("skapa-checkout-session")]
         [ValidateAntiForgeryToken]
         public IActionResult CreateCheckoutSession()
         {
@@ -55,11 +55,13 @@ namespace TyskaForSmaUpptackare.Controllers
             return Redirect(session.Url);
         }
 
+        [HttpGet("lyckad")]
         public IActionResult Success()
         {
             return View();
         }
 
+        [HttpGet("avbruten")]
         public IActionResult Cancel()
         {
             return View();
