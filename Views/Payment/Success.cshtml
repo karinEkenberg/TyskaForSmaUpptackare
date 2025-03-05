@@ -1,0 +1,12 @@
+﻿@{
+	ViewData["Title"] = "Betalningen genomfördes";
+	var exploreUrl = Url.Action("Explore", "Product");
+}
+
+<section class="container-lg">
+	<h1 class="pt-5">@ViewData["Title"]</h1>
+	<p>
+		Din betalning har genomförts. 
+	</p>
+	<button type="button" class="btn btn-primary" onclick="window.location.href='@exploreUrl'">Till produkten</button>
+</section>

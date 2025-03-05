@@ -1,0 +1,11 @@
+﻿@{
+	ViewData["Title"] = "Betalning avbruten";
+}
+
+<section class="container-lg">
+	<h1>@ViewData</h1>
+	<p>
+		Din betalning har avbrutits. 
+	</p>
+	<button type="button" class="btn btn-primary" onclick="window.location.href='@Url.Action("Index", "Produkt")'">Tillbaka</button>
+</section>
