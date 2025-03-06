@@ -25,7 +25,7 @@
     <form asp-controller="Kundvagn" asp-action="AddToCart" method="post">
         @Html.AntiForgeryToken()
         <input type="hidden" name="productId" value="@Model.ProductId" />
-        <input type="hidden" name="returnUrl" value="@Url.Action("Index", "Kundvagn", new { id = Model.ProductId })" />
+        <input type="hidden" name="returnUrl" value="@Url.Action("Index", "Kundvagn")" />
         <button type="submit" class="btn btn-primary">Lägg i varukorg</button>
     </form>
 </section>

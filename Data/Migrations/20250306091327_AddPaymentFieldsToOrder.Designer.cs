@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TyskaForSmaUpptackare.Data;
 
@@ -11,9 +12,11 @@ using TyskaForSmaUpptackare.Data;
 namespace TyskaForSmaUpptackare.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250306091327_AddPaymentFieldsToOrder")]
+    partial class AddPaymentFieldsToOrder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -294,8 +297,8 @@ namespace TyskaForSmaUpptackare.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("PaymentId")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("PaymentStatus")
                         .HasMaxLength(30)
@@ -592,7 +595,7 @@ namespace TyskaForSmaUpptackare.Data.Migrations
             modelBuilder.Entity("TyskaForSmaUpptackare.Models.OrderItem", b =>
                 {
                     b.HasOne("TyskaForSmaUpptackare.Models.Order", "Order")
-                        .WithMany("OrderItems")
+                        .WithMany()
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -659,11 +662,6 @@ namespace TyskaForSmaUpptackare.Data.Migrations
             modelBuilder.Entity("TyskaForSmaUpptackare.Models.Cart", b =>
                 {
                     b.Navigation("CartItems");
-                });
-
-            modelBuilder.Entity("TyskaForSmaUpptackare.Models.Order", b =>
-                {
-                    b.Navigation("OrderItems");
                 });
 
             modelBuilder.Entity("TyskaForSmaUpptackare.Models.Product", b =>

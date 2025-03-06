@@ -1,0 +1,38 @@
+﻿@model TyskaForSmaUpptackare.ViewModel.OrderConfirmationViewModel
+@{
+	ViewData["Title"] = "Orderbekräftelse";
+	var totalPrice = Model.Items.Sum(item => item.Price);
+}
+
+<section class="container">
+	<h1>@ViewData["Title"]</h1>
+	<p>Tack för din beställning! Nedan hittar du en sammanfattning av din order:</p>
+	@if (Model.Items != null && Model.Items.Any())
+	{
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Produkt</th>
+					<th>Pris</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var item in Model.Items)
+				{
+					<tr>
+						<td>@item.ProductName</td>
+						<td>@item.Price.ToString("C")</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+		<div class="text-end">
+			<h4>Totalt: @totalPrice.ToString("C")</h4>
+		</div>
+	}
+	else
+	{
+		<p>Det verkar inte finnas någon orderdata.</p>
+	}
+	<a asp-controller="Produkt" asp-action="Index" class="btn btn-primary">Till produktsidan</a>
+</section>

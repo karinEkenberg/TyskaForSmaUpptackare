@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Din Kundvagn";
+    var totalPrice = Model.Items.Sum(item => item.Price);
 }
 
 <div class="container mt-4">
@@ -38,7 +39,6 @@
                         <td>@item.ProductName</td>
                         <td>@item.Quantity</td>
                         <td>@item.Price.ToString("C")</td>
-                        <td>@((item.Price * item.Quantity).ToString("C"))</td>
                         <td>
                             <form asp-controller="Kundvagn" asp-action="RemoveFromCart" method="post">
                                 @Html.AntiForgeryToken()
@@ -46,15 +46,19 @@
                                 <input type="hidden" name="returnUrl" value="@Url.Action("Index", "Kundvagn")" />
                                 <button type="submit" class="btn btn-danger">Ta bort</button>
                             </form>
-                            <form asp-controller="Payment" asp-action="CreateCheckoutSession" method="post">
-                                @Html.AntiForgeryToken()
-                                <button type="submit" class="btn btn-success">Gå till betalning</button>
-                            </form>
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
+        <div class="text-end">
+            <h4>Totalt: @totalPrice.ToString("C")</h4>
+        </div>
+
+        <form asp-controller="Payment" asp-action="CreateCheckoutSession" method="post">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-success">Gå till betalning</button>
+        </form>
     }
     else
     {
