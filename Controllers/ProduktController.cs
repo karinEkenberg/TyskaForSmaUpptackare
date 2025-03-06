@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 using TyskaForSmaUpptackare.Data;
 using TyskaForSmaUpptackare.Models;
 
@@ -123,17 +124,38 @@ namespace TyskaForSmaUpptackare.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [Authorize(Roles = "Administrators, Customers")]
+        //[Authorize(Roles = "Administrators, Customers")]
         public async Task<IActionResult> Explore(int id)
         {
             var product = await _context.Products
-                .Include(p => p.Parts)  
-                .ThenInclude(part => part.Items)  
+                .Include(p => p.Parts)
+                .ThenInclude(part => part.Items)
                 .FirstOrDefaultAsync(p => p.ProductId == id);
+
             if (product == null)
             {
                 return NotFound();
             }
+
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null)
+            {
+                return Challenge();
+            }
+
+            var userId = userIdClaim.Value;
+            if (userId == null) { return Challenge(); }
+
+            bool hasPurchases = await _context.Orders
+                .Include(o => o.OrderItems)
+                .AnyAsync(o => o.UserId == userId && o.OrderItems.Any(oi => oi.ProductId == id));
+            
+            if (!hasPurchases) 
+            {
+                TempData["PurchaseMessage"] = "Du måste köpa produkten först för att få åtkomst";
+                return RedirectToAction("Details", "Produkt", new { id = id });
+            }
+
             return View(product);
         }
     }
