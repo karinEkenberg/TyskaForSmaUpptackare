@@ -6,6 +6,7 @@ using Microsoft.Extensions.Options;
 using System.Security.Claims;
 using TyskaForSmaUpptackare.Data;
 using Microsoft.EntityFrameworkCore;
+using TyskaForSmaUpptackare.ViewModel;
 
 namespace TyskaForSmaUpptackare.Controllers
 {
@@ -99,14 +100,40 @@ namespace TyskaForSmaUpptackare.Controllers
             _context.CartItems.RemoveRange(cart.CartItems);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("OderConfirmation", new { orderId = order.OrderId });
+			return RedirectToAction("OrderConfirmation", new { orderId = order.OrderId });
 
-        }
 
-        [HttpGet("avbruten")]
+		}
+
+		[HttpGet("avbruten")]
         public IActionResult Cancel()
         {
             return View();
+        }
+
+        public async Task<IActionResult> OrderConfirmation(int orderId)
+        {
+            var order = await _context.Orders
+                .Include(o => o.OrderItems)
+                .ThenInclude(oi => oi.Product)
+                .FirstOrDefaultAsync(o => o.OrderId == orderId);
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            var viewModel = new OrderConfirmationViewModel
+            {
+                OrderId = order.OrderId,
+                TotalPrice = order.TotalPrice,
+				Items = order.OrderItems.Select(oi => new OrderItemViewModel
+				{
+					ProductName = oi.Product.Name,
+					Price = oi.Price
+				}).ToList()
+			};
+
+            return View(viewModel);
         }
     }
 }

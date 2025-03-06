@@ -46,15 +46,16 @@
                                 <input type="hidden" name="returnUrl" value="@Url.Action("Index", "Kundvagn")" />
                                 <button type="submit" class="btn btn-danger">Ta bort</button>
                             </form>
-                            <form asp-controller="Payment" asp-action="CreateCheckoutSession" method="post">
-                                @Html.AntiForgeryToken()
-                                <button type="submit" class="btn btn-success">Gå till betalning</button>
-                            </form>
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
+
+                                <form asp-controller="Payment" asp-action="CreateCheckoutSession" method="post">
+            @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-success">Gå till betalning</button>
+                                </form>
     }
     else
     {
