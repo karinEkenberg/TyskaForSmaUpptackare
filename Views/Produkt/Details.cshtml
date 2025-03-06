@@ -9,6 +9,12 @@
 
 <section class="container text-center p-5">
     <h1>@ViewData["Title"]</h1>
+    @if(TempData["PurchaseMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["PurchaseMessage"]
+        </div>
+    }
     <div>
         <p>@Model.Description</p>
         <p>Pris: @Model.Price.ToString("C")</p>
