@@ -19,5 +19,10 @@ namespace TyskaForSmaUpptackare.Models
         [MaxLength(30)]
         public string Status { get; set; } = "Pending";
         public DateTime CreatedAt { get; set; } = DateTime.Now;
+        [MaxLength(30)]
+        public string? PaymentStatus { get; set; }
+        [MaxLength(30)]
+        public string? PaymentId { get; set; }
+        public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
     }
 }
