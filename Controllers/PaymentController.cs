@@ -24,34 +24,45 @@ namespace TyskaForSmaUpptackare.Controllers
 
         [HttpPost("skapa-checkout-session")]
         [ValidateAntiForgeryToken]
-        public IActionResult CreateCheckoutSession()
+        public async Task<IActionResult> CreateCheckoutSession(int productId)
         {
-            var options = new SessionCreateOptions
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userId == null)
             {
-                PaymentMethodTypes = new List<string>
-                {
-                    "card",
-                },
+                return RedirectToAction("Login", "Account", new { returnUrl = Url.Content("~/Cart") });
+            }
 
-                LineItems = new List<SessionLineItemOptions>
+            var cart = await _context.Carts
+                .Include(c => c.CartItems)
+                .ThenInclude(ci => ci.Product)
+                .FirstOrDefaultAsync(c => c.UserId == userId);  
+
+            if (cart == null || cart.CartItems == null || !cart.CartItems.Any())
+            {
+                TempData["Message"] = "Din kundvagn är tom..";
+                return RedirectToAction("Index", "Kundvagn");
+            }
+            var lineItems = cart.CartItems.Select(ci => new SessionLineItemOptions
+            {
+                PriceData = new SessionLineItemPriceDataOptions
                 {
-                    new SessionLineItemOptions
+                    UnitAmount = (long)(ci.Product.Price * 100), 
+                    Currency = "sek",
+                    ProductData = new SessionLineItemPriceDataProductDataOptions
                     {
-                        PriceData = new SessionLineItemPriceDataOptions
-                        {
-                            UnitAmount = 5000,
-                            Currency = "sek",
-                            ProductData = new SessionLineItemPriceDataProductDataOptions
-                            {
-                                Name = "Interaktiv produkt",
-                                Description = "Ett interaktivt element för barn",
-                            },
-                        },
-                        Quantity = 1,
+                        Name = ci.Product.Name,
+                        Description = ci.Product.Description,
                     },
                 },
+                Quantity = 1, 
+            }).ToList();
+
+            var options = new SessionCreateOptions
+            {
+                PaymentMethodTypes = new List<string> { "card" },
+                LineItems = lineItems,
                 Mode = "payment",
-                SuccessUrl = Url.Action("Success", "Payment", null, Request.Scheme),
+                SuccessUrl = Url.Action("Success", "Payment", new { orderId = 0 }, Request.Scheme),
                 CancelUrl = Url.Action("Cancel", "Payment", null, Request.Scheme),
             };
 
