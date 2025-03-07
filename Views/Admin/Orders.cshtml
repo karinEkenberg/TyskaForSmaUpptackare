@@ -1,0 +1,73 @@
+﻿@model IEnumerable<TyskaForSmaUpptackare.Models.Order>
+@using System.Text.Json;
+@{
+    ViewData["Title"] = "Kunders köp";
+}
+<h1>@ViewData["Title"]</h1>
+<p>Antal ordrar: @Model.Count()</p>
+
+
+<h1>Testvy</h1>
+
+@foreach (var order in Model)
+{
+    <p>Order ID: @order.OrderId, Kund: @order.User?.UserName, Datum: @order.CreatedAt.ToString("yyyy-MM-dd HH:mm")</p>
+}
+@foreach (var order in Model)
+{
+    <tr>
+        <td>@order.OrderId</td>
+        <td>@order.User?.UserName</td>
+        <td>@order.CreatedAt.ToString("yyyy-MM-dd HH:mm")</td>
+        <td>
+            @if (order.OrderItems != null && order.OrderItems.Any())
+            {
+                <ul>
+                    @foreach (var item in order.OrderItems)
+                    {
+                        <li>@item.Product?.Name (@item.Quantity st x @item.Price.ToString("C"))</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p>Inga produkter hittades.</p>
+            }
+        </td>
+        <td>@order.TotalPrice.ToString("C")</td>
+    </tr>
+}
+@foreach (var order in Model)
+{
+    <p>Order ID: @order.OrderId, Kund: @order.User?.UserName, Datum: @order.CreatedAt.ToString("yyyy-MM-dd HH:mm")</p>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Ordernummer</th>
+            <th>Kund</th>
+            <th>Orderdatum</th>
+            <th>Produkter</th>
+            <th>Totalt belopp</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.OrderId</td>
+                <td>@order.User.UserName</td>
+                <td>@order.CreatedAt.ToString("yyyy-MM-dd HH:mm")</td>
+                <td>
+                    <ul>
+                        @foreach (var item in order.OrderItems)
+                        {
+                            <li>@item.Product.Name</li>
+                        }
+                    </ul>
+                </td>
+                <td>@order.OrderItems.Sum(oi => oi.Price * oi.Quantity).ToString("C")</td>
+            </tr>
+        }
+    </tbody>
+</table>
