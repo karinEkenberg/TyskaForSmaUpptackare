@@ -46,6 +46,13 @@
                         <li class="nav-item">
                             <a class="nav-link btn btn-primary text-black mx-1" asp-area="" asp-controller="Kontakt" asp-action="Index">Kontakt</a>
                         </li>
+                        @if (User.IsInRole("Administrators"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link btn btn-primary text-black mx-1" href="@Url.Action("Orders", "Admin")">Adminpanel - Köp</a>
+                            </li>
+                        }
+
                     </ul>
 
                     <!-- Mobile Menu -->
@@ -75,6 +82,13 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Kontakt" asp-action="Index">Kontakt</a>
                         </li>
+                        @if (User.IsInRole("Administrators"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" href="@Url.Action("Orders", "Admin")">Adminpanel - Köp</a>
+                                </li>
+                            }
+
                     </ul>
 
                     <!-- Login Partial and Cart -->
