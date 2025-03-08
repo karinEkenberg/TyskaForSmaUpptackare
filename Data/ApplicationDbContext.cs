@@ -29,10 +29,10 @@ namespace TyskaForSmaUpptackare.Data
             base.OnModelCreating(builder);
 
             builder.Entity<Order>()
-                .HasOne(o => o.User)
-                .WithMany(u => u.Orders)
-                .HasForeignKey(o => o.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
+              .HasMany(o => o.OrderItems)
+              .WithOne(oi => oi.Order)
+              .HasForeignKey(oi => oi.OrderId)
+              .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<Subscription>()
                 .HasOne(s => s.User)
@@ -70,6 +70,15 @@ namespace TyskaForSmaUpptackare.Data
                 .WithOne(ci => ci.Cart)
                 .HasForeignKey(ci => ci.CartId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<ApplicationUser>()
+               .Property(u => u.isBlocked)
+               .HasDefaultValue(false);
+
+            builder.Entity<OrderItem>()
+               .Property(oi => oi.Price)
+               .HasColumnType("decimal(10,2)");
+
 
         }
     }

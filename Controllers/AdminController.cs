@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Stripe.Climate;
 using TyskaForSmaUpptackare.Data;
 
 namespace TyskaForSmaUpptackare.Controllers
 {
+    [Authorize(Roles = "Administrators")]
     public class AdminController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -13,16 +16,12 @@ namespace TyskaForSmaUpptackare.Controllers
             _context = context;
         }
 
-        public ActionResult Orders()
+        public async Task<IActionResult> Orders()
         {
-            var orders = _context.Orders
-                .Include(o => o.User) // Ladda relaterad användardata
-                .Include(o => o.OrderItems) // Ladda relaterade orderartiklar
-                .ThenInclude(oi => oi.Product) // Ladda relaterad produktdata
-                .OrderByDescending(o => o.CreatedAt) // Sortera efter senaste order
-                .ToList();
-
-            return View("orders", orders); // Skicka datan till vyn
+            var orders = await _context.Orders.ToListAsync();
+            Console.WriteLine($"Antal ordrar: {orders.Count}");
+            return View(orders);
         }
+
     }
 }
