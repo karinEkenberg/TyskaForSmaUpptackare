@@ -4,7 +4,6 @@
     ViewData["Title"] = "Lägg in ny produkt";
 }
 
-
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -18,6 +17,7 @@
                 </div>
             </div>
             <form asp-action="Create" method="post">
+                <!-- Produktens egna fält -->
                 <div class="form-group">
                     <label asp-for="Name" class="control-label">Namn</label>
                     <input asp-for="Name" class="form-control" />
@@ -43,58 +43,66 @@
                     <input asp-for="AudioUrl" class="form-control" />
                     <span asp-validation-for="AudioUrl" class="text-danger"></span>
                 </div>
-                <div class="form-group mt-3 pb-5 pt-2">
-                    <input type="submit" value="Skapa" class="btn btn-primary me-2" />
-                    <button type="button" class="btn btn-primary" onclick="window.location.href='@Url.Action("Index", "Produkt")'">Tillbaka</button>
-                </div>
+
+                <hr />
                 <h3>Rum</h3>
                 <div id="rooms-container">
+                    <!-- Här renderas de dynamiskt tillagda rummen -->
                 </div>
                 <button type="button" id="add-room" class="btn btn-primary">Lägg till rum</button>
 
                 <hr />
+                <!-- Gemensam submit-knapp för att spara allt -->
                 <input type="submit" value="Skapa" class="btn btn-success" />
-                <div id="room-template" style="display: none;">
-                    <div class="room">
-                        <div class="form-group">
-                            <label>Rumsnamn</label>
-                            <input type="text" name="Items[{{roomIndex}}].Name" class="form-control" placeholder="Ange rumsnamn" />
-                            <label>Bild</label>
-                            <input type="text" name="Items[{{roomIndex}}].ImageUrl" class="form-control" placeholder="Ange bildurl" />
-                            <label>Ljud</label>
-                            <input type="text" name="Items[{{roomIndex}}].AudioUrl" class="form-control" placeholder="Ange ljudurl" />
-                        </div>
-                        <div class="items-container">
-                        </div>
-                        <button type="button" class="btn btn-secondary add-part">Lägg till sak</button>
-                        <button type="button" class="btn btn-danger remove-room">Ta bort rum</button>
-                    </div>
-                    <div id="part-template" style="display: none;">
-                        <div class="room">
-                            <div class="form-group">
-                                <label>Saknamn</label>
-                                <input type="text" name="Items[{{partIndex}}].Name" class="form-control" placeholder="Ange saknamn" />
-                                <label>Bild</label>
-                                <input type="text" name="Items[{{partIndex}}].ImageUrl" class="form-control" placeholder="Ange bildurl" />
-                                <label>Ljud</label>
-                                <input type="text" name="Items[{{partIndex}}].AudioUrl" class="form-control" placeholder="Ange ljudurl" />
-                            </div>
-                </div>
             </form>
         </div>
+    </div>
+</div>
+
+<!-- Mall för rum -->
+<div id="room-template" style="display: none;">
+    <div class="room">
+        <div class="form-group">
+            <label>Rumsnamn</label>
+            <input type="text" name="Items[{{roomIndex}}].Name" class="form-control" placeholder="Ange rumsnamn" />
+            <label>Bild</label>
+            <input type="text" name="Items[{{roomIndex}}].ImageUrl" class="form-control" placeholder="Ange bildurl" />
+            <label>Ljud</label>
+            <input type="text" name="Items[{{roomIndex}}].AudioUrl" class="form-control" placeholder="Ange ljudurl" />
+        </div>
+        <div class="items-container">
+            <!-- Här läggs dynamiskt saker (ProductPart) till -->
+        </div>
+        <button type="button" class="btn btn-secondary add-part">Lägg till sak</button>
+        <button type="button" class="btn btn-danger remove-room">Ta bort rum</button>
+    </div>
+</div>
+
+<!-- Mall för sak -->
+<div id="part-template" style="display: none;">
+    <div class="part">
+        <div class="form-group">
+            <label>Saknamn</label>
+            <input type="text" name="Items[{{roomIndex}}].Parts[{{partIndex}}].Name" class="form-control" placeholder="Ange saknamn" />
+            <label>Bild</label>
+            <input type="text" name="Items[{{roomIndex}}].Parts[{{partIndex}}].ImageUrl" class="form-control" placeholder="Ange bildurl" />
+            <label>Ljud</label>
+            <input type="text" name="Items[{{roomIndex}}].Parts[{{partIndex}}].AudioUrl" class="form-control" placeholder="Ange ljudurl" />
+        </div>
+        <button type="button" class="btn btn-danger remove-part">Ta bort sak</button>
     </div>
 </div>
 
 <script>
     let roomCount = 0;
 
+    // Lägg till nytt rum
     document.getElementById('add-room').addEventListener('click', function () {
         if (roomCount >= 9) {
             alert("Maximalt 9 rum är tillåtna.");
             return;
         }
         let template = document.getElementById('room-template').innerHTML;
-      
         template = template.replace(/{{roomIndex}}/g, roomCount);
         let container = document.getElementById('rooms-container');
         let div = document.createElement('div');
@@ -103,7 +111,9 @@
         roomCount++;
     });
 
+    // Hantera klick på "Lägg till sak", ta bort rum och ta bort sak via event delegation
     document.getElementById('rooms-container').addEventListener('click', function (e) {
+        // Lägg till sak
         if (e.target && e.target.classList.contains('add-part')) {
             let roomDiv = e.target.closest('.room');
             let itemsContainer = roomDiv.querySelector('.items-container');
@@ -122,9 +132,11 @@
             div.innerHTML = partTemplate;
             itemsContainer.appendChild(div);
         }
+        // Ta bort rum
         if (e.target && e.target.classList.contains('remove-room')) {
             e.target.closest('.room').remove();
         }
+        // Ta bort sak
         if (e.target && e.target.classList.contains('remove-part')) {
             e.target.closest('.part').remove();
         }

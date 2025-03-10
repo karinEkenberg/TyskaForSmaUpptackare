@@ -10,11 +10,10 @@ namespace TyskaForSmaUpptackare.Models
         [Required]
         [MaxLength(50)]
         public string Name { get; set; } = string.Empty;
-        public int ProductId { get; set; }
-        [ForeignKey("ProductId")]
-        public Product Product { get; set; } = default!;
+        public int ProductItemId { get; set; }
+        [ForeignKey("ProductItemId")]
+        public ProductItem ProductItem { get; set; } = default!;
         public string AudioUrl { get; set; } = string.Empty;
         public string ImageUrl { get; set; } = string.Empty;
-        public ICollection<ProductItem> Items { get; set; } = new List<ProductItem>();
     }
 }

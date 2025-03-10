@@ -49,7 +49,7 @@ namespace TyskaForSmaUpptackare.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Product product)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 if(product.Items != null)
                 {
@@ -137,10 +137,9 @@ namespace TyskaForSmaUpptackare.Controllers
         public async Task<IActionResult> Explore(int id)
         {
             var product = await _context.Products
-                .Include(p => p.Parts)
-                .ThenInclude(part => part.Items)
-                .FirstOrDefaultAsync(p => p.ProductId == id);
-
+        .Include(p => p.Items)  // Inkludera rummen
+        .ThenInclude(item => item.Parts)  // Inkludera sakerna i varje rum
+        .FirstOrDefaultAsync(p => p.ProductId == id);
             if (product == null)
             {
                 return NotFound();
