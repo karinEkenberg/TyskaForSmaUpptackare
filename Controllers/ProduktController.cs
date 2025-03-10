@@ -36,11 +36,6 @@ namespace TyskaForSmaUpptackare.Controllers
             return View(product);
         }
 
-        public async Task<IActionResult> Testa()
-        {
-            return View();
-        }
-
         // GET: ProductController/Create
         [Authorize(Roles = "Administrators")]
         public IActionResult Create()
@@ -54,8 +49,22 @@ namespace TyskaForSmaUpptackare.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Product product)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
+                if(product.Items != null)
+                {
+                    foreach (var room in product.Items)
+                    {
+                        room.ParentItem = null;
+                        if (room.ChildItems !=  null)
+                        {
+                            foreach (var item in room.ChildItems)
+                            {
+                                item.ParentItem = room;
+                            }
+                        }
+                    }
+                }
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 TempData["Message"] = "Produkten har skapats";
@@ -64,11 +73,13 @@ namespace TyskaForSmaUpptackare.Controllers
             return View(product);
         }
 
-        // GET: ProductController/Edit/5
         [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> Edit(int id)
         {
-            var product = await _context.Products.FindAsync(id);
+            var product = await _context.Products
+                .Include(p => p.Items)
+                .ThenInclude(item => item.Parts)
+                .FirstOrDefaultAsync(p => p.ProductId == id);
             if (product == null)
             {
                 return NotFound();
@@ -76,27 +87,126 @@ namespace TyskaForSmaUpptackare.Controllers
             return View(product);
         }
 
-        // POST: ProductController/Edit/5
         [Authorize(Roles = "Administrators")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Product product)
+        public async Task<IActionResult> Edit(int id, Product editedProduct)
         {
-           if (id != product.ProductId)
+            Console.WriteLine("editedProduct.Items.Count = " + (editedProduct.Items?.Count ?? 0));
+            if (id != editedProduct.ProductId)
             {
                 return NotFound();
             }
-           if (ModelState.IsValid)
+
+            ModelState.Remove("Items.ParentItem");
+            ModelState.Remove("Items.Parts.ProductItem");
+
+            if (!ModelState.IsValid)
+            {
+                foreach (var modelState in ModelState.Values)
+                {
+                    foreach (var error in modelState.Errors)
+                    {
+                        Console.WriteLine(error.ErrorMessage);
+                    }
+                }
+                return View(editedProduct);
+            }
+
+            var product = await _context.Products
+                .Include(p => p.Items)
+                    .ThenInclude(item => item.Parts)
+                .FirstOrDefaultAsync(p => p.ProductId == id);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+            Console.WriteLine("Innan assignment: product.Name = " + product.Name + ", editedProduct.Name = " + editedProduct.Name);
+
+            // Uppdatera produktens egna fält
+            product.Name = editedProduct.Name;
+            Console.WriteLine("Updated product.Name = " + product.Name);
+
+            product.Description = editedProduct.Description;
+            product.Price = editedProduct.Price;
+            product.ImageUrl = editedProduct.ImageUrl;
+            product.AudioUrl = editedProduct.AudioUrl;
+            Console.WriteLine("editedProduct.Name = " + editedProduct.Name);
+            if (editedProduct.Items != null && editedProduct.Items.Any())
+            {
+                Console.WriteLine("editedProduct.Items[0].Name = " + editedProduct.Items.First().Name);
+            }
+            // Hantera borttagna rum
+            var editedItemIds = editedProduct.Items?.Select(i => i.ItemId).ToList() ?? new List<int>();
+            var itemsToRemove = product.Items.Where(i => !editedItemIds.Contains(i.ItemId)).ToList();
+            foreach (var item in itemsToRemove)
+            {
+                _context.Remove(item);
+            }
+
+            // Uppdatera befintliga rum och deras saker
+            foreach (var editedItem in editedProduct.Items ?? new List<ProductItem>())
+            {
+                var existingItem = product.Items.FirstOrDefault(i => i.ItemId == editedItem.ItemId);
+                if (existingItem != null)
+                {
+                    existingItem.Name = editedItem.Name;
+                    existingItem.ImageUrl = editedItem.ImageUrl;
+                    existingItem.AudioUrl = editedItem.AudioUrl;
+
+                    // Hantera borttagna saker
+                    var editedPartIds = editedItem.Parts?.Select(p => p.PartId).ToList() ?? new List<int>();
+                    var partsToRemove = existingItem.Parts.Where(p => !editedPartIds.Contains(p.PartId)).ToList();
+                    foreach (var part in partsToRemove)
+                    {
+                        _context.Remove(part);
+                    }
+
+                    // Uppdatera eller lägg till saker
+                    foreach (var editedPart in editedItem.Parts ?? new List<ProductPart>())
+                    {
+                        var existingPart = existingItem.Parts.FirstOrDefault(p => p.PartId == editedPart.PartId);
+                        if (existingPart != null)
+                        {
+                            existingPart.Name = editedPart.Name;
+                            existingPart.ImageUrl = editedPart.ImageUrl;
+                            existingPart.AudioUrl = editedPart.AudioUrl;
+                        }
+                        else
+                        {
+                            // Sätt FK manuellt om nödvändigt:
+                            editedPart.ProductItemId = existingItem.ItemId;
+                            existingItem.Parts.Add(editedPart);
+                        }
+                    }
+                }
+                else
+                {
+                    // Lägg till nytt rum
+                    product.Items.Add(editedItem);
+                }
+            }
+
+            // Logga ChangeTracker för att se ändringar
+            Console.WriteLine(_context.ChangeTracker.DebugView.ShortView);
+
+            try
             {
                 _context.Update(product);
+
                 await _context.SaveChangesAsync();
-                TempData["Message"] = "Produkten har ändrats";
+                TempData["Message"] = "Produkten har ändrats.";
                 return RedirectToAction(nameof(Index));
             }
-           return View(product);
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Kunde inte spara ändringarna: " + ex.Message);
+                return View(editedProduct);
+            }
         }
 
-        // GET: ProductController/Delete/5
+
         [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -108,7 +218,6 @@ namespace TyskaForSmaUpptackare.Controllers
             return View(product);
         }
 
-        // POST: ProductController/Delete/5
         [Authorize(Roles = "Administrators")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -124,14 +233,13 @@ namespace TyskaForSmaUpptackare.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        //[Authorize(Roles = "Administrators, Customers")]
+        [Authorize(Roles = "Administrators, Customers")]
         public async Task<IActionResult> Explore(int id)
         {
             var product = await _context.Products
-                .Include(p => p.Parts)
-                .ThenInclude(part => part.Items)
-                .FirstOrDefaultAsync(p => p.ProductId == id);
-
+        .Include(p => p.Items)  
+        .ThenInclude(item => item.Parts)  
+        .FirstOrDefaultAsync(p => p.ProductId == id);
             if (product == null)
             {
                 return NotFound();

@@ -3,24 +3,63 @@
 @{
     ViewData["Title"] = "Orderhistorik";
 }
+<section class="container">
+    <h1>@ViewData["Title"]</h1>
+    <p>Antal ordrar: @Model.Count()</p>
 
-<h1>@ViewData["Title"]</h1>
-<p>Antal ordrar: @Model.Count()</p>
+    @if (ViewBag.Message != null)
+    {
+        <div class="alert alert-info">
+            @ViewBag.Message
+        </div>
+    }
+    else if (!Model.Any())
+    {
+        <div class="alert alert-info">
+            Inga ordrar att visa.
+        </div>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>OrderID</th>
+                    <th>Användare</th>
+                    <th>Datum</th>
+                    <th>Produkter</th>
+                    <th>Totalt</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model)
+                {
+                    <tr>
+                        <td>@order.OrderId</td>
+                        <td>@order.User?.UserName</td>
+                        <td>@order.CreatedAt.ToString("yyyy-MM-dd HH:mm")</td>
+                        <td>
+                            <ul>
+                                @foreach (var item in order.OrderItems)
+                                {
+                                    <li>@item.Product?.Name (@item.Quantity st)</li>
+                                }
+                            </ul>
+                        </td>
+                        <td>
+                            @order.OrderItems.Sum(oi => oi.Price * oi.Quantity).ToString("C")
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    @{
+        ViewData["Title"] = "Orderhistorik";
+    }
 
-@if (ViewBag.Message != null)
-{
-    <div class="alert alert-info">
-        @ViewBag.Message
-    </div>
-}
-else if (!Model.Any())
-{
-    <div class="alert alert-info">
-        Inga ordrar att visa.
-    </div>
-}
-else
-{
+    <h1>@ViewData["Title"]</h1>
+
     <table class="table">
         <thead>
             <tr>
@@ -42,7 +81,7 @@ else
                         <ul>
                             @foreach (var item in order.OrderItems)
                             {
-                                <li>@item.Product?.Name (@item.Quantity st)</li>
+                                <li>@item.Product?.Name</li>
                             }
                         </ul>
                     </td>
@@ -53,42 +92,4 @@ else
             }
         </tbody>
     </table>
-}
-@{
-    ViewData["Title"] = "Orderhistorik";
-}
-
-<h1>@ViewData["Title"]</h1>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>OrderID</th>
-            <th>Användare</th>
-            <th>Datum</th>
-            <th>Produkter</th>
-            <th>Totalt</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var order in Model)
-        {
-            <tr>
-                <td>@order.OrderId</td>
-                <td>@order.User?.UserName</td>
-                <td>@order.CreatedAt.ToString("yyyy-MM-dd HH:mm")</td>
-                <td>
-                    <ul>
-                        @foreach (var item in order.OrderItems)
-                        {
-                            <li>@item.Product?.Name</li>
-                        }
-                    </ul>
-                </td>
-                <td>
-                    @order.OrderItems.Sum(oi => oi.Price * oi.Quantity).ToString("C")
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+</section>

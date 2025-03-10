@@ -17,5 +17,6 @@ namespace TyskaForSmaUpptackare.Models
         public decimal Price { get; set; }
         public string AudioUrl { get; set; } = string.Empty;
         public ICollection<ProductPart> Parts { get; set; } = new List<ProductPart>();
+        public ICollection<ProductItem> Items { get; set; } = new List<ProductItem>();
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TyskaForSmaUpptackare.Data;
 
@@ -11,9 +12,11 @@ using TyskaForSmaUpptackare.Data;
 namespace TyskaForSmaUpptackare.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250310092744_AddListToProducts")]
+    partial class AddListToProducts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -409,11 +412,16 @@ namespace TyskaForSmaUpptackare.Data.Migrations
                     b.Property<int?>("ProductId")
                         .HasColumnType("int");
 
+                    b.Property<int>("ProductPartId")
+                        .HasColumnType("int");
+
                     b.HasKey("ItemId");
 
                     b.HasIndex("ParentItemId");
 
                     b.HasIndex("ProductId");
+
+                    b.HasIndex("ProductPartId");
 
                     b.ToTable("ProductItems");
                 });
@@ -439,17 +447,12 @@ namespace TyskaForSmaUpptackare.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductItemId")
+                    b.Property<int>("ProductId")
                         .HasColumnType("int");
 
                     b.HasKey("PartId");
 
                     b.HasIndex("ProductId");
-
-                    b.HasIndex("ProductItemId");
 
                     b.ToTable("ProductParts");
                 });
@@ -624,25 +627,28 @@ namespace TyskaForSmaUpptackare.Data.Migrations
 
                     b.HasOne("TyskaForSmaUpptackare.Models.Product", null)
                         .WithMany("Items")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ProductId");
+
+                    b.HasOne("TyskaForSmaUpptackare.Models.ProductPart", "ProductPart")
+                        .WithMany("Items")
+                        .HasForeignKey("ProductPartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("ParentItem");
+
+                    b.Navigation("ProductPart");
                 });
 
             modelBuilder.Entity("TyskaForSmaUpptackare.Models.ProductPart", b =>
                 {
-                    b.HasOne("TyskaForSmaUpptackare.Models.Product", null)
+                    b.HasOne("TyskaForSmaUpptackare.Models.Product", "Product")
                         .WithMany("Parts")
-                        .HasForeignKey("ProductId");
-
-                    b.HasOne("TyskaForSmaUpptackare.Models.ProductItem", "ProductItem")
-                        .WithMany("Parts")
-                        .HasForeignKey("ProductItemId")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ProductItem");
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("TyskaForSmaUpptackare.Models.Subscription", b =>
@@ -684,8 +690,11 @@ namespace TyskaForSmaUpptackare.Data.Migrations
             modelBuilder.Entity("TyskaForSmaUpptackare.Models.ProductItem", b =>
                 {
                     b.Navigation("ChildItems");
+                });
 
-                    b.Navigation("Parts");
+            modelBuilder.Entity("TyskaForSmaUpptackare.Models.ProductPart", b =>
+                {
+                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("TyskaForSmaUpptackare.Data.ApplicationUser", b =>
