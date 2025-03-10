@@ -18,14 +18,12 @@ namespace TyskaForSmaUpptackare.Controllers
             _context = context;
         }
 
-        // GET: ProductController
         public async Task<IActionResult> Index()
         {
             var products = await _context.Products.ToListAsync();
             return View(products);
         }
 
-        // GET: ProductController/Details/5
         public async Task<IActionResult> Details(int id)
         {
             var product = await _context.Products.FirstOrDefaultAsync(p => p.ProductId == id);
@@ -36,14 +34,12 @@ namespace TyskaForSmaUpptackare.Controllers
             return View(product);
         }
 
-        // GET: ProductController/Create
         [Authorize(Roles = "Administrators")]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: ProductController/Create
         [Authorize(Roles = "Administrators")]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -124,7 +120,6 @@ namespace TyskaForSmaUpptackare.Controllers
             }
             Console.WriteLine("Innan assignment: product.Name = " + product.Name + ", editedProduct.Name = " + editedProduct.Name);
 
-            // Uppdatera produktens egna fält
             product.Name = editedProduct.Name;
             Console.WriteLine("Updated product.Name = " + product.Name);
 
@@ -137,7 +132,6 @@ namespace TyskaForSmaUpptackare.Controllers
             {
                 Console.WriteLine("editedProduct.Items[0].Name = " + editedProduct.Items.First().Name);
             }
-            // Hantera borttagna rum
             var editedItemIds = editedProduct.Items?.Select(i => i.ItemId).ToList() ?? new List<int>();
             var itemsToRemove = product.Items.Where(i => !editedItemIds.Contains(i.ItemId)).ToList();
             foreach (var item in itemsToRemove)
@@ -145,7 +139,6 @@ namespace TyskaForSmaUpptackare.Controllers
                 _context.Remove(item);
             }
 
-            // Uppdatera befintliga rum och deras saker
             foreach (var editedItem in editedProduct.Items ?? new List<ProductItem>())
             {
                 var existingItem = product.Items.FirstOrDefault(i => i.ItemId == editedItem.ItemId);
@@ -155,7 +148,6 @@ namespace TyskaForSmaUpptackare.Controllers
                     existingItem.ImageUrl = editedItem.ImageUrl;
                     existingItem.AudioUrl = editedItem.AudioUrl;
 
-                    // Hantera borttagna saker
                     var editedPartIds = editedItem.Parts?.Select(p => p.PartId).ToList() ?? new List<int>();
                     var partsToRemove = existingItem.Parts.Where(p => !editedPartIds.Contains(p.PartId)).ToList();
                     foreach (var part in partsToRemove)
@@ -163,7 +155,6 @@ namespace TyskaForSmaUpptackare.Controllers
                         _context.Remove(part);
                     }
 
-                    // Uppdatera eller lägg till saker
                     foreach (var editedPart in editedItem.Parts ?? new List<ProductPart>())
                     {
                         var existingPart = existingItem.Parts.FirstOrDefault(p => p.PartId == editedPart.PartId);
@@ -175,7 +166,6 @@ namespace TyskaForSmaUpptackare.Controllers
                         }
                         else
                         {
-                            // Sätt FK manuellt om nödvändigt:
                             editedPart.ProductItemId = existingItem.ItemId;
                             existingItem.Parts.Add(editedPart);
                         }
@@ -183,12 +173,10 @@ namespace TyskaForSmaUpptackare.Controllers
                 }
                 else
                 {
-                    // Lägg till nytt rum
                     product.Items.Add(editedItem);
                 }
             }
 
-            // Logga ChangeTracker för att se ändringar
             Console.WriteLine(_context.ChangeTracker.DebugView.ShortView);
 
             try
@@ -233,6 +221,8 @@ namespace TyskaForSmaUpptackare.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+ 
+
         [Authorize(Roles = "Administrators, Customers")]
         public async Task<IActionResult> Explore(int id)
         {
@@ -265,6 +255,23 @@ namespace TyskaForSmaUpptackare.Controllers
             }
 
             return View(product);
+        }
+
+        public async Task<IActionResult> ExploreRoom(int roomId)
+        {
+            var room = await _context.ProductItems
+                .Include(r => r.Parts)
+                .FirstOrDefaultAsync(r => r.ItemId == roomId);
+            if (room == null)
+            {
+                Console.WriteLine("Room not found for roomId: " + roomId);
+                return NotFound();
+            }
+            Console.WriteLine("Room found: " + room.Name);
+            Console.WriteLine("Room has " + room.Parts.Count + " parts");
+            Console.WriteLine("Received roomId: " + roomId);
+
+            return View(room);
         }
     }
 }
