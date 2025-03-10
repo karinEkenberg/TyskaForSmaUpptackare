@@ -36,11 +36,6 @@ namespace TyskaForSmaUpptackare.Controllers
             return View(product);
         }
 
-        public async Task<IActionResult> Testa()
-        {
-            return View();
-        }
-
         // GET: ProductController/Create
         [Authorize(Roles = "Administrators")]
         public IActionResult Create()
@@ -56,6 +51,20 @@ namespace TyskaForSmaUpptackare.Controllers
         {
             if (ModelState.IsValid)
             {
+                if(product.Items != null)
+                {
+                    foreach (var room in product.Items)
+                    {
+                        room.ParentItem = null;
+                        if (room.ChildItems !=  null)
+                        {
+                            foreach (var item in room.ChildItems)
+                            {
+                                item.ParentItem = room;
+                            }
+                        }
+                    }
+                }
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 TempData["Message"] = "Produkten har skapats";
