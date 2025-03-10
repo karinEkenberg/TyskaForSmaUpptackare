@@ -1,5 +1,40 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model TyskaForSmaUpptackare.Models.Product
+
 @{
+    ViewData["Title"] = "Utforska Produkt";
+    var backgroundStyle = $"background-image: url('{Model.ImageUrl}'); background-size: cover; background-position: center;";
+}
+<section class="container">
+    <h1>@Model.Name</h1>
+    <div class="product-background" style="@backgroundStyle; min-height: 100vh; padding: 20px;">
+
+        <div class="row">
+            @foreach (var room in Model.Items.Take(9))
+            {
+                <div class="col-md-4 col-sm-6 mb-3">
+                    <div class="card">
+                        <img src="@room.ImageUrl" class="card-img-top" alt="@room.Name" style="cursor:pointer;"
+                             onclick="location.href='@Url.Action("ExploreRoom", "Produkt", new { roomId = room.ItemId })'" />
+                        <div class="card-body text-center">
+                            <h5 class="card-title" style="cursor:pointer;" onclick="playAudio('@room.AudioUrl')">
+                                @room.Name
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+
+@section Scripts {
+    <script>
+        function playAudio(audioUrl) {
+            if (audioUrl && audioUrl.trim() !== "") {
+                var audio = new Audio(audioUrl);
+                audio.play();
+            }
+        }
+    </script>
 }

@@ -1,0 +1,52 @@
+﻿@model TyskaForSmaUpptackare.Models.ProductItem
+
+@{
+    ViewData["Title"] = "Utforska Rum: " + Model.Name;
+    var backgroundStyle = $"background-image: url('{Model.ImageUrl}'); background-size: cover; background-position: center;";
+}
+@if (Model == null)
+{
+    <p>Inget rum hittades!</p>
+}
+else
+{
+    <p>Debug: @Model.Name</p>
+}
+@if (Model == null)
+{
+    <p style="color: red;">Fel: Ingen data hittades för rummet!</p>
+    return;
+}
+<p>Debug: @Model.Name</p>
+<p>Antal saker i rummet: @Model.Parts?.Count</p>
+<p>Debug: @Model?.Name</p>
+<div class="room-background" style="@backgroundStyle; min-height: 100vh; padding: 20px;">
+    <h1 class="text-white">@Model.Name</h1>
+    <div class="row">
+        @foreach (var part in Model.Parts.Take(9))
+        {
+            <div class="col-md-4 col-sm-6 mb-3">
+                <div class="card">
+                    <img src="@part.ImageUrl" class="card-img-top" alt="@part.Name" style="cursor:pointer;"
+                         onclick="playAudio('@part.AudioUrl')" />
+                    <div class="card-body text-center">
+                        <h5 class="card-title" style="cursor:pointer;" onclick="playAudio('@part.AudioUrl')">
+                            @part.Name
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function playAudio(audioUrl) {
+            if (audioUrl && audioUrl.trim() !== "") {
+                var audio = new Audio(audioUrl);
+                audio.play();
+            }
+        }
+    </script>
+}
