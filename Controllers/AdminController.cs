@@ -18,10 +18,12 @@ namespace TyskaForSmaUpptackare.Controllers
 
         public async Task<IActionResult> Orders()
         {
-            var orders = await _context.Orders.ToListAsync();
-            Console.WriteLine($"Antal ordrar: {orders.Count}");
+            var orders = await _context.Orders
+                .Include(o => o.User)
+                .Include(o => o.OrderItems)
+                    .ThenInclude(oi => oi.Product)
+                .ToListAsync();
             return View(orders);
         }
-
     }
 }
