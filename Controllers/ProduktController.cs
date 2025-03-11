@@ -94,9 +94,6 @@ namespace TyskaForSmaUpptackare.Controllers
                 return NotFound();
             }
 
-            ModelState.Remove("Items.ParentItem");
-            ModelState.Remove("Items.Parts.ProductItem");
-
             if (!ModelState.IsValid)
             {
                 foreach (var modelState in ModelState.Values)
@@ -118,20 +115,12 @@ namespace TyskaForSmaUpptackare.Controllers
             {
                 return NotFound();
             }
-            Console.WriteLine("Innan assignment: product.Name = " + product.Name + ", editedProduct.Name = " + editedProduct.Name);
 
             product.Name = editedProduct.Name;
-            Console.WriteLine("Updated product.Name = " + product.Name);
-
             product.Description = editedProduct.Description;
             product.Price = editedProduct.Price;
             product.ImageUrl = editedProduct.ImageUrl;
             product.AudioUrl = editedProduct.AudioUrl;
-            Console.WriteLine("editedProduct.Name = " + editedProduct.Name);
-            if (editedProduct.Items != null && editedProduct.Items.Any())
-            {
-                Console.WriteLine("editedProduct.Items[0].Name = " + editedProduct.Items.First().Name);
-            }
             var editedItemIds = editedProduct.Items?.Select(i => i.ItemId).ToList() ?? new List<int>();
             var itemsToRemove = product.Items.Where(i => !editedItemIds.Contains(i.ItemId)).ToList();
             foreach (var item in itemsToRemove)
@@ -177,12 +166,9 @@ namespace TyskaForSmaUpptackare.Controllers
                 }
             }
 
-            Console.WriteLine(_context.ChangeTracker.DebugView.ShortView);
-
             try
             {
                 _context.Update(product);
-
                 await _context.SaveChangesAsync();
                 TempData["Message"] = "Produkten har ändrats.";
                 return RedirectToAction(nameof(Index));
