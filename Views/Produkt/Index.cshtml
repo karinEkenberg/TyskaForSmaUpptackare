@@ -52,10 +52,11 @@
                         <p class="card-text">@product.Description</p>
                         <p class="card-text"><strong>Pris:</strong> @product.Price.ToString("C")</p>
                         <a asp-controller="Produkt" asp-action="Details" asp-route-id="@product.ProductId" class="btn btn-primary me-2">Visa</a>
+                        <a asp-controller="Produkt" asp-action="Explore" asp-route-id="@product.ProductId" class="btn btn-primary me-2">Upptäck</a>
                         @if (User.IsInRole("Administrators"))
                         {
                             <a href="@Url.Action("Edit", "Produkt", new { id = product.ProductId })" class="btn btn-primary me-2">Ändra</a>
-                            <a href="@Url.Action("Delete", "Produkt", new { id = product.ProductId})" class="btn btn-danger">Ta bort</a>
+                            <a href="@Url.Action("Delete", "Produkt", new { id = product.ProductId})" class="btn btn-danger me-2">Ta bort</a>
                         }
                     </div>
                 </div>

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TyskaForSmaUpptackare.Models
@@ -14,7 +15,9 @@ namespace TyskaForSmaUpptackare.Models
         public string ImageUrl { get; set; } = string.Empty;
         public string AudioUrl { get; set; } = string.Empty;
         public int? ParentItemId { get; set; }
-        public ProductItem ParentItem { get; set; }
+        [BindNever]
+        public ProductItem? ParentItem { get; set; }
+        [BindNever]
         public ICollection<ProductItem> ChildItems { get; set; } = new List<ProductItem>();
     }
 }
