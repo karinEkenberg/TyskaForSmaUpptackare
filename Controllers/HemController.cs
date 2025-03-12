@@ -23,7 +23,7 @@ namespace TyskaForSmaUpptackare.Controllers
         {
             var model = new HomeViewModel
             {
-                Products = _context.Products.ToList(),
+                Products = _context.Products.Take(3).ToList(),
             };
             return View(model);
         }
@@ -39,6 +39,15 @@ namespace TyskaForSmaUpptackare.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        [HttpPost]
+        public IActionResult SendContact(HomeViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("Index");
+            }
+            return View("Index", model);
+        }
         
     }
 }
