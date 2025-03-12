@@ -45,7 +45,7 @@ namespace TyskaForSmaUpptackare.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Product product)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 if(product.Items != null)
                 {
