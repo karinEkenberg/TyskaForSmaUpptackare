@@ -2,27 +2,32 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using TyskaForSmaUpptackare.ViewModel;
 using Microsoft.AspNetCore.Authorization;
+using TyskaForSmaUpptackare.Data;
 
 namespace TyskaForSmaUpptackare.Controllers
 {
     public class HemController : Controller
     {
         private readonly ILogger<HemController> _logger;
+        private readonly ApplicationDbContext _context;
 
-        public HemController(ILogger<HemController> logger)
+        public HemController(ILogger<HemController> logger, ApplicationDbContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
         [ResponseCache(Duration = 10,
-            Location = ResponseCacheLocation.Any)]
+        Location = ResponseCacheLocation.Any)]
         public IActionResult Index()
         {
-            return View();
+            var model = new HomeViewModel
+            {
+                Products = _context.Products.Take(3).ToList(),
+            };
+            return View(model);
         }
 
-        [Route("private")]
-        [Authorize(Roles = "Administrators, Customer")]
         public IActionResult Privacy()
         {            
             return View();
@@ -33,5 +38,16 @@ namespace TyskaForSmaUpptackare.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        [HttpPost]
+        public IActionResult SendContact(HomeViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("Index");
+            }
+            return View("Index", model);
+        }
+        
     }
 }

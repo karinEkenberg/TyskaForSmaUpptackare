@@ -1,5 +1,6 @@
 :root {
     --color-primary-yellow: #FFF8DF;
+    --color-secondary-yellow: #FFF3C0; 
     --color-primary-blue: #C6d4e9;
     --color-primary-green: #d1e9c6;
     --color-primary-darkblue: #a7b0c0;
@@ -20,6 +21,10 @@
     src: url(https://fonts.googleapis.com/css2?family=Andika:ital,wght@0,400;0,700;1,400;1,700&display=swap) format('woff2');
     font-weight: normal;
     font-style: normal;
+}
+
+.secondary-bg {
+    background-color: var(--color-secondary-yellow);
 }
 
 .alfabet {

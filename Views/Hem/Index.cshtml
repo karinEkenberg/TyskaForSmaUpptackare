@@ -1,4 +1,7 @@
-﻿@{
+﻿@using TyskaForSmaUpptackare.Models;
+@model HomeViewModel
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -12,9 +15,9 @@
     <div class="mask">
         <div class="d-flex justify-content-start align-items-end h-100">
             <div class="text-dark text-start">
-                <h1 class="mb-3">Tyska för små upptäckare</h1>
-                <h4 class="mb-3">Lär dig tyska</h4>
-                <a data-mdb-ripple-init class="btn btn-primary btn-lg" href="#!" role="button">Kom igång</a>
+                <h1 class="mb-3 text-white">Tyska för små upptäckare</h1>
+                <h4 class="mb-3 text-white">Lär dig tyska</h4>
+                <a class="btn btn-primary text-black mx-1" aria-label="Navigera till produktöversikt" asp-area="" asp-controller="Produkt" asp-action="Index">Kom igång</a>
             </div>
         </div>
     </div>
@@ -32,8 +35,82 @@
             <div class="text-dark text-start">
                 <h1 class="mb-3">Tyska för små upptäckare</h1>
                 <h4 class="mb-3">Lär dig tyska</h4>
-                <a data-mdb-ripple-init class="btn btn-primary btn-lg" href="#!" role="button">Kom igång</a>
+                <a class="btn btn-primary text-black mx-1" aria-label="Navigera till produktöversikt" asp-area="" asp-controller="Produkt" asp-action="Index">Kom igång</a>
             </div>
         </div>
     </div>
 </div>
+
+    <section class="container-lg p-5">
+        <h2 class="pb-3">Våra produkter</h2>
+        <div class="row">
+    @foreach (var product in Model.Products.Take(3))
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                @if (!string.IsNullOrEmpty(product.ImageUrl))
+                {
+                    <img src="@product.ImageUrl" class="card-img-top" alt="@product.Name" />
+                }
+                <div class="card-body">
+                    <h5 class="card-title">@product.Name</h5>
+                </div>
+            </div>
+        </div>
+    }
+    </div>
+    <div class="text-center">
+        <a class="btn btn-primary text-black mx-1" aria-label="Navigera till produktöversikt" asp-area="" asp-controller="Produkt" asp-action="Index">Se fler produkter</a>
+    </div>
+    </section>
+
+
+    <section class="container-lg secondary-bg p-5">
+        <h2 class="pb-3">Om oss</h2>
+        <div class="row">
+            <div class="col-md-6">
+                    <p>
+                        Välkommen till Tyska för små upptäckare! Vi brinner för att göra inlärning rolig och interaktiv. Vårt mål är att inspirera barn att utforska det tyska språket genom kreativa och engagerande produkter. Tillsammans med er skapar vi en värld där språk och kultur blir en naturlig del av vardagen.
+                    </p>
+                <div class="text-center pb-3">
+                    <a class="btn btn-primary text-black mx-1" aria-label="Mer om TFSU" asp-area="" asp-controller="OmOss" asp-action="Index">Mer om TFSU</a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <img class="img-fluid" src="~/img/tfsu-omoss.jpg" />
+            </div>   
+        </div>
+    
+    </section>
+
+<section class="container my-5">
+    <h2>Kontakta oss</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <p>
+                Har du frågor, funderingar eller behöver hjälp? Vi ser fram emot att höra från dig! Fyll i formuläret nedan så återkommer vi så snart som möjligt.
+            </p>
+        </div>
+        <div class="col-md-6">
+
+            @using (Html.BeginForm("SendContact", "Home", FormMethod.Post))
+            {
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.Contact.Name, new { @class = "form-label" })
+                    @Html.TextBoxFor(m => m.Contact.Name, new { @class = "form-control" })
+                </div>
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.Contact.Email, new { @class = "form-label" })
+                    @Html.TextBoxFor(m => m.Contact.Email, new { @class = "form-control" })
+                </div>
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.Contact.Message, new { @class = "form-label" })
+                    @Html.TextAreaFor(m => m.Contact.Message, new { @class = "form-control", rows = 5 })
+                </div>
+                <div class="text-center">
+                    <button type="submit" aria-label="Skicka din fråga" class="btn btn-primary">Skicka din fråga</button>
+                </div>
+            }
+        </div>
+    </div>
+</section>
