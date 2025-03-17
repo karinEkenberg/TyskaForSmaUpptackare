@@ -28,7 +28,6 @@ namespace TyskaForSmaUpptackare.Data
         public DbSet<NumberOneTwo> NumberOneTwos { get; set; }
         public DbSet<NumbersHundred> NumbersHundred { get; set; }
         public DbSet<NumbersTen> NumbersTens { get; set; }
-        public DbSet<NumbersTenEleven> NumbersTenElevens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

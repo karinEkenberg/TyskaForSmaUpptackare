@@ -38,12 +38,14 @@ namespace TyskaForSmaUpptackare.Controllers
         public IActionResult Tiotal()
 
         {
-            return View();
+            var numbers = _context.NumbersTens.ToList();
+            return View(numbers);
         }
 
         public IActionResult Hundratal()
         {
-            return View();
+            var numbers = _context.NumbersHundred.ToList();
+            return View(numbers);
         }
     }
 }

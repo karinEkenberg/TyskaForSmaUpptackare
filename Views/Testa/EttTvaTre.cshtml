@@ -10,7 +10,7 @@
 
             <img class="img-fluid" src="/img/tfsu-onetwos.webp" alt="Klicka på djuren" />
         </div>
-        <div class="col-md-5">
+        <div class="col-md-5 pt-3">
             <p>
                 Välkommen till vår interaktiva övning där du får lära dig hur siffrorna uttalas på tyska. Även om de skrivs likadant på svenska och tyska, är uttalet ofta annorlunda. Här får du både se siffrorna och höra deras tyska uttal.
             </p>
@@ -31,7 +31,7 @@
     <div class="row g-5 mt-5 justify-content-center">
         @foreach (var number in Model)
         {
-            <div class="col-3 square alfabet pt-4" onclick="playSound('@number.Name')" aria-label="@number.Name , klicka för att lyssna på tyskt uttal">
+            <div class="col-3 alfabet pt-4" onclick="playSound('@number.Name')" aria-label="@number.Name , klicka för att lyssna på tyskt uttal">
                 <p class="text-center display-4">@number.Name</p>
                 <audio id="@number.Name" src="@number.AudioUrl" preload="auto"></audio>
             </div>
