@@ -23,6 +23,12 @@ namespace TyskaForSmaUpptackare.Data
         public DbSet<Cart> Carts { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<Abc> Abcs { get; set; }
+        public DbSet<Animal> Animals { get; set; }
+        public DbSet<NumberOneTwo> NumberOneTwos { get; set; }
+        public DbSet<NumbersHundred> NumbersHundred { get; set; }
+        public DbSet<NumbersTen> NumbersTens { get; set; }
+        public DbSet<NumbersTenEleven> NumbersTenElevens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
