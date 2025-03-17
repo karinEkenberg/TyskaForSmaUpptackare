@@ -1,147 +1,40 @@
-﻿@{
+﻿@model IEnumerable<TyskaForSmaUpptackare.Models.Abc>
+@{
     ViewData["Title"] = "Lär dig tyska alfabetet med uttal";
 }
-<section class="container">
-    <h1 class="mt-5">@ViewData["Title"]</h1>
-    <p class="text-center">Klicka på bokstäverna</p>
+
+<section class="container mb-5">
+    <h1 class="mt-5 mb-5">@ViewData["Title"]</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <img class="img-fluid" src="/img/tfsu-abcs.webp" alt="Klicka på djuren" />
+        </div>
+        <div class="col-md-5 pt-3 pt-md-0">
+            <p>
+                Välkommen till vår interaktiva övning där du får lära dig det tyska alfabetet och dess korrekta uttal. I denna sektion visas alla bokstäver, var och en med ett medföljande ljudklipp som demonstrerar hur bokstaven ska uttalas.
+            </p>
+            <p>
+                Syftet med övningen är att ge dig en grundlig introduktion till de tyska bokstäverna och hjälpa dig att känna igen och memorera deras uttal. Ta dig tid att observera varje bokstav och lyssna noggrant på ljudklippet. Upprepa gärna bokstäverna högt för att stärka ditt uttal.
+            </p>
+            <p>
+                Övningen är utformad för att vara både lärorik och engagerande. Genom att kombinera visuell och auditiv inlärning får du en bättre förståelse för alfabetets struktur och uttal, vilket är en viktig del i att bemästra språket.
+            </p>
+            <p>
+                Vi rekommenderar att du övar regelbundet, kanske genom att stänga av ljudet och försöka minnas hur varje bokstav låter. På så sätt förbättrar du inte bara din uttalsförmåga utan även din förmåga att snabbt känna igen och använda bokstäverna i praktiska sammanhang.
+            </p>
+        </div>
+    </div>
+    </section>
+    <section class="container secondary-bg pb-5 pt-5">
+    <h2>Klicka på en bokstav för att lyssna på uttalet</h2>
     <div class="row g-5 mt-5 justify-content-center">
-        <div class="col-3 col-md-1 alfabet pt-4" onclick="playSound('a')" aria-label="A, klicka för att lyssna på tyskt uttal">
-            <p class="text-center">A a</p>
-            <audio id="a" src="~/audio/A.mp3" preload="auto"></audio>
+    @foreach (var letter in Model)
+    {
+        <div class="col-3 alfabet pt-4" onclick="playSound('@letter.Name')" aria-label="@letter.Name , klicka för att lyssna på tyskt uttal">
+            <p class="text-center display-4">@letter.Name</p>
+            <audio id="@letter.Name" src="@letter.AudioUrl" preload="auto"></audio>
         </div>
-        <div class="col-3 col-md-1 alfabet pt-4" onclick="playSound('b')" aria-label="B, klicka för att lyssna på tyskt uttal">
-            <p class="text-center">B b</p>
-            <audio id="b" src="~/audio/B.mp3" preload="auto"></audio>
-        </div>
-        <div class="col-3 col-md-1 alfabet pt-4" onclick="playSound('c')" aria-label="C, klicka för att lyssna på tyskt uttal">
-            <p class="text-center">C c</p>
-            <audio id="c" src="~/audio/C.mp3" preload="auto"></audio>
-        </div>
-        <div class="col-3 col-md-1 alfabet pt-4" onclick="playSound('d')" aria-label="D, klicka för att lyssna på tyskt uttal">
-            <p class="text-center">D d</p>
-            <audio id="d" src="~/audio/D.mp3" preload="auto"></audio>
-        </div>
-        <div class="col-3 col-md-1 alfabet pt-4" onclick="playSound('e')" aria-label="E, klicka för att lyssna på tyskt uttal">
-            <p class="text-center">E e</p>
-            <audio id="e" src="~/audio/E.mp3" preload="auto"></audio>
-        </div>
-        <div class="col-3 col-md-1 alfabet pt-4" onclick="playSound('f')" aria-label="F, klicka för att lyssna på tyskt uttal">
-            <p class="text-center">F f</p>
-            <audio id="f" src="~/audio/F.mp3" preload="auto"></audio>
-        </div>
-        <div class="col-3 col-md-1 alfabet pt-4" onclick="playSound('g')" aria-label="G, klicka för att lyssna på tyskt uttal">
-            <p class="text-center">G g</p>
-            <audio id="g" src="~/audio/G.mp3" preload="auto"></audio>
-        </div>
-        <div class="col-3 col-md-1 alfabet pt-4" onclick="playSound('h')" aria-label="H, klicka för att lyssna på tyskt uttal">
-            <p class="text-center">H h</p>
-            <audio id="h" src="~/audio/H.mp3" preload="auto"></audio>
-        </div>
-        <div class="col-3 col-md-1 alfabet pt-4" onclick="playSound('i')" aria-label="I, klicka för att lyssna på tyskt uttal">
-            <p class="text-center">I i</p>
-            <audio id="i" src="~/audio/I.mp3" preload="auto"></audio>
-        </div>
-        <div class="col-3 col-md-1 alfabet pt-4" onclick="playSound('j')" aria-label="J, klicka för att lyssna på tyskt uttal">
-            <p class="text-center">J j</p>
-            <audio id="j" src="~/audio/J.mp3" preload="auto"></audio>
-        </div>
-        <div class="col-3 col-md-1 alfabet pt-4" onclick="playSound('k')" aria-label="K, klicka för att lyssna på tyskt uttal">
-            <p class="text-center">K k</p>
-            <audio id="k" src="~/audio/K.mp3" preload="auto"></audio>
-        </div>
-        <div class="col-3 col-md-1 alfabet pt-4" onclick="playSound('l')" aria-label="L, klicka för att lyssna på tyskt uttal">
-            <p class="text-center">L l</p>
-            <audio id="l" src="~/audio/L.mp3" preload="auto"></audio>
-        </div>
-        <div class="col-3 col-md-1 alfabet pt-4" onclick="playSound('m')" aria-label="M, klicka för att lyssna på tyskt uttal">
-            <p class="text-center">M m</p>
-            <audio id="m" src="~/audio/M.mp3" preload="auto"></audio>
-        </div>
-        <!-- Bokstaven N -->
-        <div class="col-3 col-md-1 alfabet pt-4" onclick="playSound('n')" aria-label="N, klicka för att lyssna på tyskt uttal">
-            <p class="text-center">N n</p>
-            <audio id="n" src="~/audio/N.mp3" preload="auto"></audio>
-        </div>
-        <!-- Bokstaven O -->
-        <div class="col-3 col-md-1 alfabet pt-4" onclick="playSound('o')" aria-label="O, klicka för att lyssna på tyskt uttal">
-            <p class="text-center">O o</p>
-            <audio id="o" src="~/audio/O.mp3" preload="auto"></audio>
-        </div>
-        <!-- Bokstaven P -->
-        <div class="col-3 col-md-1 alfabet pt-4" onclick="playSound('p')" aria-label="P, klicka för att lyssna på tyskt uttal">
-            <p class="text-center">P p</p>
-            <audio id="p" src="~/audio/P.mp3" preload="auto"></audio>
-        </div>
-        <!-- Bokstaven Q -->
-        <div class="col-3 col-md-1 alfabet pt-4" onclick="playSound('q')" aria-label="Q, klicka för att lyssna på tyskt uttal">
-            <p class="text-center">Q q</p>
-            <audio id="q" src="~/audio/Q.mp3" preload="auto"></audio>
-        </div>
-        <!-- Bokstaven R -->
-        <div class="col-3 col-md-1 alfabet pt-4" onclick="playSound('r')" aria-label="R, klicka för att lyssna på tyskt uttal">
-            <p class="text-center">R r</p>
-            <audio id="r" src="~/audio/R.mp3" preload="auto"></audio>
-        </div>
-        <!-- Bokstaven S -->
-        <div class="col-3 col-md-1 alfabet pt-4" onclick="playSound('s')" aria-label="S, klicka för att lyssna på tyskt uttal">
-            <p class="text-center">S s</p>
-            <audio id="s" src="~/audio/S.mp3" preload="auto"></audio>
-        </div>
-        <!-- Bokstaven T -->
-        <div class="col-3 col-md-1 alfabet pt-4" onclick="playSound('t')" aria-label="T, klicka för att lyssna på tyskt uttal">
-            <p class="text-center">T t</p>
-            <audio id="t" src="~/audio/T.mp3" preload="auto"></audio>
-        </div>
-        <!-- Bokstaven U -->
-        <div class="col-3 col-md-1 alfabet pt-4" onclick="playSound('u')" aria-label="U, klicka för att lyssna på tyskt uttal">
-            <p class="text-center">U u</p>
-            <audio id="u" src="~/audio/U.mp3" preload="auto"></audio>
-        </div>
-        <!-- Bokstaven V -->
-        <div class="col-3 col-md-1 alfabet pt-4" onclick="playSound('v')" aria-label="V, klicka för att lyssna på tyskt uttal">
-            <p class="text-center">V v</p>
-            <audio id="v" src="~/audio/V.mp3" preload="auto"></audio>
-        </div>
-        <!-- Bokstaven W -->
-        <div class="col-3 col-md-1 alfabet pt-4" onclick="playSound('w')" aria-label="W, klicka för att lyssna på tyskt uttal">
-            <p class="text-center">W w</p>
-            <audio id="w" src="~/audio/W.mp3" preload="auto"></audio>
-        </div>
-        <!-- Bokstaven X -->
-        <div class="col-3 col-md-1 alfabet pt-4" onclick="playSound('x')" aria-label="X, klicka för att lyssna på tyskt uttal">
-            <p class="text-center">X x</p>
-            <audio id="x" src="~/audio/X.mp3" preload="auto"></audio>
-        </div>
-        <!-- Bokstaven Y -->
-        <div class="col-3 col-md-1 alfabet pt-4" onclick="playSound('y')" aria-label="Y, klicka för att lyssna på tyskt uttal">
-            <p class="text-center">Y y</p>
-            <audio id="y" src="~/audio/Y.mp3" preload="auto"></audio>
-        </div>
-        <!-- Bokstaven Z -->
-        <div class="col-3 col-md-1 alfabet pt-4" onclick="playSound('z')" aria-label="Z, klicka för att lyssna på tyskt uttal">
-            <p class="text-center">Z z</p>
-            <audio id="z" src="~/audio/Z.mp3" preload="auto"></audio>
-        </div>
-        <!-- Bokstaven Ä -->
-        <div class="col-3 col-md-1 alfabet pt-4" onclick="playSound('ä')" aria-label="Ä, klicka för att lyssna på tyskt uttal">
-            <p class="text-center">Ä ä</p>
-            <audio id="ä" src="~/audio/Ä.mp3" preload="auto"></audio>
-        </div>
-        <!-- Bokstaven Ö -->
-        <div class="col-3 col-md-1 alfabet pt-4" onclick="playSound('ö')" aria-label="Ö, klicka för att lyssna på tyskt uttal">
-            <p class="text-center">Ö ö</p>
-            <audio id="ö" src="~/audio/Ö.mp3" preload="auto"></audio>
-        </div>
-        <!-- Bokstaven Ü -->
-        <div class="col-3 col-md-1 alfabet pt-4" onclick="playSound('ü')" aria-label="Ü, klicka för att lyssna på tyskt uttal">
-            <p class="text-center">Ü ü</p>
-            <audio id="ü" src="~/audio/Ü.mp3" preload="auto"></audio>
-        </div>
-        <!-- Bokstaven ß -->
-        <div class="col-3 col-md-1 alfabet pt-4" onclick="playSound('ß')" aria-label="ß, klicka för att lyssna på tyskt uttal">
-            <p class="text-center">ß</p>
-            <audio id="ß" src="~/audio/ß.mp3" preload="auto"></audio>
-        </div>
+    }
     </div>
 </section>
 <script>

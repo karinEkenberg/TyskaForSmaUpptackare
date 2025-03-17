@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TyskaForSmaUpptackare.Data;
 
@@ -11,9 +12,11 @@ using TyskaForSmaUpptackare.Data;
 namespace TyskaForSmaUpptackare.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250317095331_AddFreeContentToDbs")]
+    partial class AddFreeContentToDbs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -389,6 +392,27 @@ namespace TyskaForSmaUpptackare.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("NumbersTens");
+                });
+
+            modelBuilder.Entity("TyskaForSmaUpptackare.Models.NumbersTenEleven", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AudioUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("NumbersTenElevens");
                 });
 
             modelBuilder.Entity("TyskaForSmaUpptackare.Models.Order", b =>

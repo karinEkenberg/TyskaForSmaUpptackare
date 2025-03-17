@@ -1,5 +1,49 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<TyskaForSmaUpptackare.Models.NumberOneTwo>
 @{
+    ViewData["Title"] = "Lär dig siffrorna med tyskt uttal";
 }
+
+<section class="container mb-5">
+    <h1 class="mt-5 mb-5">@ViewData["Title"]</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+
+            <img class="img-fluid" src="/img/tfsu-onetwos.webp" alt="Klicka på djuren" />
+        </div>
+        <div class="col-md-5 pt-3">
+            <p>
+                Välkommen till vår interaktiva övning där du får lära dig hur siffrorna uttalas på tyska. Även om de skrivs likadant på svenska och tyska, är uttalet ofta annorlunda. Här får du både se siffrorna och höra deras tyska uttal.
+            </p>
+            <p>
+                Syftet med övningen är att ge dig en tydlig känsla för de tyska uttalen. Ta dig tid att lyssna noggrant på varje ljudklipp och repetera siffrorna högt, så att du kan befästa ditt lärande.
+            </p>
+            <p>
+                Genom att kombinera visuell och auditiv inlärning hoppas vi att du snabbt ska vänja dig vid hur de tyska siffrorna låter. Övningen är utformad för att vara både rolig och pedagogisk – öva gärna regelbundet och se hur ditt uttal utvecklas.
+            </p>
+            <p>
+                Prova att lyssna utan att titta på siffrorna och försök minnas hur de låter. Med tiden kommer du att känna dig trygg med att använda dessa siffror i vardagliga sammanhang.
+            </p>
+        </div>
+    </div>
+    </section>
+    <section class="container secondary-bg pb-5 pt-5">
+    <h2>Klicka på en siffra för att lyssna på uttalet</h2>
+    <div class="row g-5 mt-5 justify-content-center">
+        @foreach (var number in Model)
+        {
+            <div class="col-3 alfabet pt-4" onclick="playSound('@number.Name')" aria-label="@number.Name , klicka för att lyssna på tyskt uttal">
+                <p class="text-center display-4">@number.Name</p>
+                <audio id="@number.Name" src="@number.AudioUrl" preload="auto"></audio>
+            </div>
+        }
+    </div>
+</section>
+<script>
+    function playSound(id) {
+        const audio = document.getElementById(id);
+        if (audio) {
+            audio.currentTime = 0;
+            audio.play();
+        }
+    }
+</script>
