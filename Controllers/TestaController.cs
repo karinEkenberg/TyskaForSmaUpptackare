@@ -31,7 +31,8 @@ namespace TyskaForSmaUpptackare.Controllers
 
         public IActionResult EttTvaTre()
         {
-            return View();
+            var numbers = _context.NumberOneTwos.ToList();
+            return View(numbers);
         }
 
         public IActionResult Tiotal()
