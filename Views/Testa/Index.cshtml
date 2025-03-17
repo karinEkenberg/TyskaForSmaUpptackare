@@ -1,5 +1,72 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Testa gratis";
 }
+
+<section class="container mb-5">
+    <h1 class="mt-5 mb-5">@ViewData["Title"]</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <img class="img-fluid" src="/img/tfsu-abcs.webp" alt="Klicka på djuren" />
+        </div>
+        <div class="col-md-5 pt-3 pt-md-0">
+            <p>
+                Välkommen till vår interaktiva övning där du får lära dig det tyska alfabetet och dess korrekta uttal. I denna sektion visas alla bokstäver, var och en med ett medföljande ljudklipp som demonstrerar hur bokstaven ska uttalas.
+            </p>
+            <p>
+                Syftet med övningen är att ge dig en grundlig introduktion till de tyska bokstäverna och hjälpa dig att känna igen och memorera deras uttal. Ta dig tid att observera varje bokstav och lyssna noggrant på ljudklippet. Upprepa gärna bokstäverna högt för att stärka ditt uttal.
+            </p>
+            <p>
+                Övningen är utformad för att vara både lärorik och engagerande. Genom att kombinera visuell och auditiv inlärning får du en bättre förståelse för alfabetets struktur och uttal, vilket är en viktig del i att bemästra språket.
+            </p>
+            <p>
+                Vi rekommenderar att du övar regelbundet, kanske genom att stänga av ljudet och försöka minnas hur varje bokstav låter. På så sätt förbättrar du inte bara din uttalsförmåga utan även din förmåga att snabbt känna igen och använda bokstäverna i praktiska sammanhang.
+            </p>
+        </div>
+    </div>
+</section>
+<section class="container-lg secondary-bg p-5">
+    <h2 class="pb-3">Testa produkter gratis</h2>
+    <div class="row">
+            <div class="col-md-4 mb-4">
+                <div>
+                <a aria-label="Navigera till 1 2 3" asp-area="" asp-controller="Testa" asp-action="EttTvaTre"><img src="~/img/tfsu-onetwos.webp" class="card-img-top" alt="Siffror ett två tre" /></a>                  
+                    <div>
+                        <h5 class="text-center">Siffror 1 2 3</h5>
+                    </div>
+                </div>
+            </div>
+
+        <div class="col-md-4 mb-4">
+            <div>
+                <a aria-label="Navigera till 10 20 30" asp-area="" asp-controller="Testa" asp-action="Tiotal"><img src="~/img/tfsu-onetwos.webp" class="card-img-top" alt="Siffror tiotal" /></a>
+                <div>
+                    <h5 class="text-center">Siffror tiotal</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div>
+                <a aria-label="Navigera till 100 200 300" asp-area="" asp-controller="Testa" asp-action="Hundratal"><img src="~/img/tfsu-onetwos.webp" class="card-img-top" alt="Siffror hundratal" /></a>
+                <div>
+                    <h5 class="text-center">Siffror hundratal</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div>
+                <a aria-label="Navigera till abc" asp-area="" asp-controller="Testa" asp-action="Abc"><img src="~/img/tfsu-abcs.webp" class="card-img-top" alt="Lär dig abc" /></a>
+                <div>
+                    <h5 class="text-center">Lär dig abc</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div>
+                <a aria-label="Navigera till djur" asp-area="" asp-controller="Testa" asp-action="Djur"><img src="~/img/tfsu-djurgrid.webp" class="card-img-top" alt="Djur" /></a>
+                <div>
+                    <h5 class="text-center">Djuren och deras ljud</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
