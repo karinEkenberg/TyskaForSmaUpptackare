@@ -4,7 +4,7 @@
 }
 
 <section class="container mb-5">
-    <h1 class="mt-5">@ViewData["Title"]</h1>
+    <h1 class="mt-5 mb-5">@ViewData["Title"]</h1>
     <div class="row justify-content-center">
         <div class="col-md-5">
             <img class="img-fluid" src="/img/tfsu-abcs.webp" alt="Klicka på djuren" />
@@ -25,13 +25,13 @@
         </div>
     </div>
     </section>
-    <section class="container">
+    <section class="container secondary-bg pb-5 pt-5">
     <h2>Klicka på en bokstav för att lyssna på uttalet</h2>
     <div class="row g-5 mt-5 justify-content-center">
     @foreach (var letter in Model)
     {
-        <div class="col-3 col-md-1 alfabet pt-4" onclick="playSound('@letter.Name')" aria-label="@letter.Name , klicka för att lyssna på tyskt uttal">
-            <p class="text-center">@letter.Name</p>
+        <div class="col-3 alfabet pt-4" onclick="playSound('@letter.Name')" aria-label="@letter.Name , klicka för att lyssna på tyskt uttal">
+            <p class="text-center display-4">@letter.Name</p>
             <audio id="@letter.Name" src="@letter.AudioUrl" preload="auto"></audio>
         </div>
     }

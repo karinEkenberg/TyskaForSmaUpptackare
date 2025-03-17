@@ -4,13 +4,13 @@
 }
 
 <section class="container mb-5">
-    <h1 class="mt-5">@ViewData["Title"]</h1>
+    <h1 class="mt-5 mb-5">@ViewData["Title"]</h1>
     <div class="row justify-content-center">
         <div class="col-md-5">
 
             <img class="img-fluid" src="/img/tfsu-djurgrid.webp" alt="Klicka på djuren" />
         </div>
-        <div class="col-md-5">
+        <div class="col-md-5 pt-4">
             <p>
                 Välkommen till vår interaktiva övning där du får lära dig hur man stavar och uttalar olika djur på tyska. I denna sektion visas en rad bilder på olika djur tillsammans med deras tyska namn. Genom att klicka på varje djur aktiveras ett ljudklipp med korrekt uttal, vilket ger dig möjlighet att både se och höra hur ordet ska låta.
             </p>
@@ -26,7 +26,8 @@
 
         </div>
     </div>
-    <div class="row g-5 mt-5 secondary-bg justify-content-center">
+    <section class="row g-5 mt-5 pb-5 secondary-bg justify-content-center">
+        <h2 class="pt-5 pb-5">Klicka på djuren för att höra uttal</h2>
     @foreach (var animal in Model)
     {
         <div class="col-3 col-md-3 col-md-1 alfabet pt-4" aria-label="@animal.Name , klicka för att lyssna på tyskt uttal">
@@ -35,7 +36,7 @@
             <audio id="@animal.Name" src="@animal.AudioUrl" preload="auto"></audio>
         </div>
     }
-    </div>
+    </section>
 </section>
 <script>
     function playSound(id) {

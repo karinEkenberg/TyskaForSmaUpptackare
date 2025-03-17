@@ -4,35 +4,35 @@
 }
 
 <section class="container mb-5">
-    <h1 class="mt-5">@ViewData["Title"]</h1>
+    <h1 class="mt-5 mb-5">@ViewData["Title"]</h1>
     <div class="row justify-content-center">
         <div class="col-md-5">
 
-            <img class="img-fluid" src="/img/tfsu-djurgrid.webp" alt="Klicka på djuren" />
+            <img class="img-fluid" src="/img/tfsu-onetwos.webp" alt="Klicka på djuren" />
         </div>
         <div class="col-md-5">
             <p>
-                Välkommen till vår interaktiva övning där du får lära dig hur man stavar och uttalar olika djur på tyska. I denna sektion visas en rad bilder på olika djur tillsammans med deras tyska namn. Genom att klicka på varje djur aktiveras ett ljudklipp med korrekt uttal, vilket ger dig möjlighet att både se och höra hur ordet ska låta.
+                Välkommen till vår interaktiva övning där du får lära dig hur siffrorna uttalas på tyska. Även om de skrivs likadant på svenska och tyska, är uttalet ofta annorlunda. Här får du både se siffrorna och höra deras tyska uttal.
             </p>
             <p>
-                Syftet med övningen är att stärka din förmåga att känna igen och memorera tyska djurnamn, samt att öva på uttalet. Ta dig tid att noggrant observera varje bild och lyssna på ljudklippet. Upprepa gärna orden högt för att förbättra din egen uttalsförmåga.
+                Syftet med övningen är att ge dig en tydlig känsla för de tyska uttalen. Ta dig tid att lyssna noggrant på varje ljudklipp och repetera siffrorna högt, så att du kan befästa ditt lärande.
             </p>
             <p>
-                Övningen är utformad för att vara både lärorik och rolig. Ju mer du interagerar med materialet, desto snabbare kommer du att bygga upp ett bra ordförråd på tyska. Varje gång du klickar på ett djur, spelas ljudet upp från början så att du kan lyssna flera gånger tills du känner dig säker.
+                Genom att kombinera visuell och auditiv inlärning hoppas vi att du snabbt ska vänja dig vid hur de tyska siffrorna låter. Övningen är utformad för att vara både rolig och pedagogisk – öva gärna regelbundet och se hur ditt uttal utvecklas.
             </p>
             <p>
-                Vi rekommenderar att du övar regelbundet och kanske testar dig själv genom att stänga av ljudet och försöka komma ihåg hur de olika djurens namn uttalas. På så vis kan du aktivt förbättra både din stavning och uttal, och snart kommer du att känna dig mycket bekväm med att använda dessa ord i praktiken.
+                Prova att lyssna utan att titta på siffrorna och försök minnas hur de låter. Med tiden kommer du att känna dig trygg med att använda dessa siffror i vardagliga sammanhang.
             </p>
         </div>
     </div>
     </section>
-    <section>
-        <h2>Testa</h2>
+    <section class="container secondary-bg pb-5 pt-5">
+    <h2>Klicka på en siffra för att lyssna på uttalet</h2>
     <div class="row g-5 mt-5 justify-content-center">
         @foreach (var number in Model)
         {
-            <div class="col-3 col-md-1 alfabet pt-4" onclick="playSound('@number.Name')" aria-label="@number.Name , klicka för att lyssna på tyskt uttal">
-                <p class="text-center">@number.Name</p>
+            <div class="col-3 square alfabet pt-4" onclick="playSound('@number.Name')" aria-label="@number.Name , klicka för att lyssna på tyskt uttal">
+                <p class="text-center display-4">@number.Name</p>
                 <audio id="@number.Name" src="@number.AudioUrl" preload="auto"></audio>
             </div>
         }
