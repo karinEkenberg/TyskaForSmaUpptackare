@@ -1,5 +1,28 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<TyskaForSmaUpptackare.Models.Animal>
 @{
+    ViewData["Title"] = "Lär dig hur djur stavas och hur de låter";
 }
+
+<section class="container mb-5">
+    <h1 class="mt-5">@ViewData["Title"]</h1>
+    <p class="text-center">Klicka på djuren</p>
+    <div class="row g-5 mt-5 justify-content-center">
+    @foreach (var animal in Model)
+    {
+        <div class="col-3 col-md-1 alfabet pt-4" onclick="playSound('@animal.Name')" aria-label="@animal.Name , klicka för att lyssna på tyskt uttal">
+            <img src="@animal.ImageUrl" alt="@animal.Name" />
+            <p class="text-center">@animal.Name</p>
+            <audio id="@animal.Name" src="@animal.AudioUrl" preload="auto"></audio>
+        </div>
+    }
+    </div>
+</section>
+<script>
+    function playSound(id) {
+        const audio = document.getElementById(id);
+        if (audio) {
+            audio.currentTime = 0;
+            audio.play();
+        }
+    }
+</script>

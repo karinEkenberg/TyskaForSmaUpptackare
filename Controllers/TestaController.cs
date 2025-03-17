@@ -1,9 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TyskaForSmaUpptackare.Data;
 
 namespace TyskaForSmaUpptackare.Controllers
 {
     public class TestaController : Controller
     {
+        private readonly ApplicationDbContext _context;
+
+        public TestaController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -11,7 +19,8 @@ namespace TyskaForSmaUpptackare.Controllers
 
         public IActionResult Abc()
         {
-            return View();
+            var abcs = _context.Abcs.ToList();
+            return View(abcs);
         }
 
         public IActionResult Djur()
