@@ -1,16 +1,36 @@
 ﻿@model IEnumerable<TyskaForSmaUpptackare.Models.Animal>
 @{
-    ViewData["Title"] = "Lär dig hur djur stavas och hur de låter";
+    ViewData["Title"] = "Lär dig hur djur stavas";
 }
 
 <section class="container mb-5">
     <h1 class="mt-5">@ViewData["Title"]</h1>
-    <p class="text-center">Klicka på djuren</p>
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+
+            <img class="img-fluid" src="/img/tfsu-djurgrid.webp" alt="Klicka på djuren" />
+        </div>
+        <div class="col-md-5">
+            <p>
+    Välkommen till vår interaktiva övning där du får lära dig hur man stavar och uttalar olika djur på tyska. I denna sektion visas en rad bilder på olika djur tillsammans med deras tyska namn. Genom att klicka på varje djur aktiveras ett ljudklipp med korrekt uttal, vilket ger dig möjlighet att både se och höra hur ordet ska låta.
+</p>
+<p>
+    Syftet med övningen är att stärka din förmåga att känna igen och memorera tyska djurnamn, samt att öva på uttalet. Ta dig tid att noggrant observera varje bild och lyssna på ljudklippet. Upprepa gärna orden högt för att förbättra din egen uttalsförmåga.
+</p>
+<p>
+    Övningen är utformad för att vara både lärorik och rolig. Ju mer du interagerar med materialet, desto snabbare kommer du att bygga upp ett bra ordförråd på tyska. Varje gång du klickar på ett djur, spelas ljudet upp från början så att du kan lyssna flera gånger tills du känner dig säker.
+</p>
+<p>
+    Vi rekommenderar att du övar regelbundet och kanske testar dig själv genom att stänga av ljudet och försöka komma ihåg hur de olika djurens namn uttalas. På så vis kan du aktivt förbättra både din stavning och uttal, och snart kommer du att känna dig mycket bekväm med att använda dessa ord i praktiken.
+</p>
+
+        </div>
+    </div>
     <div class="row g-5 mt-5 justify-content-center">
     @foreach (var animal in Model)
     {
-        <div class="col-3 col-md-1 alfabet pt-4" onclick="playSound('@animal.Name')" aria-label="@animal.Name , klicka för att lyssna på tyskt uttal">
-            <img src="@animal.ImageUrl" alt="@animal.Name" />
+        <div class="col-3 col-md-3 col-md-1 alfabet pt-4" aria-label="@animal.Name , klicka för att lyssna på tyskt uttal">
+                <img src="@animal.ImageUrl" class="img-fluid" alt="@animal.Name" onclick="playSound('@animal.Name')" />
             <p class="text-center">@animal.Name</p>
             <audio id="@animal.Name" src="@animal.AudioUrl" preload="auto"></audio>
         </div>

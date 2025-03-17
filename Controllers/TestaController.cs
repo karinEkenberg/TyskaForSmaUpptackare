@@ -25,7 +25,8 @@ namespace TyskaForSmaUpptackare.Controllers
 
         public IActionResult Djur()
         {
-            return View();
+            var animals = _context.Animals.ToList();
+            return View(animals);
         }
 
         public IActionResult EttTvaTre()
