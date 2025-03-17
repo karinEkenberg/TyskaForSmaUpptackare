@@ -31,7 +31,7 @@
                             <a class="nav-link btn btn-primary text-black mx-1 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Testa
                             </a>
-                            <ul class="dropdown-menu">
+                            <ul class="dropdown-menu" style="background-color:var(--color-primary-blue);">
                                 <li><a class="dropdown-item" asp-area="" asp-controller="Testa" asp-action="Index">Testa gratis</a></li>
                                 <li><a class="dropdown-item" asp-area="" asp-controller="Testa" asp-action="Abc">Lär dig ABC</a></li>
                                 <li><a class="dropdown-item" asp-area="" asp-controller="Testa" asp-action="EttTvaTre">Räkna 1 2 3</a></li>
@@ -67,7 +67,7 @@
                             <a class="nav-link text-dark dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Testa
                             </a>
-                            <ul class="dropdown-menu">
+                            <ul class="dropdown-menu" style="background-color:var(--color-primary-blue);">
                                 <li><a class="dropdown-item" asp-area="" asp-controller="Testa" asp-action="Index">Testa gratis</a></li>
                                 <li><a class="dropdown-item" asp-area="" asp-controller="Testa" asp-action="Abc">Lär dig ABC</a></li>
                                 <li><a class="dropdown-item" asp-area="" asp-controller="Testa" asp-action="EttTvaTre">Räkna 1 2 3</a></li>
@@ -83,11 +83,11 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Kontakt" asp-action="Index">Kontakt</a>
                         </li>
                         @if (User.IsInRole("Administrators"))
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" href="@Url.Action("Orders", "Admin")">Adminpanel - Köp</a>
-                                </li>
-                            }
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="@Url.Action("Orders", "Admin")">Adminpanel - Köp</a>
+                            </li>
+                        }
 
                     </ul>
 
