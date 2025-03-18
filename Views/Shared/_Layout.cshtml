@@ -49,7 +49,7 @@
                         @if (User.IsInRole("Administrators"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link btn btn-primary text-black mx-1" href="@Url.Action("Orders", "Admin")">Adminpanel - Köp</a>
+                                <a class="nav-link btn btn-primary text-black mx-1" asp-area="" asp-controller="Admin" asp-action="Orders">Adminpanel - Köp</a>
                             </li>
                         }
 
@@ -64,7 +64,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Produkt" asp-action="Index">Lär dig tyska</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link text-dark dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a id="testa" class="nav-link text-dark dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Testa
                             </a>
                             <ul class="dropdown-menu" style="background-color:var(--color-primary-blue);">
@@ -92,12 +92,14 @@
                     </ul>
 
                     <!-- Login Partial and Cart -->
-                    <partial name="_LoginPartial" />
-                    <a class="navbar-brand" asp-area="" asp-controller="Kundvagn" asp-action="Index">
-                        <button>
-                            <img src="~/svg/shopping-cart-svgrepo-com.svg" alt="Kundvagn" style="height: 30px;" />
-                        </button>
-                    </a>
+                    <div class="d-flex flex-wrap align-items-center gap-2 gap-md-3">
+                        <partial name="_LoginPartial" />
+                        <a class="navbar-brand" asp-area="" asp-controller="Kundvagn" asp-action="Index">
+                            <button>
+                                <img src="~/svg/shopping-cart-svgrepo-com.svg" alt="Kundvagn" style="height: 30px;" />
+                            </button>
+                        </a>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -107,6 +109,8 @@
             @RenderBody()
         </main>
     </div>
+
+
 
     <footer class="border-top" style="margin-top: 60px; margin-bottom: 0;">
         <div class="container pt-5">
