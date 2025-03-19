@@ -16,10 +16,10 @@
             @foreach (var part in Model.Parts.Take(9))
             {
                 <div class="col-4">
-                    <div class="card">
+                    <div class="">
                         <img src="@part.ImageUrl" class="card-img-top" alt="@part.Name" style="cursor:pointer;"
                              onclick="playAudio('@part.AudioUrl')" />
-                        <div class="card-body text-center">
+                        <div class="card text-center">
                             <h5 class="card-title" style="cursor:pointer;" onclick="playAudio('@part.AudioUrl')">
                                 @part.Name
                             </h5>

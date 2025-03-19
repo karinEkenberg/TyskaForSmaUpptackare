@@ -18,7 +18,7 @@
                     <div class="card">
                         <img src="@room.ImageUrl" class="card-img-top" alt="@room.Name" style="cursor:pointer;"
                              onclick="location.href='@Url.Action("ExploreRoom", "Produkt", new { roomId = room.ItemId })'" />
-                        <div class="card-body text-center">
+                        <div class="text-center">
                             <h5 class="card-title" style="cursor:pointer;" onclick="playAudio('@room.AudioUrl')">
                                 @room.Name
                             </h5>

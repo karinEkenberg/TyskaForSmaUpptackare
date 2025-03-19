@@ -6,6 +6,14 @@
 }
 
 <h3>@ViewData["Title"]</h3>
+@if (User.IsInRole("Customer"))
+{
+    <p>Du är inloggad som Customer.</p>
+}
+else
+{
+    <p>Du är inte inloggad som Customer.</p>
+}
 <partial name="_StatusMessage" for="StatusMessage" />
 <div class="row">
     <div class="col-md-6">

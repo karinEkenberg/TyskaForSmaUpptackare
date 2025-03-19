@@ -209,7 +209,7 @@ namespace TyskaForSmaUpptackare.Controllers
 
  
 
-        [Authorize(Roles = "Administrators, Customers")]
+        [Authorize(Roles = "Administrators, Customers, Customer")]
         public async Task<IActionResult> Explore(int id)
         {
             var product = await _context.Products
@@ -243,6 +243,8 @@ namespace TyskaForSmaUpptackare.Controllers
             return View(product);
         }
 
+
+        [Authorize(Roles = "Administrators, Customers, Customer")]
         public async Task<IActionResult> ExploreRoom(int roomId)
         {
             var room = await _context.ProductItems
