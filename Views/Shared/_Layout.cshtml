@@ -10,28 +10,23 @@
     <link rel="stylesheet" href="~/TyskaForSmaUpptackare.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header class="sticky-top">
-        <nav class="navbar navbar-expand-lg navbar-toggleable-sm border-bottom box-shadow">
+    <header class="sticky-top d-none d-lg-flex w-100">
+        <nav class="navbar navbar-expand-lg navbar-light border-bottom box-shadow w-100">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Hem" asp-action="Index">TFSU</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#desktopNavbar"
+                        aria-controls="desktopNavbar" aria-expanded="false" aria-label="Toggle navigation">
                     <img src="~/svg/burger1-svgrepo-com.svg" alt="Mobil navigation" style="height: 30px;" />
                 </button>
-                <div class="navbar-collapse collapse justify-content-between">
-                    <!-- Desktop Menu -->
-                    <ul class="navbar-nav flex-grow-1 justify-content-center gap-3 d-none d-md-none d-lg-flex">
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-primary text-black mx-1" asp-area="" asp-controller="Hem" asp-action="Index">Hem</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-primary text-black mx-1" asp-area="" asp-controller="Produkt" asp-action="Index">Lär dig tyska</a>
-                        </li>
+                <div class="collapse navbar-collapse justify-content-between" id="desktopNavbar">
+                    <ul class="navbar-nav flex-grow-1 justify-content-center gap-3">
+                        <li class="nav-item"><a class="nav-link btn btn-primary text-black mx-1" asp-area="" asp-controller="Hem" asp-action="Index">Hem</a></li>
+                        <li class="nav-item"><a class="nav-link btn btn-primary text-black mx-1" asp-area="" asp-controller="Produkt" asp-action="Index">Lär dig tyska</a></li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link btn btn-primary text-black mx-1 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link btn btn-primary text-black mx-1 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                                 Testa
                             </a>
-                            <ul class="dropdown-menu" style="background-color:var(--color-primary-blue);">
+                            <ul class="dropdown-menu" style="background-color: var(--color-primary-blue);">
                                 <li><a class="dropdown-item" asp-area="" asp-controller="Testa" asp-action="Index">Testa gratis</a></li>
                                 <li><a class="dropdown-item" asp-area="" asp-controller="Testa" asp-action="Abc">Lär dig ABC</a></li>
                                 <li><a class="dropdown-item" asp-area="" asp-controller="Testa" asp-action="EttTvaTre">Räkna 1 2 3</a></li>
@@ -40,59 +35,16 @@
                                 <li><a class="dropdown-item" asp-area="" asp-controller="Testa" asp-action="Djur">Lär dig djuren</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-primary text-black mx-1" asp-area="" asp-controller="OmOss" asp-action="Index">Om Oss</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-primary text-black mx-1" asp-area="" asp-controller="Kontakt" asp-action="Index">Kontakt</a>
-                        </li>
+                        <li class="nav-item"><a class="nav-link btn btn-primary text-black mx-1" asp-area="" asp-controller="OmOss" asp-action="Index">Om Oss</a></li>
+                        <li class="nav-item"><a class="nav-link btn btn-primary text-black mx-1" asp-area="" asp-controller="Kontakt" asp-action="Index">Kontakt</a></li>
                         @if (User.IsInRole("Administrators"))
                         {
                             <li class="nav-item">
                                 <a class="nav-link btn btn-primary text-black mx-1" asp-area="" asp-controller="Admin" asp-action="Orders">Adminpanel - Köp</a>
                             </li>
                         }
-
                     </ul>
-
-                    <!-- Mobile Menu -->
-                    <ul class="navbar-nav flex-grow-1 justify-content-center gap-3 d-lg-none">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Hem" asp-action="Index">Hem</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Produkt" asp-action="Index">Lär dig tyska</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a id="testa" class="nav-link text-dark dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Testa
-                            </a>
-                            <ul class="dropdown-menu" style="background-color:var(--color-primary-blue);">
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Testa" asp-action="Index">Testa gratis</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Testa" asp-action="Abc">Lär dig ABC</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Testa" asp-action="EttTvaTre">Räkna 1 2 3</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Testa" asp-action="Tiotal">Räkna 10 20 30</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Testa" asp-action="Hundratal">Räkna 100 200 300</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Testa" asp-action="Djur">Lär dig djuren</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="OmOss" asp-action="Index">Om Oss</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Kontakt" asp-action="Index">Kontakt</a>
-                        </li>
-                        @if (User.IsInRole("Administrators"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" href="@Url.Action("Orders", "Admin")">Adminpanel - Köp</a>
-                            </li>
-                        }
-
-                    </ul>
-
-                    <!-- Login Partial and Cart -->
-                    <div class="d-flex flex-wrap align-items-center gap-2 gap-md-3">
+                    <div class="d-flex align-items-center gap-2">
                         <partial name="_LoginPartial" />
                         <a class="navbar-brand" asp-area="" asp-controller="Kundvagn" asp-action="Index">
                             <button>
@@ -104,6 +56,68 @@
             </div>
         </nav>
     </header>
+
+    @if (ViewData["HideNavbar"] == null || !(bool)ViewData["HideNavbar"])
+    {
+        <header class="sticky-top d-lg-none w-100">
+            <nav class="navbar navbar-expand-lg navbar-toggleable-sm border-bottom box-shadow">
+                <div class="container-fluid">
+                    <a class="navbar-brand" asp-area="" asp-controller="Hem" asp-action="Index">TFSU</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                        <img src="~/svg/burger1-svgrepo-com.svg" alt="Mobil navigation" style="height: 30px;" />
+                    </button>
+                    <div class="navbar-collapse collapse justify-content-between">
+               
+                        <!-- Mobile Menu -->
+                        <ul class="navbar-nav flex-grow-1 justify-content-center gap-3 ">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Hem" asp-action="Index">Hem</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Produkt" asp-action="Index">Lär dig tyska</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a id="testa" class="nav-link text-dark dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Testa
+                                </a>
+                                <ul class="dropdown-menu" style="background-color:var(--color-primary-blue);">
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Testa" asp-action="Index">Testa gratis</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Testa" asp-action="Abc">Lär dig ABC</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Testa" asp-action="EttTvaTre">Räkna 1 2 3</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Testa" asp-action="Tiotal">Räkna 10 20 30</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Testa" asp-action="Hundratal">Räkna 100 200 300</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Testa" asp-action="Djur">Lär dig djuren</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="OmOss" asp-action="Index">Om Oss</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Kontakt" asp-action="Index">Kontakt</a>
+                            </li>
+                            @if (User.IsInRole("Administrators"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" href="@Url.Action("Orders", "Admin")">Adminpanel - Köp</a>
+                                </li>
+                            }
+
+                        </ul>
+                        <!-- Login Partial and Cart -->
+                        <div class="d-flex flex-wrap align-items-center gap-2 gap-md-3">
+                            <partial name="_LoginPartial" />
+                            <a class="navbar-brand" asp-area="" asp-controller="Kundvagn" asp-action="Index">
+                                <button>
+                                    <img src="~/svg/shopping-cart-svgrepo-com.svg" alt="Kundvagn" style="height: 30px;" />
+                                </button>
+                            </a>
+                        </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    } 
     <div>
         <main role="main" class="container-fluid">
             @RenderBody()

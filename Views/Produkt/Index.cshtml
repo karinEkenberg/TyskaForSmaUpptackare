@@ -6,10 +6,12 @@
 }
 
 <div class="container">
-    <h1>@ViewData["Title"]</h1>
+    <h1 class="mt-5 mb-5">@ViewData["Title"]</h1>
     @if (User.IsInRole("Administrators"))
     {
-        <a href="@Url.Action("Create", "Produkt")" class="btn btn-primary">Lägg till</a>
+        <div class="mb-5">
+            <a href="@Url.Action("Create", "Produkt")" class="btn btn-primary">Lägg till</a>
+        </div>
     }
     @{
         var message = TempData["Message"];
@@ -42,7 +44,7 @@
                         @if (User.IsInRole("Administrators"))
                         {
                             <a href="@Url.Action("Edit", "Produkt", new { id = product.ProductId })" class="btn btn-primary me-2">Ändra</a>
-                            <a href="@Url.Action("Delete", "Produkt", new { id = product.ProductId})" class="btn btn-danger me-2">Ta bort</a>
+                            <a href="@Url.Action("Delete", "Produkt", new { id = product.ProductId})" class="btn btn-danger me-2 text-black" style="border: 2px black solid; border-radius: 7px;">Ta bort</a>
                         }
                     </div>
                 </div>
