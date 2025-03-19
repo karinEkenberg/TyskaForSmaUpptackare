@@ -16,6 +16,18 @@ namespace TyskaForSmaUpptackare.Controllers
             _context = context;
         }
 
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        [Route("lägg-till-bilder-och-ljud")]
+        public IActionResult AddImagesAndAudio()
+        {
+            return View();
+        }
+
+        [Route("kunders-kop")]
         public async Task<IActionResult> Orders()
         {
             var orders = await _context.Orders
