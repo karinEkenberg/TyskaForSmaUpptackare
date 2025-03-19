@@ -11,11 +11,17 @@
             <div class="row pb-5">
                 <div class="col-6">
                     <p>Tänk på att dina produkter läggs in som ett grid, ha det i åtanke av ordningen när du lägger in dem.</p>
+
+                    <p>Exempelvis om du lägger in ett hus så läggs först huset > rummet > saker.</p>
+
+                    <p>Varje hus kan ha max 9 "rum" och varje rum kan ha max 9 "saker".</p>
                 </div>
                 <div class="col-6">
                     <img src="~/img/tfsu-produktgrid.PNG" alt="Produkt grid" class="img-fluid" />
                 </div>
             </div>
+
+            <h3>Hus</h3>
             <form asp-action="Create" method="post">
                 <!-- Produktens egna fält -->
                 <div class="form-group">
@@ -45,15 +51,14 @@
                 </div>
 
                 <hr />
-                <h3>Rum</h3>
                 <div id="rooms-container">
                     <!-- Här renderas de dynamiskt tillagda rummen -->
                 </div>
-                <button type="button" id="add-room" class="btn btn-primary">Lägg till rum</button>
+                <button type="button" id="add-room" class="btn btn-primary">+</button>
 
                 <hr />
                 <!-- Gemensam submit-knapp för att spara allt -->
-                <input type="submit" value="Skapa" class="btn btn-success" />
+                <input type="submit" value="Skapa" class="btn btn-primary" />
             </form>
         </div>
     </div>
@@ -61,35 +66,37 @@
 
 <!-- Mall för rum -->
 <div id="room-template" style="display: none;">
-    <div class="room">
+    <div class="room ms-5">
+                <h3>Rum</h3>
         <div class="form-group">
             <label>Rumsnamn</label>
-            <input type="text" name="Items[{{roomIndex}}].Name" class="form-control" placeholder="Ange rumsnamn" />
+            <input type="text" name="Items[{{roomIndex}}].Name" class="form-control" placeholder="Ange rumsnamn" data-val="true" data-val-required="Rumsnamn är obligatoriskt." />
             <label>Bild</label>
             <input type="text" name="Items[{{roomIndex}}].ImageUrl" class="form-control" placeholder="Ange bildurl" />
             <label>Ljud</label>
             <input type="text" name="Items[{{roomIndex}}].AudioUrl" class="form-control" placeholder="Ange ljudurl" />
         </div>
-        <div class="items-container">
+        <div class="items-container mb-3">
             <!-- Här läggs dynamiskt saker (ProductPart) till -->
         </div>
-        <button type="button" class="btn btn-secondary add-part">Lägg till sak</button>
-        <button type="button" class="btn btn-danger remove-room">Ta bort rum</button>
+        <button type="button" class="btn btn-primary add-part">+</button>
+        <button type="button" class="btn btn-danger remove-room" style="border: 2px black solid; border-radius: 7px;">X</button>
     </div>
 </div>
 
 <!-- Mall för sak -->
 <div id="part-template" style="display: none;">
-    <div class="part">
+    <div class="part ms-5">
+        <h3>Sak</h3>
         <div class="form-group">
             <label>Saknamn</label>
-            <input type="text" name="Items[{{roomIndex}}].Parts[{{partIndex}}].Name" class="form-control" placeholder="Ange saknamn" />
+            <input type="text" name="Items[{{roomIndex}}].Parts[{{partIndex}}].Name" class="form-control" placeholder="Ange saknamn" data-val="true" data-val-required="Saknamn är obligatoriskt." />
             <label>Bild</label>
             <input type="text" name="Items[{{roomIndex}}].Parts[{{partIndex}}].ImageUrl" class="form-control" placeholder="Ange bildurl" />
             <label>Ljud</label>
             <input type="text" name="Items[{{roomIndex}}].Parts[{{partIndex}}].AudioUrl" class="form-control" placeholder="Ange ljudurl" />
         </div>
-        <button type="button" class="btn btn-danger remove-part">Ta bort sak</button>
+        <button type="button" class="btn btn-danger remove-part" style="border: 2px black solid; border-radius: 7px;">X</button>
     </div>
 </div>
 
@@ -108,6 +115,8 @@
         let div = document.createElement('div');
         div.innerHTML = template;
         container.appendChild(div);
+        // Re-parsa de nya fälten för validering
+        $.validator.unobtrusive.parse(div);
         roomCount++;
     });
 
@@ -128,9 +137,11 @@
             let partTemplate = document.getElementById('part-template').innerHTML;
             partTemplate = partTemplate.replace(/{{roomIndex}}/g, roomIndex)
                 .replace(/{{partIndex}}/g, partCount);
-            let div = document.createElement('div');
-            div.innerHTML = partTemplate;
-            itemsContainer.appendChild(div);
+            let newPart = document.createElement('div');
+            newPart.innerHTML = partTemplate;
+            itemsContainer.appendChild(newPart);
+            // Re-parsa den nya delen för validering
+            $.validator.unobtrusive.parse(newPart);
         }
         // Ta bort rum
         if (e.target && e.target.classList.contains('remove-room')) {
@@ -142,6 +153,7 @@
         }
     });
 </script>
+
 
 @section Scripts {
     @{
