@@ -23,6 +23,18 @@
     font-style: normal;
 }
 
+#testa {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+#admin {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+}
+
 .secondary-bg {
     background-color: var(--color-secondary-yellow);
 }

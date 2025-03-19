@@ -3,15 +3,18 @@
 @{
     ViewData["Title"] = "Utforska Produkt";
     var backgroundStyle = $"background-image: url('{Model.ImageUrl}'); background-size: cover; background-position: center;";
+    ViewData["HideNavbar"] = true;
 }
 <section class="container">
-    <h1>@Model.Name</h1>
     <div class="product-background" style="@backgroundStyle; min-height: 100vh; padding: 20px;">
-
-        <div class="row">
+        <a class="mt-5 pt-5" href="#" onclick="history.back(); return false;" style="text-decoration:none; color:inherit;">
+            <span><img src="~/svg/arrow-svgrepo-com.svg" alt="arrow" class="img-fluid" style="height: 50px; width:auto;" /></span>
+        </a>
+        <h1>@Model.Name</h1>
+        <div class="row g-3">
             @foreach (var room in Model.Items.Take(9))
             {
-                <div class="col-md-4 col-sm-6 mb-3">
+                <div class="col-4">
                     <div class="card">
                         <img src="@room.ImageUrl" class="card-img-top" alt="@room.Name" style="cursor:pointer;"
                              onclick="location.href='@Url.Action("ExploreRoom", "Produkt", new { roomId = room.ItemId })'" />

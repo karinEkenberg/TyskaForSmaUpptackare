@@ -6,10 +6,12 @@
 }
 
 <div class="container">
-    <h1>@ViewData["Title"]</h1>
+    <h1 class="mt-5 mb-5">@ViewData["Title"]</h1>
     @if (User.IsInRole("Administrators"))
     {
-        <a href="@Url.Action("Create", "Produkt")" class="btn btn-primary">Lägg till</a>
+        <div class="mb-5">
+            <a href="@Url.Action("Create", "Produkt")" class="btn btn-primary">Lägg till</a>
+        </div>
     }
     @{
         var message = TempData["Message"];
@@ -29,11 +31,17 @@
         {
             <div class="col-md-4 mb-4">
                 <div class="card">
+                    @if (User.IsInRole("Administrators"))
+                    {
+                        <div class="d-flex justify-content-end">
+                            <a href="@Url.Action("Delete", "Produkt", new { id = product.ProductId})" class="btn btn-danger me-2 text-black" style="border: 2px black solid; border-radius: 7px;">X</a>
+                        </div>
+                    }
                     @if (!string.IsNullOrEmpty(product.ImageUrl))
                     {
                         <img src="@product.ImageUrl" class="card-img-top" alt="@product.Name" />
                     }
-                    <div class="card-body">
+                    <div class="card-body">                  
                         <h5 class="card-title">@product.Name</h5>
                         <p class="card-text">@product.Description</p>
                         <p class="card-text"><strong>Pris:</strong> @product.Price.ToString("C")</p>
@@ -41,8 +49,7 @@
                         <a asp-controller="Produkt" asp-action="Explore" asp-route-id="@product.ProductId" class="btn btn-primary me-2">Upptäck</a>
                         @if (User.IsInRole("Administrators"))
                         {
-                            <a href="@Url.Action("Edit", "Produkt", new { id = product.ProductId })" class="btn btn-primary me-2">Ändra</a>
-                            <a href="@Url.Action("Delete", "Produkt", new { id = product.ProductId})" class="btn btn-danger me-2">Ta bort</a>
+                                <a href="@Url.Action("Edit", "Produkt", new { id = product.ProductId })" class="btn btn-primary me-2">Ändra</a>
                         }
                     </div>
                 </div>
