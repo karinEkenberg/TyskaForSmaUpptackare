@@ -1,5 +1,75 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+	ViewData["Title"] = "Ladda upp bild och ljud";
 }
+
+<section class="container">
+	<h1>@ViewData["Title"]</h1>
+	@if (TempData["ImageMessage"] != null)
+	{
+		<div>@TempData["ImageMessage"]</div>
+	}
+	@if (TempData["AudioMessage"] != null)
+	{
+		<div>@TempData["AudioMessage"]</div>
+	}
+	<section class="container-fluid">
+		<h2>Ladda upp bild</h2>
+		<form id="imageUploadForm" enctype="multipart/form-data">
+			<input type="file" name="imageFile" accept=".png,.webp" />
+			<br />
+			<input type="submit" value="Ladda upp bild" />
+		</form>
+	</section>
+	<section class="container-fluid">
+		<h2>Ladda upp Ljud</h2>
+		<form asp-action="UploadAudio" asp-controller="Admin" method="post" enctype="multipart/form-data">
+			<input type="file" name="audioFile" accept=".mp3" />
+			<br />
+			<input type="submit" value="Ladda upp ljud" />
+		</form>
+	</section>
+	<section class="container-fluid">
+		<h2>Lista över bilder</h2>
+		@if (ViewBag.Images == null || !((List<string>)ViewBag.Images).Any())
+		{
+			<p>Inga bilder hittades.</p>
+		}
+		else
+		{
+
+			<div class="d-flex flex-wrap">
+				@foreach (var image in (List<string>)ViewBag.Images)
+				{
+					<div class="m-2">
+						<img src="~/img/@image" alt="@image" style="max-height:100px;" />
+						<div>@image</div>
+					</div>
+				}
+			</div>
+		}
+	</section>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+	$("#imageUploadForm").submit(function (e) {
+		e.preventDefault(); // Förhindra standardformuläret
+		var formData = new FormData(this);
+
+		$.ajax({
+			url: '@Url.Action("UploadImage", "Admin")',
+			type: 'POST',
+			data: formData,
+			contentType: false,
+			processData: false,
+			success: function (response) {
+				// Efter en lyckad uppladdning, uppdatera bildlistan
+				// Anta att du har en action som returnerar partial view med bildlistan
+				$("#imageList").load('@Url.Action("GetImageList", "Admin")');
+			},
+			error: function (err) {
+				alert("Ett fel inträffade vid uppladdning.");
+			}
+		});
+	});
+</script>
