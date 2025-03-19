@@ -29,13 +29,15 @@ namespace TyskaForSmaUpptackare.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -43,6 +45,7 @@ namespace TyskaForSmaUpptackare.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _roleManager = roleManager;
         }
 
         /// <summary>
@@ -122,6 +125,14 @@ namespace TyskaForSmaUpptackare.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("Användaren skapade ett nytt konto med lösenord.");
 
+                    // Kontrollera att "Customer"-rollen finns, annars skapa den
+                    if (!await _roleManager.RoleExistsAsync("Customer"))
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole("Customer"));
+                    }
+                    // Lägg till användaren i "Customer"-rollen
+                    await _userManager.AddToRoleAsync(user, "Customer");
+
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
@@ -150,9 +161,10 @@ namespace TyskaForSmaUpptackare.Areas.Identity.Pages.Account
                 }
             }
 
-            // If we got this far, something failed, redisplay form
+            // Om något gick fel, rendera om sidan
             return Page();
         }
+
 
         private IdentityUser CreateUser()
         {
