@@ -5,33 +5,55 @@
     ViewData["Title"] = Model.Name;
 }
 
+<div class="container ">
+    <a class="pt-5" href="#" onclick="history.back(); return false;" style="text-decoration:none; color:inherit;">
+        <span><img src="~/svg/arrow-svgrepo-com.svg" alt="arrow" class="img-fluid mt-5" style="height: 50px; width:auto;" /></span>
+    </a>
+</div>
+<div class="container p-5">
 
+    <div class="row">
 
-<section class="container text-center p-5">
-    <h1>@ViewData["Title"]</h1>
-    @if(TempData["PurchaseMessage"] != null)
-    {
-        <div class="alert alert-danger">
-            @TempData["PurchaseMessage"]
+        <div class="col-md-6 col-lg-6">        
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <img src="@Model.ImageUrl" alt="@Model.Name" class="img-fluid" />
+                }@* 
+                @if (!string.IsNullOrEmpty(Model.AudioUrl))
+                {
+                    <audio controls src="@Model.AudioUrl" >Din webbläsare stödjer inte ljud</audio>
+                } *@
         </div>
-    }
-    <div>
-        <p>@Model.Description</p>
-        <p>Pris: @Model.Price.ToString("C")</p>
-        @if (!string.IsNullOrEmpty(Model.ImageUrl))
-        {
-            <img src="@Model.ImageUrl" alt="@Model.Name" class="img-fluid" />
-        }
-        @if (!string.IsNullOrEmpty(Model.AudioUrl))
-        {
-            <audio controls src="@Model.AudioUrl" >Din webbläsare stödjer inte ljud</audio>
-        }
+        <section class="col-md-6 col-lg-6">
+            <h1 class="mt-5">@ViewData["Title"]</h1>
+            @if (TempData["PurchaseMessage"] != null)
+            {
+                <div class="alert alert-danger">
+                    @TempData["PurchaseMessage"]
+                </div>
+            }
+            <p>@Model.Description</p>
+            <p>Pris: @Model.Price.ToString("C")</p>
+            <div class="pt-5 pb-5">
+                <h5>Hur använder jag produkten?</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>Denna produkt är interaktiv! Klicka på bilderna för att höra ljud. I vissa fall behöver du trycka direkt på bokstäverna för att ljudet ska spelas upp.</p>
+                        <p>Testa själv genom att utforska de olika elementen på skärmen!</p>
+                        <p>Navigera dig runt i olika miljöer och använd pilen tillbaka vid behov.</p>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="/img/tfsu-djurgrid.webp" class="img-fluid" alt="Klicka på djuren" />
+                    </div>
+                </div>
+            </div>
+
+            <form asp-controller="Kundvagn" asp-action="AddToCart" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="productId" value="@Model.ProductId" />
+                <input type="hidden" name="returnUrl" value="@Url.Action("Index", "Kundvagn")" />
+                <button type="submit" class="btn btn-primary">Lägg i varukorg</button>
+            </form>
+        </section>
     </div>
-    <button type="button" class="btn btn-primary" onclick="window.location.href='@Url.Action("Index", "Produkt")'">Tillbaka</button>
-    <form asp-controller="Kundvagn" asp-action="AddToCart" method="post">
-        @Html.AntiForgeryToken()
-        <input type="hidden" name="productId" value="@Model.ProductId" />
-        <input type="hidden" name="returnUrl" value="@Url.Action("Index", "Kundvagn")" />
-        <button type="submit" class="btn btn-primary">Lägg i varukorg</button>
-    </form>
-</section>
+</div>
