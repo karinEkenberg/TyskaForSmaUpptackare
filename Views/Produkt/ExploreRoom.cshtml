@@ -6,8 +6,8 @@
     ViewData["HideNavbar"] = true;
 }
 <section class="container">
-    <h1 class="mt-5">@Model.Name</h1>
-    <a class="mt-5 pt-5" href="#" onclick="history.back(); return false;" style="text-decoration:none; color:inherit;">
+    <h1 class="mt-5">Interaktiva objekt i @Model.Name</h1>
+    <a class="mt-5 pt-5" href="#" onclick="history.back(); return false;" style="text-decoration:none; color:inherit;" aria-label="Gå tillbaka till föregående sida">
         <span><img src="~/svg/arrow-svgrepo-com.svg" alt="arrow" class="img-fluid" style="height: 50px; width:auto;" /></span>
     </a>
     <div class="room-background" style="@backgroundStyle; min-height: 100vh; padding: 20px;">
@@ -18,13 +18,18 @@
                 <div class="col-4">
                     <div class="">
                         <img src="@part.ImageUrl" class="card-img-top" alt="@part.Name" style="cursor:pointer;"
-                             tabindex="0" 
+                             tabindex="0"
+                             aria-label="Spela upp ljud för @part.Name"
                              onkeydown="handleKeyPress(event, '@part.AudioUrl')"
                              onclick="playAudio('@part.AudioUrl')" />
                         <div class="card text-center">
-                            <h5 class="card-title" style="cursor:pointer;" onclick="playAudio('@part.AudioUrl')">
+                            <button class="btn btn-light"
+                                    onclick="playAudio('@part.AudioUrl')"
+                                    onkeydown="handleKeyPress(event, '@part.AudioUrl')"
+                                    aria-label="Spela upp ljud för @part.Name">
+                                <img src="~/svg/music-svgrepo-com.svg" alt="Spela upp" class="img-fluid" style="height: 20px;" />
                                 @part.Name
-                            </h5>
+                            </button>
                         </div>
                     </div>
                 </div>

@@ -6,7 +6,8 @@
     ViewData["HideNavbar"] = true;
 }
 <section class="container">
-    <h1 class="mt-5">@Model.Name</h1>        <a class="mt-5 pt-5 mb-5 pb-5" href="#" onclick="history.back(); return false;" style="text-decoration:none; color:inherit;">
+    <h1 class="mt-5">@Model.Name</h1>        
+    <a class="mt-5 pt-5 mb-5 pb-5" href="#" onclick="history.back(); return false;" style="text-decoration:none; color:inherit;" aria-label="Gå tillbaka till föregående sida">
         <span><img src="~/svg/arrow-svgrepo-com.svg" alt="arrow" class="img-fluid" style="height: 50px; width:auto;" /></span>
     </a>
     <div class="product-background" style="@backgroundStyle; min-height: 100vh; padding: 20px;">
@@ -17,12 +18,17 @@
                 <div class="col-4">
                     <div class="card">
                         <img src="@room.ImageUrl" class="card-img-top" alt="@room.Name" style="cursor:pointer;"
+                             tabindex="0"
+                             aria-label="Utforska @room.Name"
+                             onkeydown="handleKeyPress(event, '@room.AudioUrl')"
                              onclick="location.href='@Url.Action("ExploreRoom", "Produkt", new { roomId = room.ItemId })'" />
                         <div class="text-center d-flex gap-1 justify-content-center">
-                            <img src="~/svg/music-svgrepo-com.svg" alt="music note" class="img-fluid" style="height: 20px;"/>
-                            <h5 class="" style="cursor:pointer;" onclick="playAudio('@room.AudioUrl')">
-                                @room.Name
-                            </h5>
+                            <button class="btn btn-light" onclick="playAudio('@room.AudioUrl')"
+                                    onkeydown="handleKeyPress(event, '@room.AudioUrl')"
+                                    aria-label="Spela upp ljud för @room.Name">
+                                <img src="~/svg/music-svgrepo-com.svg" alt="music note" class="img-fluid" style="height: 20px;" />
+                                <span>@room.Name</span>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -38,6 +44,13 @@
             if (audioUrl && audioUrl.trim() !== "") {
                 var audio = new Audio(audioUrl);
                 audio.play();
+            }
+        }
+
+        function handleKeyPress(event, audioUrl) {
+            if (event.key === "Enter" || event.key === " ") {
+                playAudio(audioUrl);
+                event.preventDefault();
             }
         }
     </script>
