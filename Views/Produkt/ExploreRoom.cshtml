@@ -6,18 +6,20 @@
     ViewData["HideNavbar"] = true;
 }
 <section class="container">
- 
+    <h1 class="mt-5">@Model.Name</h1>
+    <a class="mt-5 pt-5" href="#" onclick="history.back(); return false;" style="text-decoration:none; color:inherit;">
+        <span><img src="~/svg/arrow-svgrepo-com.svg" alt="arrow" class="img-fluid" style="height: 50px; width:auto;" /></span>
+    </a>
     <div class="room-background" style="@backgroundStyle; min-height: 100vh; padding: 20px;">
-        <a class="mt-5 pt-5" href="#" onclick="history.back(); return false;" style="text-decoration:none; color:inherit;">
-            <span><img src="~/svg/arrow-svgrepo-com.svg" alt="arrow" class="img-fluid" style="height: 50px; width:auto;" /></span>
-        </a>
-        <h1>@Model.Name</h1>
+
         <div class="row g-3">
             @foreach (var part in Model.Parts.Take(9))
             {
                 <div class="col-4">
                     <div class="">
                         <img src="@part.ImageUrl" class="card-img-top" alt="@part.Name" style="cursor:pointer;"
+                             tabindex="0" 
+                             onkeydown="handleKeyPress(event, '@part.AudioUrl')"
                              onclick="playAudio('@part.AudioUrl')" />
                         <div class="card text-center">
                             <h5 class="card-title" style="cursor:pointer;" onclick="playAudio('@part.AudioUrl')">
@@ -34,11 +36,20 @@
 
 @section Scripts {
     <script>
-        function playAudio(audioUrl) {
-            if (audioUrl && audioUrl.trim() !== "") {
-                var audio = new Audio(audioUrl);
-                audio.play();
+            function playAudio(audioUrl) {
+                if (audioUrl && audioUrl.trim() !== "") {
+                    var audio = new Audio(audioUrl);
+                    audio.play();
+                }
+
+        
             }
-        }
+
+            function handleKeyPress(event, audioUrl) {
+                if (event.key === "Enter" || event.key === " ") {  
+                    playAudio(audioUrl);
+                    event.preventDefault();  
+                }
+            }
     </script>
 }

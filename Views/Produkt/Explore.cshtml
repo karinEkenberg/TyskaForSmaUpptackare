@@ -6,11 +6,11 @@
     ViewData["HideNavbar"] = true;
 }
 <section class="container">
+    <h1 class="mt-5">@Model.Name</h1>        <a class="mt-5 pt-5 mb-5 pb-5" href="#" onclick="history.back(); return false;" style="text-decoration:none; color:inherit;">
+        <span><img src="~/svg/arrow-svgrepo-com.svg" alt="arrow" class="img-fluid" style="height: 50px; width:auto;" /></span>
+    </a>
     <div class="product-background" style="@backgroundStyle; min-height: 100vh; padding: 20px;">
-        <a class="mt-5 pt-5" href="#" onclick="history.back(); return false;" style="text-decoration:none; color:inherit;">
-            <span><img src="~/svg/arrow-svgrepo-com.svg" alt="arrow" class="img-fluid" style="height: 50px; width:auto;" /></span>
-        </a>
-        <h1>@Model.Name</h1>
+
         <div class="row g-3">
             @foreach (var room in Model.Items.Take(9))
             {
@@ -18,8 +18,9 @@
                     <div class="card">
                         <img src="@room.ImageUrl" class="card-img-top" alt="@room.Name" style="cursor:pointer;"
                              onclick="location.href='@Url.Action("ExploreRoom", "Produkt", new { roomId = room.ItemId })'" />
-                        <div class="text-center">
-                            <h5 class="card-title" style="cursor:pointer;" onclick="playAudio('@room.AudioUrl')">
+                        <div class="text-center d-flex gap-1 justify-content-center">
+                            <img src="~/svg/music-svgrepo-com.svg" alt="music note" class="img-fluid" style="height: 20px;"/>
+                            <h5 class="" style="cursor:pointer;" onclick="playAudio('@room.AudioUrl')">
                                 @room.Name
                             </h5>
                         </div>
