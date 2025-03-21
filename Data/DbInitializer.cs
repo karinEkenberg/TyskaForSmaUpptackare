@@ -136,7 +136,7 @@ namespace TyskaForSmaUpptackare.Data
                     new Product
                     {
                         Name = "Huset",
-                        Description = "adas",
+                        Description = "Klicka dig runt och upptäck allt som finns i huset",
                         ImageUrl = "/img/tfsu-house.png",
                         Price = 444.00m,
                         AudioUrl = "/audio/Affe.mp3"
@@ -144,7 +144,7 @@ namespace TyskaForSmaUpptackare.Data
                     new Product
                     {
                         Name = "Huset",
-                        Description = "asdfasd",
+                        Description = "Klicka dig runt och upptäck allt som finns i huset",
                         ImageUrl = "/img/tfsu-house.png",
                         Price = 444.00m,
                         AudioUrl = "/audio/Affe.mp3"
