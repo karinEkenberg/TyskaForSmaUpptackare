@@ -42,6 +42,22 @@ namespace TyskaForSmaUpptackare.Controllers
                 TempData["Message"] = "Din kundvagn är tom..";
                 return RedirectToAction("Index", "Kundvagn");
             }
+
+            var purchasedProductIds = await _context.Orders
+                .Where(o => o.UserId == userId)
+                .SelectMany(o => o.OrderItems.Select(oi => oi.ProductId))
+                .ToListAsync();
+
+            var validCartItems = cart.CartItems
+                .Where(ci => !purchasedProductIds.Contains(ci.ProductId))
+                .ToList();
+
+            if (!validCartItems.Any())
+            {
+                TempData["Message"] = "Du har redan köpt alla produkter i din kundvagn.";
+                return RedirectToAction("Index", "Kundvagn");
+            }
+
             var lineItems = cart.CartItems.Select(ci => new SessionLineItemOptions
             {
                 PriceData = new SessionLineItemPriceDataOptions

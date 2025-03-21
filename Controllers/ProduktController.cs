@@ -31,6 +31,19 @@ namespace TyskaForSmaUpptackare.Controllers
             {
                 return NotFound();
             }
+
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            bool hasPurchased = false;
+
+            if (userId != null)
+            {
+                hasPurchased = await _context.Orders
+                    .Include(o => o.OrderItems)
+                    .AnyAsync(o => o.UserId == userId && o.OrderItems.Any(oi => oi.ProductId == id));
+            }
+
+            ViewBag.HasPurchased = hasPurchased;    
+
             return View(product);
         }
 

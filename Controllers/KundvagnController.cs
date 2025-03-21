@@ -70,6 +70,20 @@ namespace TyskaForSmaUpptackare.Controllers
                 return RedirectToAction("Login", "Account", new { returnUrl = Url.Content("~/Cart")});
             }
 
+            var hasAlreadyPurchased = await _context.Orders
+                .Include(o => o.OrderItems)
+                .AnyAsync(o => o.UserId == userId && o.OrderItems.Any(oi => oi.ProductId == productId));
+
+            if (hasAlreadyPurchased)
+            {
+                TempData["Message"] = "Du har redan köpt den här produkten";
+                if(!string.IsNullOrEmpty(returnUrl))
+                {
+                    return LocalRedirect(returnUrl);
+                }
+                return RedirectToAction("Index", "Kundvagn");
+            }
+
             var cart = await _context.Carts
                 .Include(c => c.CartItems)
                 .FirstOrDefaultAsync(c => c.UserId == userId);
