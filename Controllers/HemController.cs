@@ -1,8 +1,8 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using TyskaForSmaUpptackare.ViewModel;
-using Microsoft.AspNetCore.Authorization;
 using TyskaForSmaUpptackare.Data;
+using TyskaForSmaUpptackare.Services;
 
 namespace TyskaForSmaUpptackare.Controllers
 {
@@ -10,11 +10,13 @@ namespace TyskaForSmaUpptackare.Controllers
     {
         private readonly ILogger<HemController> _logger;
         private readonly ApplicationDbContext _context;
+        private readonly EmailService _emailService;
 
-        public HemController(ILogger<HemController> logger, ApplicationDbContext context)
+        public HemController(ILogger<HemController> logger, ApplicationDbContext context, EmailService emaiService)
         {
             _logger = logger;
             _context = context;
+            _emailService = emaiService;
         }
 
         [ResponseCache(Duration = 10,
@@ -40,14 +42,43 @@ namespace TyskaForSmaUpptackare.Controllers
         }
 
         [HttpPost]
-        public IActionResult SendContact(HomeViewModel model)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SendContact(HomeViewModel model)
         {
-            if (ModelState.IsValid)
+            ModelState.Remove("Products");
+
+            if (!ModelState.IsValid)
             {
-                return RedirectToAction("Index");
+                model.Products = _context.Products.Take(3).ToList();
+                return View("Index", model);
             }
-            return View("Index", model);
+
+            var subject = "Nytt meddelande från hemsidan";
+            var content = $"<p><strong>Från:</strong> {model.Contact.Name} ({model.Contact.Email})</p><p>{model.Contact.Message}</p>";
+
+            try
+            {
+                await _emailService.SendEmailAsync("k.ekenberg.dev@gmail.com", subject, content);
+                TempData["MessageSent"] = "true";
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Fel vid försök att skicka mejl.");
+                ModelState.AddModelError("", "Mejlet kunde inte skickas. Försök igen senare.");
+                model.Products = _context.Products.Take(3).ToList();
+                return View("Index", model);
+            }
+
+            var newModel = new HomeViewModel
+            {
+                Products = _context.Products.Take(3).ToList(),
+                Contact = new ContactViewModel { MessageSent = true }
+            };
+
+            return RedirectToAction("Index", new { section = "kontakt-formular" });
         }
-        
+
+
+
     }
 }
