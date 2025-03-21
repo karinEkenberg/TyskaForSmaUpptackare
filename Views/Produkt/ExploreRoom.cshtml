@@ -5,24 +5,33 @@
     var backgroundStyle = $"background-image: url('{Model.ImageUrl}'); background-size: cover; background-position: center;";
     ViewData["HideNavbar"] = true;
 }
+<div class="sticky-top mt-4">
+    <a class="mt-3 pt-3 mb-3 pb-3" href="#" onclick="history.back(); return false;" style="text-decoration:none; color:inherit;" aria-label="Gå tillbaka till föregående sida">
+        <span><img src="~/svg/arrow-svgrepo-com.svg" alt="arrow" class="img-fluid" style="height: 50px; width:auto;" /></span>
+    </a>
+</div>
 <section class="container">
- 
+    <h1 class="mt-5">Interaktiva objekt i @Model.Name</h1>
     <div class="room-background" style="@backgroundStyle; min-height: 100vh; padding: 20px;">
-        <a class="mt-5 pt-5" href="#" onclick="history.back(); return false;" style="text-decoration:none; color:inherit;">
-            <span><img src="~/svg/arrow-svgrepo-com.svg" alt="arrow" class="img-fluid" style="height: 50px; width:auto;" /></span>
-        </a>
-        <h1>@Model.Name</h1>
+
         <div class="row g-3">
             @foreach (var part in Model.Parts.Take(9))
             {
                 <div class="col-4">
                     <div class="">
                         <img src="@part.ImageUrl" class="card-img-top" alt="@part.Name" style="cursor:pointer;"
+                             tabindex="0"
+                             aria-label="Spela upp ljud för @part.Name"
+                             onkeydown="handleKeyPress(event, '@part.AudioUrl')"
                              onclick="playAudio('@part.AudioUrl')" />
                         <div class="card text-center">
-                            <h5 class="card-title" style="cursor:pointer;" onclick="playAudio('@part.AudioUrl')">
+                            <button class="btn btn-light"
+                                    onclick="playAudio('@part.AudioUrl')"
+                                    onkeydown="handleKeyPress(event, '@part.AudioUrl')"
+                                    aria-label="Spela upp ljud för @part.Name">
+                                <img src="~/svg/music-svgrepo-com.svg" alt="Spela upp" class="img-fluid" style="height: 20px;" />
                                 @part.Name
-                            </h5>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -34,11 +43,20 @@
 
 @section Scripts {
     <script>
-        function playAudio(audioUrl) {
-            if (audioUrl && audioUrl.trim() !== "") {
-                var audio = new Audio(audioUrl);
-                audio.play();
+            function playAudio(audioUrl) {
+                if (audioUrl && audioUrl.trim() !== "") {
+                    var audio = new Audio(audioUrl);
+                    audio.play();
+                }
+
+        
             }
-        }
+
+            function handleKeyPress(event, audioUrl) {
+                if (event.key === "Enter" || event.key === " ") {  
+                    playAudio(audioUrl);
+                    event.preventDefault();  
+                }
+            }
     </script>
 }
