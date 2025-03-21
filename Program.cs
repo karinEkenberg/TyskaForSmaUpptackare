@@ -1,8 +1,10 @@
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TyskaForSmaUpptackare.Data;
 using TyskaForSmaUpptackare.Models;
-using Stripe; 
+using Stripe;
+using TyskaForSmaUpptackare.Services;
+using Resend;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +21,15 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddTransient<EmailService>();
+
+builder.Services.AddOptions();
+builder.Services.AddHttpClient<ResendClient>();
+builder.Services.Configure<ResendClientOptions>(o =>
+{
+    o.ApiToken = builder.Configuration["Resend:ApiKey"];
+});
+builder.Services.AddTransient<IResend, ResendClient>();
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
