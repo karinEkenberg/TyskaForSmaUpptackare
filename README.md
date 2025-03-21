@@ -30,6 +30,16 @@ The site uses a hierarchical product model, with images and audio that users can
 - **Shopping Cart & Stripe Integration:**  
   - Add products to cart and pay using Stripe Checkout.
   - Orders saved after payment, with unlockable access to purchased products.
+ 
+- **Contact Form & Email Delivery:**
+The project includes a contact form on the homepage where users can submit questions or messages.
+The form is fully validated, accessible, and integrates with Resend to securely send emails.
+Features:
+
+  - Client-side and server-side validation for name, email, and message
+  - Success message displayed upon submission
+  - Emails are sent using Resend's official .NET SDK
+  - Domain is fully verified with Resend for reliable delivery
 
 - **Seed Data on First Launch:**  
   Includes the German alphabet, animals, and numbers with corresponding audio files.
