@@ -3,54 +3,57 @@
 @{
     ViewData["Title"] = "Ändra Produkt";
 }
+
 <section class="container">
-    <h1>@ViewData["Title"]</h1>
+    <h1 class="mt-5">@ViewData["Title"]</h1>
 
     @if (TempData["Message"] is string message)
     {
-        <div class="alert alert-info">@message</div>
-        
         <div class="alert alert-success">@message</div>
     }
+
     <form asp-action="Edit" asp-route-id="@Model.ProductId" method="post">
         <input type="hidden" asp-for="ProductId" />
 
-        <!-- Produktens egna fält -->
+        <!-- Produktfält -->
         <div class="form-group">
-            <label asp-for="Name" class="control-label">Namn</label>
+            <label asp-for="Name">Namn</label>
             <input asp-for="Name" class="form-control" />
             <span asp-validation-for="Name" class="text-danger"></span>
         </div>
+
         <div class="form-group">
-            <label asp-for="Description" class="control-label">Beskrivning</label>
+            <label asp-for="Description">Beskrivning</label>
             <textarea asp-for="Description" class="form-control"></textarea>
             <span asp-validation-for="Description" class="text-danger"></span>
         </div>
+
         <div class="form-group">
-            <label asp-for="Price" class="control-label">Pris</label>
+            <label asp-for="Price">Pris</label>
             <input asp-for="Price" class="form-control" />
             <span asp-validation-for="Price" class="text-danger"></span>
         </div>
+
         <div class="form-group">
-            <label asp-for="ImageUrl" class="control-label">Bild URL (/img/bild.png)</label>
+            <label asp-for="ImageUrl">Bild URL</label>
             <input asp-for="ImageUrl" class="form-control" />
             <span asp-validation-for="ImageUrl" class="text-danger"></span>
         </div>
+
         <div class="form-group">
-            <label asp-for="AudioUrl" class="control-label">Ljud URL (/audio/ljud.mp3)</label>
+            <label asp-for="AudioUrl">Ljud URL</label>
             <input asp-for="AudioUrl" class="form-control" />
             <span asp-validation-for="AudioUrl" class="text-danger"></span>
         </div>
 
         <hr />
-        <h3>Rum</h3>
 
-        @if (Model.Items != null && Model.Items.Any())
-        {
+        <div id="rooms-container">
+            <h3>Rum</h3>
             @for (int i = 0; i < Model.Items.Count; i++)
             {
                 var room = Model.Items.ElementAt(i);
-                <div class="card mb-3 p-3">
+                <div class="room mb-3 p-3 ms-5">
                     <h4>Rum @i</h4>
                     <input type="hidden" name="Items[@i].ItemId" value="@room.ItemId" />
                     <div class="form-group">
@@ -66,13 +69,11 @@
                         <input type="text" name="Items[@i].AudioUrl" value="@room.AudioUrl" class="form-control" />
                     </div>
 
-                    <h5>Saker</h5>
-                    @if (room.Parts != null && room.Parts.Any())
-                    {
+                    <div class="items-container">
                         @for (int j = 0; j < room.Parts.Count; j++)
                         {
                             var part = room.Parts.ElementAt(j);
-                            <div class="card mb-2 p-2">
+                            <div class="part mb-2 p-2 ms-5">
                                 <input type="hidden" name="Items[@i].Parts[@j].PartId" value="@part.PartId" />
                                 <div class="form-group">
                                     <label>Saknamn</label>
@@ -86,25 +87,111 @@
                                     <label>Ljud</label>
                                     <input type="text" name="Items[@i].Parts[@j].AudioUrl" value="@part.AudioUrl" class="form-control" />
                                 </div>
+                                <button type="button" class="btn btn-danger remove-part text-black" style="border: 2px black solid; border-radius: 7px;">X</button>
                             </div>
                         }
-                    }
-                    <!-- Här kan du även lägga till en knapp för att lägga till nya saker dynamiskt -->
+                    </div>
+                    <div class="ms-5">                        
+                        <button type="button" class="btn btn-primary add-part">Lägg till sak</button>
+                        <button type="button" class="btn btn-danger remove-room text-black" style="border: 2px black solid; border-radius: 7px;">X</button>
+                    </div>
                 </div>
             }
-        }
-        <!-- Du kan även lägga till knappar för att lägga till nya rum via JavaScript -->
+        </div>
+
+        <button type="button" id="add-room" class="btn btn-primary mb-4">Lägg till nytt rum</button>
 
         <div class="form-group mt-3">
-            <input type="submit" value="Spara ändringar" class="btn btn-primary" />
-            <button type="button" class="btn btn-secondary" onclick="window.location.href='@Url.Action("Index", "Produkt")'">Tillbaka</button>
+            <input type="submit" value="Spara" class="btn btn-primary" />
+            <a href="@Url.Action("Index", "Produkt")" class="btn btn-primary">Tillbaka</a>
         </div>
     </form>
-
 </section>
 
+<!-- Mall för nytt rum -->
+<div id="room-template" style="display: none;">
+    <div class="room ms-5 mb-3 p-3">
+        <h4>Nytt rum</h4>
+        <div class="form-group">
+            <label>Rumsnamn</label>
+            <input type="text" name="Items[{{roomIndex}}].Name" class="form-control" />
+            <label>Bild</label>
+            <input type="text" name="Items[{{roomIndex}}].ImageUrl" class="form-control" />
+            <label>Ljud</label>
+            <input type="text" name="Items[{{roomIndex}}].AudioUrl" class="form-control" />
+        </div>
+        <div class="items-container"></div>
+        <button type="button" class="btn btn-primary add-part">Lägg till sak</button>
+        <button type="button" class="btn btn-danger remove-room text-black" style="border: 2px black solid; border-radius: 7px;">X</button>
+    </div>
+</div>
+
+<!-- Mall för ny sak -->
+<div id="part-template" style="display: none;">
+    <div class="part ms-5 mb-2 p-2">
+        <div class="form-group">
+            <label>Saknamn</label>
+            <input type="text" name="Items[{{roomIndex}}].Parts[{{partIndex}}].Name" class="form-control" />
+            <label>Bild</label>
+            <input type="text" name="Items[{{roomIndex}}].Parts[{{partIndex}}].ImageUrl" class="form-control" />
+            <label>Ljud</label>
+            <input type="text" name="Items[{{roomIndex}}].Parts[{{partIndex}}].AudioUrl" class="form-control" />
+        </div>
+        <button type="button" class="btn btn-danger remove-part text-black" style="border: 2px black solid; border-radius: 7px;">X</button>
+    </div>
+</div>
+
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    <script>
+        let roomCount = @Model.Items.Count;
+
+        document.getElementById('add-room').addEventListener('click', function () {
+            if (roomCount >= 9) {
+                alert("Maximalt 9 rum är tillåtna.");
+                return;
+            }
+
+            let template = document.getElementById('room-template').innerHTML;
+            template = template.replace(/{{roomIndex}}/g, roomCount);
+            let container = document.getElementById('rooms-container');
+            let div = document.createElement('div');
+            div.innerHTML = template;
+            container.appendChild(div);
+            $.validator.unobtrusive.parse(div);
+            roomCount++;
+        });
+
+        document.getElementById('rooms-container').addEventListener('click', function (e) {
+            if (e.target.classList.contains('add-part')) {
+                let roomDiv = e.target.closest('.room');
+                let itemsContainer = roomDiv.querySelector('.items-container');
+                let roomIndexMatch = roomDiv.querySelector('input[name*="Items["]').name.match(/Items\[(\d+)\]/);
+                if (!roomIndexMatch) return;
+                let roomIndex = roomIndexMatch[1];
+                let partCount = itemsContainer.querySelectorAll('.part').length;
+
+                if (partCount >= 9) {
+                    alert("Maximalt 9 saker per rum är tillåtna.");
+                    return;
+                }
+
+                let partTemplate = document.getElementById('part-template').innerHTML;
+                partTemplate = partTemplate.replace(/{{roomIndex}}/g, roomIndex).replace(/{{partIndex}}/g, partCount);
+                let newPart = document.createElement('div');
+                newPart.innerHTML = partTemplate;
+                itemsContainer.appendChild(newPart);
+                $.validator.unobtrusive.parse(newPart);
+            }
+
+            if (e.target.classList.contains('remove-room')) {
+                e.target.closest('.room').remove();
+            }
+
+            if (e.target.classList.contains('remove-part')) {
+                e.target.closest('.part').remove();
+            }
+        });
+    </script>
+
+    @await Html.PartialAsync("_ValidationScriptsPartial")
 }
