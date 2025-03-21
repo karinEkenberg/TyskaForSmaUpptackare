@@ -128,6 +128,125 @@ namespace TyskaForSmaUpptackare.Data
                 context.SaveChanges();
             }
 
+
+            if (!context.Products.Any())
+            {
+                var houseProducts = new List<Product>
+                {
+                    new Product
+                    {
+                        Name = "Huset",
+                        Description = "adas",
+                        ImageUrl = "/img/tfsu-house.png",
+                        Price = 444.00m,
+                        AudioUrl = "/audio/Affe.mp3"
+                    },
+                    new Product
+                    {
+                        Name = "Huset",
+                        Description = "asdfasd",
+                        ImageUrl = "/img/tfsu-house.png",
+                        Price = 444.00m,
+                        AudioUrl = "/audio/Affe.mp3"
+                    },
+                    new Product
+                    {
+                        Name = "Huset",
+                        Description = "Klicka dig runt",
+                        ImageUrl = "/img/tfsu-house.png",
+                        Price = 665.00m,
+                        AudioUrl = "/audio/affe.mp3"
+                    }
+                };
+
+                context.Products.AddRange(houseProducts);
+                context.SaveChanges();
+            }
+
+            if (!context.ProductItems.Any())
+            {
+                var house1 = context.Products.FirstOrDefault(p => p.Description == "Klicka dig runt och upptäck allt som finns i huset");
+                var house2 = context.Products.FirstOrDefault(p => p.Description == "Klicka dig runt och upptäck allt som finns i huset");
+
+                if (house1 != null)
+                {
+                    context.ProductItems.Add(new ProductItem
+                    {
+                        Name = "Kök",
+                        ImageUrl = "/img/tfsu-kok.webp",
+                        AudioUrl = "/audio/Affe.mp3",
+                        ParentItemId = house1.ProductId
+                    });
+                }
+
+                if (house2 != null)
+                {
+                    context.ProductItems.AddRange(
+                        new ProductItem
+                        {
+                            Name = "Küche",
+                            ImageUrl = "/img/tfsu-kok.webp",
+                            AudioUrl = "/audio/tfsu-kuche.mp3",
+                            ParentItemId = house2.ProductId
+                        },
+                        new ProductItem
+                        {
+                            Name = "Wohnzimmer",
+                            ImageUrl = "/img/tfsu-vardagsrum.webp",
+                            AudioUrl = "/audio/tfsu-vardagsrum.mp3",
+                            ParentItemId = house2.ProductId
+                        }
+                    );
+                }
+
+                context.SaveChanges();
+            }
+
+            if (!context.ProductParts.Any())
+            {
+                // Hämta rum (ProductItems) med namn som matchar det du skickat
+                var kok = context.ProductItems.FirstOrDefault(i => i.Name == "Kök");
+                var kuche = context.ProductItems.FirstOrDefault(i => i.Name == "Küche");
+                var wohnzimmer = context.ProductItems.FirstOrDefault(i => i.Name == "Wohnzimmer");
+
+                if (kok != null)
+                {
+                    context.ProductParts.AddRange(
+                        new ProductPart { Name = "Sked", AudioUrl = "/audio/Affe.mp3", ImageUrl = "/img/tfsu-spoon.png", ProductItemId = kok.ItemId },
+                        new ProductPart { Name = "Kniv", AudioUrl = "/audio/Affe.mp3", ImageUrl = "/img/tfsu-knife.png", ProductItemId = kok.ItemId },
+                        new ProductPart { Name = "Mikro", AudioUrl = "/audio/Affe.mp3", ImageUrl = "/img/tfsu-mikro.png", ProductItemId = kok.ItemId },
+                        new ProductPart { Name = "Mugg", AudioUrl = "/audio/Affe.mp3", ImageUrl = "/img/tfsu-mugg.webp", ProductItemId = kok.ItemId }
+                    );
+                }
+
+                if (kuche != null)
+                {
+                    context.ProductParts.AddRange(
+                        new ProductPart { Name = "Löffel", AudioUrl = "/audio/tfsu-loffel.mp3", ImageUrl = "/img/tfsu-spoon.png", ProductItemId = kuche.ItemId },
+                        new ProductPart { Name = "Messer", AudioUrl = "/audio/tfsu-messer.mp3", ImageUrl = "/img/tfsu-knife.png", ProductItemId = kuche.ItemId },
+                        new ProductPart { Name = "Mikrowellenofen", AudioUrl = "/audio/tfsu-mikrowellenofen.mp3", ImageUrl = "/img/tfsu-mikro.png", ProductItemId = kuche.ItemId },
+                        new ProductPart { Name = "Tasse", AudioUrl = "/audio/tfsu-tasse.mp3", ImageUrl = "/img/tfsu-mugg.png", ProductItemId = kuche.ItemId },
+                        new ProductPart { Name = "Topf", AudioUrl = "/audio/tfsu-topf.mp3", ImageUrl = "/img/tfsu-kastrull.png", ProductItemId = kuche.ItemId },
+                        new ProductPart { Name = "Bratpfanne", AudioUrl = "/audio/tfsu-bratpfanne.mp3", ImageUrl = "/img/tfsu-stekpanna.png", ProductItemId = kuche.ItemId },
+                        new ProductPart { Name = "Tisch", AudioUrl = "/audio/tfsu-tisch.mp3", ImageUrl = "/img/tfsu-bord.png", ProductItemId = kuche.ItemId },
+                        new ProductPart { Name = "Stuhl", AudioUrl = "/audio/tfsu-stuhl.mp3", ImageUrl = "/img/tfsu-stol.png", ProductItemId = kuche.ItemId },
+                        new ProductPart { Name = "Gabel", AudioUrl = "/audio/tfsu-gabel.mp3", ImageUrl = "/img/tfsu-gaffel.png", ProductItemId = kuche.ItemId }
+                    );
+                }
+
+                if (wohnzimmer != null)
+                {
+                    context.ProductParts.AddRange(
+                        new ProductPart { Name = "Sofa", AudioUrl = "/audio/tfsu-soffa.mp3", ImageUrl = "/img/tfsu-soffa.png", ProductItemId = wohnzimmer.ItemId },
+                        new ProductPart { Name = "Fernseher", AudioUrl = "/audio/tfsu-tv.mp3", ImageUrl = "/img/tfsu-tv.png", ProductItemId = wohnzimmer.ItemId },
+                        new ProductPart { Name = "Fernsehbox", AudioUrl = "/audio/tfsu-dosa.mp3", ImageUrl = "/img/tfsu-dosa.png", ProductItemId = wohnzimmer.ItemId }
+                    );
+                }
+
+                context.SaveChanges();
+            }
+
+
         }
     }
 }
