@@ -5,6 +5,8 @@
     ViewData["Title"] = Model.Name;
 }
 
+
+
 <div class="container ">
     <a class="pt-5" href="#" onclick="history.back(); return false;" style="text-decoration:none; color:inherit;" aria-label="Gå tillbaka till föregående sida">
         <span><img src="~/svg/arrow-svgrepo-com.svg" alt="arrow" class="img-fluid mt-5" style="height: 50px; width:auto;" /></span>
@@ -47,13 +49,21 @@
                     </div>
                 </div>
             </div>
-
+            @if (ViewBag.HasPurchased == true)
+            {
+                <a class="btn btn-primary" href="@Url.Action("Explore", "Produkt", new { id = Model.ProductId })">
+                    Redan köpt – Upptäck
+                </a>
+            }
+            else
+            {
             <form asp-controller="Kundvagn" asp-action="AddToCart" method="post">
                 @Html.AntiForgeryToken()
                 <input type="hidden" name="productId" value="@Model.ProductId" />
                 <input type="hidden" name="returnUrl" value="@Url.Action("Index", "Kundvagn")" />
                 <button type="submit" class="btn btn-primary">Lägg i varukorg</button>
             </form>
+            }
         </section>
     </div>
 </div>
