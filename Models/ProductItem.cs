@@ -14,6 +14,9 @@ namespace TyskaForSmaUpptackare.Models
         public ICollection<ProductPart> Parts { get; set; } = new List<ProductPart>();
         public string ImageUrl { get; set; } = string.Empty;
         public string AudioUrl { get; set; } = string.Empty;
+        public int? ProductId { get; set; } // foreign key till Products-tabellen
+        [ForeignKey("ProductId")]
+        public Product? Product { get; set; }
         public int? ParentItemId { get; set; }
         [BindNever]
         public ProductItem? ParentItem { get; set; }

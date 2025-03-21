@@ -175,7 +175,7 @@ namespace TyskaForSmaUpptackare.Data
                         Name = "Kök",
                         ImageUrl = "/img/tfsu-kok.webp",
                         AudioUrl = "/audio/Affe.mp3",
-                        ParentItemId = house1.ProductId
+                        ProductId = house1.ProductId
                     });
                 }
 
@@ -187,14 +187,14 @@ namespace TyskaForSmaUpptackare.Data
                             Name = "Küche",
                             ImageUrl = "/img/tfsu-kok.webp",
                             AudioUrl = "/audio/tfsu-kuche.mp3",
-                            ParentItemId = house2.ProductId
+                            ProductId = house2.ProductId
                         },
                         new ProductItem
                         {
                             Name = "Wohnzimmer",
                             ImageUrl = "/img/tfsu-vardagsrum.webp",
                             AudioUrl = "/audio/tfsu-vardagsrum.mp3",
-                            ParentItemId = house2.ProductId
+                            ProductId = house2.ProductId
                         }
                     );
                 }
