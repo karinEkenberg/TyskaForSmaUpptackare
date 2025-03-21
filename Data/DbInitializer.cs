@@ -239,7 +239,9 @@ namespace TyskaForSmaUpptackare.Data
                     context.ProductParts.AddRange(
                         new ProductPart { Name = "Sofa", AudioUrl = "/audio/tfsu-soffa.mp3", ImageUrl = "/img/tfsu-soffa.png", ProductItemId = wohnzimmer.ItemId },
                         new ProductPart { Name = "Fernseher", AudioUrl = "/audio/tfsu-tv.mp3", ImageUrl = "/img/tfsu-tv.png", ProductItemId = wohnzimmer.ItemId },
-                        new ProductPart { Name = "Fernsehbox", AudioUrl = "/audio/tfsu-dosa.mp3", ImageUrl = "/img/tfsu-dosa.png", ProductItemId = wohnzimmer.ItemId }
+                        new ProductPart { Name = "Fernsehbox", AudioUrl = "/audio/tfsu-dosa.mp3", ImageUrl = "/img/tfsu-dosa.png", ProductItemId = wohnzimmer.ItemId },
+                        new ProductPart { Name = "Sessel", AudioUrl = "/audio/tfsu-fotolj.mp3", ImageUrl = "/img/tfsu-fotolj.png", ProductItemId = wohnzimmer.ItemId },
+                        new ProductPart { Name = "Lampe", AudioUrl = "/audio/tfsu-lampa.mp3", ImageUrl = "/img/tfsu-lampa.png", ProductItemId = wohnzimmer.ItemId }
                     );
                 }
 
