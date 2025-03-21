@@ -5,11 +5,13 @@
     var backgroundStyle = $"background-image: url('{Model.ImageUrl}'); background-size: cover; background-position: center;";
     ViewData["HideNavbar"] = true;
 }
-<section class="container">
-    <h1 class="mt-5">Interaktiva objekt i @Model.Name</h1>
-    <a class="mt-5 pt-5" href="#" onclick="history.back(); return false;" style="text-decoration:none; color:inherit;" aria-label="Gå tillbaka till föregående sida">
+<div class="sticky-top mt-4">
+    <a class="mt-3 pt-3 mb-3 pb-3" href="#" onclick="history.back(); return false;" style="text-decoration:none; color:inherit;" aria-label="Gå tillbaka till föregående sida">
         <span><img src="~/svg/arrow-svgrepo-com.svg" alt="arrow" class="img-fluid" style="height: 50px; width:auto;" /></span>
     </a>
+</div>
+<section class="container">
+    <h1 class="mt-5">Interaktiva objekt i @Model.Name</h1>
     <div class="room-background" style="@backgroundStyle; min-height: 100vh; padding: 20px;">
 
         <div class="row g-3">

@@ -1,7 +1,13 @@
 ﻿@model IEnumerable<TyskaForSmaUpptackare.Models.Abc>
 @{
     ViewData["Title"] = "Lär dig tyska alfabetet med uttal";
+    ViewData["HideNavbar"] = true;
 }
+<div class="sticky-top mt-4">
+    <a class="mt-3 pt-3 mb-3 pb-3" href="#" onclick="history.back(); return false;" style="text-decoration:none; color:inherit;" aria-label="Gå tillbaka till föregående sida">
+        <span><img src="~/svg/arrow-svgrepo-com.svg" alt="arrow" class="img-fluid" style="height: 50px; width:auto;" /></span>
+    </a>
+</div>
 
 <section class="container mb-5">
     <h1 class="mt-5 mb-5">@ViewData["Title"]</h1>
