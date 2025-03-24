@@ -23,6 +23,11 @@
     font-style: normal;
 }
 
+.hero-gradient {
+    background: rgb(209,233,198);
+    background: linear-gradient(90deg, rgba(209,233,198,1) 0%, rgba(255,248,223,1) 50%, rgba(198,212,233,1) 100%);
+}
+
 .andika-regular {
     font-family: "Andika", sans-serif;
     font-weight: 400;
