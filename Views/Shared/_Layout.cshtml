@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="~/TyskaForSmaUpptackare.styles.css" asp-append-version="true" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Andika:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="preload" as="font" href="https://fonts.googleapis.com/css2?family=Andika:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header class="sticky-top d-none d-lg-flex w-100">
@@ -149,7 +149,7 @@
             <div class="row justify-content-between">
                 <div class="col-12 col-md-4 text-start mb-4 mb-md-0">
                     <div class="d-flex gap-1">
-                        <img src="~/svg/chains-chain-svgrepo-com.svg" style="height: 30px;" />
+                        <img src="/svg/chains-chain-svgrepo-com.svg" alt="chains" style="height: 30px;" />
                         <h3>Snabblänkar</h3>
                     </div>
                     <div><a asp-area="" asp-controller="Hem" asp-action="Index">Hem</a></div>
@@ -159,7 +159,7 @@
                 </div>
                 <div class="col-12 col-md-4 text-start mb-4 mb-md-0">
                     <div class="d-flex gap-1">
-                        <img src="~/svg/book-and-people-spring-svgrepo-com.svg" style="height: 30px;" />
+                        <img src="~/svg/book-and-people-spring-svgrepo-com.svg" alt="books" style="height: 30px;" />
                         <h3>Info</h3>
                     </div>
                     <p class="lead">
@@ -170,7 +170,7 @@
                 </div>
                 <div class="col-12 col-md-4 text-start mb-4 mb-md-0">
                     <div class="d-flex gap-1">
-                        <img src="~/svg/paper-document-file-data-svgrepo-com.svg" style="height: 30px;" />
+                        <img src="~/svg/paper-document-file-data-svgrepo-com.svg" alt="document" style="height: 30px;" />
                         <h3>Copyright</h3>
                     </div>
                     <a asp-area="" asp-controller="Hem" asp-action="Privacy">Sekretesspolicy</a>
