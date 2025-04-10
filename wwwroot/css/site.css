@@ -23,6 +23,15 @@
     font-style: normal;
 }
 
+
+
+    .klickbar:active {
+        transform: scale(0.97);
+        box-shadow: 0 0 10px rgba(255, 200, 0, 0.7);
+        border-radius: 10px;
+        transform: scale(0.96);
+    }
+
 .hero-gradient {
     background: rgb(209,233,198);
     background: linear-gradient(90deg, rgba(209,233,198,1) 0%, rgba(255,248,223,1) 50%, rgba(198,212,233,1) 100%);

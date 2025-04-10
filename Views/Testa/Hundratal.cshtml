@@ -3,7 +3,7 @@
     ViewData["Title"] = "Lär dig hundratalen med tyskt uttal";
     ViewData["HideNavbar"] = true;
 }
-<div class="sticky-top mt-4"> 
+<div class="sticky-top mt-4" style="width: max-content;">
     <a class="mt-3 pt-3 mb-3 pb-3" href="#" onclick="history.back(); return false;" style="text-decoration:none; color:inherit;" aria-label="Gå tillbaka till föregående sida">
         <span><img src="~/svg/arrow-svgrepo-com.svg" alt="arrow" class="img-fluid" style="height: 50px; width:auto;" /></span>
     </a>
@@ -37,10 +37,10 @@
     <div class="row g-5 mt-5 justify-content-center">
         @foreach (var number in Model)
         {
-            <div class="col-3 alfabet pt-4" onclick="playSound('@number.Name')" aria-label="@number.Name , klicka för att lyssna på tyskt uttal">
+            <button class="col-3 alfabet pt-4 btn btn-primary" onclick="playSound('@number.Name')" aria-label="@number.Name , klicka för att lyssna på tyskt uttal">
                 <p class="text-center display-4">@number.Name</p>
                 <audio id="@number.Name" src="@number.AudioUrl" preload="auto"></audio>
-            </div>
+            </button>
         }
     </div>
 </section>
