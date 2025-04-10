@@ -23,16 +23,17 @@
                              tabindex="0"
                              aria-label="Spela upp ljud för @part.Name"
                              onkeydown="handleKeyPress(event, '@part.AudioUrl')"
-                             onclick="playAudio('@part.AudioUrl')" />                   
-
+                             onclick="playAudio('@part.AudioUrl')" />
                         <div class="card text-center">
-                            <button class="btn btn-light"
-                                    onclick="playAudio('@part.AudioUrl')"
-                                    onkeydown="handleKeyPress(event, '@part.AudioUrl')"
-                                    aria-label="Spela upp ljud för @part.Name">
-                                <img src="~/svg/music-svgrepo-com.svg" alt="Spela upp" class="img-fluid" style="height: 20px;" />
-                                <span lang="de">@part.Name</span>
-                            </button>
+                            <div class="d-flex justify-content-center">
+                                <button class="audio-button"
+                                        onclick="playAudio('@part.AudioUrl')"
+                                        onkeydown="handleKeyPress(event, '@part.AudioUrl')"
+                                        aria-label="Spela upp ljud för @part.Name">
+                                    <img src="~/svg/music-svgrepo-com.svg" alt="Spela upp" class="img-fluid" style="height: 20px;" />
+                                    <span lang="de">@part.Name</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
