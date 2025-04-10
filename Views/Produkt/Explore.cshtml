@@ -5,7 +5,7 @@
     var backgroundStyle = $"background-image: url('{Model.ImageUrl}'); background-size: cover; background-position: center;";
     ViewData["HideNavbar"] = true;
 }
-<div class="sticky-top mt-4"> 
+<div class="sticky-top mt-4" style="width: max-content;">
     <a class="mt-3 pt-3 mb-3 pb-3" href="#" onclick="history.back(); return false;" style="text-decoration:none; color:inherit;" aria-label="Gå tillbaka till föregående sida">
         <span><img src="~/svg/arrow-svgrepo-com.svg" alt="arrow" class="img-fluid" style="height: 50px; width:auto;" /></span>
     </a>
@@ -19,13 +19,13 @@
             {
                 <div class="col-4">
                     <div class="card">
-                        <img src="@room.ImageUrl" class="card-img-top" alt="@room.Name" style="cursor:pointer;"
+                        <img src="@room.ImageUrl" class="card-img-top room-image" alt="@room.Name" style="cursor:pointer;"
                              tabindex="0"
                              aria-label="Utforska @room.Name"
                              onkeydown="handleKeyPress(event, '@room.AudioUrl')"
                              onclick="location.href='@Url.Action("ExploreRoom", "Produkt", new { roomId = room.ItemId })'" />
                         <div class="text-center d-flex gap-1 justify-content-center">
-                            <button class="btn btn-light" onclick="playAudio('@room.AudioUrl')"
+                            <button class="audio-button" onclick="playAudio('@room.AudioUrl')"
                                     onkeydown="handleKeyPress(event, '@room.AudioUrl')"
                                     aria-label="Spela upp ljud för @room.Name">
                                 <img src="~/svg/music-svgrepo-com.svg" alt="music note" class="img-fluid" style="height: 20px;" />

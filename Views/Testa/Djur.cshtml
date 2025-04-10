@@ -3,8 +3,8 @@
     ViewData["Title"] = "Lär dig hur djur stavas";
     ViewData["HideNavbar"] = true;
 }
-<div class="sticky-top mt-4"> 
-<a class="mt-3 pt-3 mb-3 pb-3" href="#" onclick="history.back(); return false;" style="text-decoration:none; color:inherit;" aria-label="Gå tillbaka till föregående sida">
+<div class="sticky-top mt-4" style="width: max-content;">
+    <a class="mt-3 pt-3 mb-3 pb-3" href="#" onclick="history.back(); return false;" style="text-decoration:none; color:inherit;" aria-label="Gå tillbaka till föregående sida">
     <span><img src="~/svg/arrow-svgrepo-com.svg" alt="arrow" class="img-fluid" style="height: 50px; width:auto;" /></span>
 </a>
 
@@ -37,11 +37,11 @@
         <h2 class="pt-5 pb-5">Klicka på djuren för att höra uttal</h2>
     @foreach (var animal in Model)
     {
-        <div class="col-3 col-md-3 col-md-1 alfabet pt-4" aria-label="@animal.Name , klicka för att lyssna på tyskt uttal">
+        <button class="col-3 col-md-3 col-md-1 alfabet pt-4 btn btn-primary" aria-label="@animal.Name , klicka för att lyssna på tyskt uttal">
                 <img src="@animal.ImageUrl" class="img-fluid" alt="@animal.Name" onclick="playSound('@animal.Name')" />
             <p class="text-center">@animal.Name</p>
             <audio id="@animal.Name" src="@animal.AudioUrl" preload="auto"></audio>
-        </div>
+        </button>
     }
     </section>
 </section>
