@@ -1,73 +1,86 @@
-# Tyska För Små Upptackare
 
-**TyskaForSmaUpptackare** is a responsive web application built with ASP.NET Core MVC that teaches German grammar to children in an engaging and interactive way. 
-The site uses a hierarchical product model, with images and audio that users can explore — and it supports payments via Stripe for premium content.
+# Tyska För Små Upptäckare 🇩🇪✨  
+**An interactive learning platform for children to explore German grammar through play.**
 
----
-
-## Features
-
- **Hierarchical Product Structure:**  
-  - **Product:** The main entity (e.g., a house, airplane, etc.).
-  - **ProductPart:** Subdivisions of a product (e.g., rooms, airplane sections).
-  - **ProductItem:** Interactive items within parts (e.g., objects in a room).  
-    Items can include audio and images.
-
-- **Interactivity:**  
-  - Click or press keyboard keys (Enter/Space) to play audio.
-  - Sound-based interaction with visuals, optimized for kids.
-  - Keyboard-accessible and responsive on mobile, tablet, and desktop.
-
-- **Authentication & Authorization:**  
-  - Built-in ASP.NET Identity for user accounts.
-  - Role-based access (Admin, Customer).
-
-- **Admin Interface:**  
-  - Create/edit/delete products, parts, and items.
-  - Upload `.webp`, `.png`, and `.mp3` files through the UI.
-  - View customer orders via admin panel.
-
-- **Shopping Cart & Stripe Integration:**  
-  - Add products to cart and pay using Stripe Checkout.
-  - Orders saved after payment, with unlockable access to purchased products.
- 
-- **Contact Form & Email Delivery:**
-The project includes a contact form on the homepage where users can submit questions or messages.
-The form is fully validated, accessible, and integrates with Resend to securely send emails.
-Features:
-
-  - Client-side and server-side validation for name, email, and message
-  - Success message displayed upon submission
-  - Emails are sent using Resend's official .NET SDK
-  - Domain is fully verified with Resend for reliable delivery
-
-- **Seed Data on First Launch:**  
-  Includes the German alphabet, animals, and numbers with corresponding audio files.
+**TyskaFörSmåUpptäckare** is a responsive web application built with ASP.NET Core MVC that teaches German to children in a fun and structured way. 
+The site combines audio, images, and interactive UI elements, where users can explore themed environments (like a house) and learn through clicking and listening. 
+It supports user authentication, paid content via Stripe, and admin-level content management.
 
 ---
 
-## Technologies Used
+## 🚀 Features
 
-- **Backend:** ASP.NET Core MVC, Entity Framework Core, ASP.NET Identity  
-- **Database:** SQL Server  
-- **Frontend:** Razor Views + JavaScript  
-- **Payment:** Stripe Checkout API  
-- **Other Tools:** dotnet-aspnet-codegenerator, Git, Bootstrap
+### 🏗️ Hierarchical Product Structure
+- **Product** – Main item (e.g., a house or an airplane).
+- **ProductPart** – Subsections (e.g., rooms).
+- **ProductItem** – Clickable elements in each part (e.g., toys, objects).
+- Supports multiple nested levels – items can contain other items.
+
+### 🧠 Interactive & Kid-Friendly UX
+- Click or press `Enter`/`Space` to trigger audio playback.
+- Large buttons, clear calls-to-action, intuitive layout for children.
+- Built-in keyboard navigation following [DIGG accessibility guidelines](https://www.digg.se/webbriktlinjer/alla-webbriktlinjer/all-funktionalitet-ska-kunna-anvandas-med-tangentbord).
+
+### 👥 Authentication & Roles
+- Built with ASP.NET Identity.
+- Role-based access: **Administrators** and **Customers**.
+- Restricted views and features for different user types.
+
+### 🛍️ Shopping Cart & Stripe Integration
+- Add products to a cart and pay via **Stripe Checkout**.
+- Orders are saved and associated with the logged-in user.
+- Paid content is unlocked after a successful purchase.
+- Cart persists between sessions and logins.
+
+### 🛠️ Admin Tools (CRUD)
+- Full content management system for admins:
+  - Add/edit/delete products, parts, and items.
+  - Upload `.webp`, `.png`, `.mp3` files through the UI.
+  - Role-based view filtering with `[Authorize]`.
+- Modal confirmation for destructive actions.
+- Proper model binding with `[BindNever]` and optional fields to avoid validation issues.
+
+### 💌 Contact Form with Resend
+- Fully validated contact form for user questions.
+- Integrated with [Resend](https://resend.com/) using their official .NET SDK.
+- Domain verified for secure email delivery.
+
+  **Contact form features:**
+  - Client-side + server-side validation
+  - Success message on submission
+  - Sends emails via Resend API
+
+### 📥 Seeded Sample Content
+- Includes a German **alphabet**, **animals**, and **numbers** (1–1000)
+- Comes with corresponding audio and image files for each item
+- Audio playback implemented with JavaScript
 
 ---
 
-## Getting Started
+## 🧰 Tech Stack
+
+- **Backend**: ASP.NET Core MVC (.NET 8), Entity Framework Core, ASP.NET Identity  
+- **Frontend**: Razor Views, JavaScript, Bootstrap 5  
+- **Database**: SQL Server  
+- **Payment**: Stripe Checkout  
+- **Email**: Resend API  
+- **Version Control**: Git, GitHub  
+- **Design**: Figma, Draw.io (ER diagrams & DB structure)
+
+---
+
+## 🧪 Getting Started
 
 ### Prerequisites
 
 - [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
-- [SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) or SQL Server Express
-- A code editor like [Visual Studio](https://visualstudio.microsoft.com/) or [VS Code](https://code.visualstudio.com/)
-- A Stripe account (test keys are enough for development)
+- [SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) or SQL Express
+- [Visual Studio](https://visualstudio.microsoft.com/) or [VS Code](https://code.visualstudio.com/)
+- [Stripe](https://stripe.com) test account
 
 ### Installation
 
-1. **Clone the repository:**
+1. **Clone the repo:**
    ```bash
    git clone https://github.com/karinEkenberg/TyskaForSmaUpptackare.git
    cd TyskaForSmaUpptackare
@@ -78,87 +91,100 @@ Features:
    dotnet restore
    ```
 
-3. **Configure your database connection:**  
-   Add `appsettings.json` to your project, set the connection string under `"DefaultConnection"`.
+3. **Add appsettings.json:**  
+   Create a file named `appsettings.json` and configure:
 
-4. **Add Stripe keys:**  
-   Also in `appsettings.json`, under `StripeSettings`:
    ```json
-   "StripeSettings": {
-     "PublishableKey": "your-publishable-key",
-     "SecretKey": "your-secret-key"
+   {
+     "ConnectionStrings": {
+       "DefaultConnection": "your-connection-string"
+     },
+     "StripeSettings": {
+       "PublishableKey": "your-stripe-publishable-key",
+       "SecretKey": "your-stripe-secret-key"
+     },
+     "Resend": {
+       "ApiKey": "your-resend-api-key"
+     }
    }
    ```
 
-5. **Apply database migrations:**
+4. **Apply database migrations:**
    ```bash
    dotnet ef database update
    ```
 
-6. **Run the project:**
+5. **Run the application:**
    ```bash
    dotnet run
    ```
-   The site should launch at `https://localhost:5001`.
+   The site should be available at `https://localhost:7083`.
 
+---
 
+## 🔐 Admin Access
 
-## Usage
+To access the admin dashboard:
 
-### Admin Access
-
-To access the admin pages:
-
-- Register a user account via the site.
-- Manually update the user's role in the database to `"Administrators"`.
+- Register a user on the site.
+- Manually update the role to `Administrators` in the database.
 
 Admins can:
-- Create/edit/delete products
-- Upload images and audio
-- View customer orders
-
-### Product Exploration
-
-- Free products are available without login.
-- Paid products are locked until purchased.
-- After purchase, users can:
-  - Explore rooms and interactive items.
-  - Click images or press keys to hear German words.
-
-### Stripe Testing
-
-Use [Stripe test cards](https://stripe.com/docs/testing) when checking out.  
-Example test card: `4242 4242 4242 4242` with any future date and CVC.
+- Manage products, parts, and items.
+- Upload image/audio files.
+- View customer orders and purchase history.
+- Manage paid/unlocked content.
 
 ---
 
-## Test Content (Seeded)
+## 🧒 Product Exploration
 
-- **Alphabet:** Letters A–Z (including Ä, Ö, Ü, ß) with audio
-- **Animals:** Images and audio for animals like Affe, Bär, Chamäleon...
-- **Numbers:** 1–1000, grouped in ones, tens, and hundreds, with audio
-
-You can find images in `/wwwroot/img` and audio files in `/wwwroot/audio`.
-
----
-
-## Accessibility & Responsiveness
-
-- Keyboard navigable (Enter/Space to trigger sound)
-- Mobile-first design with Bootstrap
-- Alt-text and `aria-label` attributes for accessibility
+- **Free content** is accessible without login.
+- **Paid content** is restricted until purchase.
+- After purchasing, users can:
+  - Enter themed “houses” or environments.
+  - Click images or use the keyboard to trigger audio.
 
 ---
 
-## License
+## 💳 Stripe Testing
 
-This project is licensed under the [MIT License].
+Use test cards from [Stripe’s documentation](https://stripe.com/docs/testing).  
+Example card: `4242 4242 4242 4242` with any future date and valid CVC.
 
 ---
 
-## Acknowledgments
+## 🧩 Accessibility & Responsiveness
 
-- Built by Karin Ekenberg as part of a UX/design-focused final project.
-- Inspired by educational tools that combine interaction with structured content.
-- Thanks to the ASP.NET Core and Stripe communities for excellent documentation.
+- Fully responsive: Mobile, Tablet, Desktop
+- Keyboard-navigable (including interactive grid & arrows)
+- Uses `aria-labels`, alt text, and clear focus styles
+- Designed to be distraction-free and suitable for younger children
+
+---
+
+## 📊 Known Limitations / To-Do
+
+- Purchase history does not fully display in the admin panel due to Identity-related DBContext conflicts.
+- Admin UI for selecting/uploading files could be improved with dropdowns or previews.
+- Current illustrations are temporary (some stock, some personal).
+- Future versions may include:
+  - Drag-and-drop builder for interactive rooms
+  - Voice recognition for pronunciation training
+  - Deployment to a live environment
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+## 🙏 Acknowledgments
+
+- Created by **Karin Ekenberg** as a final thesis project in full-stack web development.
+- Inspired by playful learning methods and inclusive design for kids.
+- Special thanks to the .NET, Bootstrap, Resend, and Stripe communities.
+
 
