@@ -23,13 +23,18 @@
     font-style: normal;
 }
 
+.klickbar {
+    transition: filter 0.2s ease, transform 0.2s ease;
+}
 
+    .klickbar:hover {
+        filter: drop-shadow(0 0 12px var(--color-button-hover));
+    }
 
     .klickbar:active {
-        transform: scale(0.97);
-        box-shadow: 0 0 10px rgba(255, 200, 0, 0.7);
-        border-radius: 10px;
-        transform: scale(0.96);
+        transform: scale(1.1);
+        filter: drop-shadow(0 0 10px var(--color-button-active)) drop-shadow(0 0 20px #91B57D) 
+        drop-shadow(0 0 30px #6F965D); 
     }
 
 .hero-gradient {
