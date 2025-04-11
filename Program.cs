@@ -5,8 +5,15 @@ using TyskaForSmaUpptackare.Models;
 using Stripe;
 using TyskaForSmaUpptackare.Services;
 using Resend;
+using Microsoft.AspNetCore.ResponseCompression;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddResponseCompression(options =>
+{
+    options.EnableForHttps = true;
+    options.Providers.Add<GzipCompressionProvider>();
+});
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
@@ -31,6 +38,8 @@ builder.Services.Configure<ResendClientOptions>(o =>
 });
 builder.Services.AddTransient<IResend, ResendClient>();
 var app = builder.Build();
+
+app.UseResponseCompression();
 
 using (var scope = app.Services.CreateScope())
 {
