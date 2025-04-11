@@ -10,8 +10,18 @@
         <span><img src="~/svg/arrow-svgrepo-com.svg" alt="arrow" class="img-fluid" style="height: 50px; width:auto;" /></span>
     </a>
 </div>
-<section class="container">
-    <h1 class="mt-5">@Model.Name</h1>
+<div class="container">
+    <div class="d-flex justify-content-center">
+    <h1 class ="mt-5 clickable-title d-inline-flex align-items-center gap-2"
+             tabindex="0"
+             role="button"
+             onclick="playAudio('@Model.AudioUrl')"
+             onkeydown="handleKeyPress(event, '@Model.AudioUrl')"
+             aria-label="Spela upp ljud för @Model.Name">
+        <img src="~/svg/music-svgrepo-com.svg" alt="music note" class="img-fluid" style="height: 20px;" />
+        @Model.Name
+    </h1>
+    </div>
     <div class="product-background" style="@backgroundStyle; min-height: 100vh; padding: 20px;">
 
         <div class="row g-3">
@@ -37,7 +47,7 @@
             }
         </div>
     </div>
-</section>
+</div>
 
 
 @section Scripts {
