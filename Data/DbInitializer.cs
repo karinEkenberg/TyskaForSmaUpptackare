@@ -131,71 +131,74 @@ namespace TyskaForSmaUpptackare.Data
 
             if (!context.Products.Any())
             {
-                var houseProducts = new List<Product>
-                {
-                    new Product
-                    {
-                        Name = "Huset",
-                        Description = "Klicka dig runt och upptäck allt som finns i huset",
-                        ImageUrl = "/img/tfsu-house.png",
-                        Price = 444.00m,
-                        AudioUrl = "/audio/Affe.mp3"
-                    },
-                    new Product
-                    {
-                        Name = "Huset",
-                        Description = "Klicka dig runt och upptäck allt som finns i huset",
-                        ImageUrl = "/img/tfsu-house.png",
-                        Price = 444.00m,
-                        AudioUrl = "/audio/Affe.mp3"
-                    },
-                    new Product
-                    {
-                        Name = "Huset",
-                        Description = "Klicka dig runt",
-                        ImageUrl = "/img/tfsu-house.png",
-                        Price = 665.00m,
-                        AudioUrl = "/audio/affe.mp3"
-                    }
-                };
+                var products = new List<Product>
+    {
+        new Product
+        {
+            Name = "Haus",
+            Description = "Upptäck olika rum och saker som finns i huset",
+            ImageUrl = "/img/tfsu-house.webp",
+            Price = 665.00m,
+            AudioUrl = "/audio/tfsu-hus.mp3"
+        },
+        new Product
+        {
+            Name = "Flugzeug",
+            Description = "Upptäck vad som finns i flygplanet",
+            ImageUrl = "/img/tfsu-flygplan.webp",
+            Price = 250.00m,
+            AudioUrl = "/audio/tfsu-flugplan.mp3"
+        },
+        new Product
+        {
+            Name = "Auto",
+            Description = "Vad finns i och på bilen?",
+            ImageUrl = "/img/tfsu-bil.webp",
+            Price = 250.00m,
+            AudioUrl = "/audio/tfsu-bil.mp3"
+        }
+    };
 
-                context.Products.AddRange(houseProducts);
+                context.Products.AddRange(products);
                 context.SaveChanges();
             }
 
             if (!context.ProductItems.Any())
             {
-                var house1 = context.Products.FirstOrDefault(p => p.Description == "Klicka dig runt och upptäck allt som finns i huset");
-                var house2 = context.Products.FirstOrDefault(p => p.Description == "Klicka dig runt och upptäck allt som finns i huset");
+                var haus = context.Products.FirstOrDefault(p => p.Name == "Haus");
+                var flugzeug = context.Products.FirstOrDefault(p => p.Name == "Flugzeug");
+                var auto = context.Products.FirstOrDefault(p => p.Name == "Auto");
 
-                if (house1 != null)
-                {
-                    context.ProductItems.Add(new ProductItem
-                    {
-                        Name = "Kök",
-                        ImageUrl = "/img/tfsu-kok.webp",
-                        AudioUrl = "/audio/Affe.mp3",
-                        ProductId = house1.ProductId
-                    });
-                }
-
-                if (house2 != null)
+                if (haus != null)
                 {
                     context.ProductItems.AddRange(
-                        new ProductItem
-                        {
-                            Name = "Küche",
-                            ImageUrl = "/img/tfsu-kok.webp",
-                            AudioUrl = "/audio/tfsu-kuche.mp3",
-                            ProductId = house2.ProductId
-                        },
-                        new ProductItem
-                        {
-                            Name = "Wohnzimmer",
-                            ImageUrl = "/img/tfsu-vardagsrum.webp",
-                            AudioUrl = "/audio/tfsu-vardagsrum.mp3",
-                            ProductId = house2.ProductId
-                        }
+                        new ProductItem { Name = "Küche", ImageUrl = "/img/tfsu-kok.webp", AudioUrl = "/audio/tfsu-kuche.mp3", ProductId = haus.ProductId },
+                        new ProductItem { Name = "Wohnzimmer", ImageUrl = "/img/tfsu-vardagsrum.webp", AudioUrl = "/audio/tfsu-vardagsrum.mp3", ProductId = haus.ProductId },
+                        new ProductItem { Name = "Saal", ImageUrl = "/img/tfsu-hall.webp", AudioUrl = "/audio/tfsu-hall.mp3", ProductId = haus.ProductId }
+                    );
+                }
+
+                if (flugzeug != null)
+                {
+                    context.ProductItems.AddRange(
+                            new ProductItem { Name = "Cockpit", ImageUrl = "/img/tfsu-cockpit.webp", AudioUrl = "/audio/tfsu-cockpit.mp3", ProductId = flugzeug.ProductId },
+                            new ProductItem { Name = "Fenster", ImageUrl = "/img/tfsu-flygfonster.webp", AudioUrl = "/audio/tfsu-fonster.mp3", ProductId = flugzeug.ProductId },
+                            new ProductItem { Name = "Fernseher", ImageUrl = "/img/tfsu-flygtv.webp", AudioUrl = "/audio/tfsu-tv.mp3", ProductId = flugzeug.ProductId },
+                            new ProductItem { Name = "Flugbegleiterin", ImageUrl = "/img/tfsu-flygvardinna.webp", AudioUrl = "/audio/tfsu-flygvardinnagubbe.mp3", ProductId = flugzeug.ProductId }
+                    );
+                }
+
+                if (auto != null)
+                {
+                    context.ProductItems.AddRange(
+                        new ProductItem { Name = "Rückspiegel", ImageUrl = "/img/tfsu-backspegel.webp", AudioUrl = "/audio/tfsu-sidspegel.mp3", ProductId = auto.ProductId },
+                        new ProductItem { Name = "Gürtel", ImageUrl = "/img/tfsu-bilbalte.webp", AudioUrl = "/audio/tfsu-balte.mp3", ProductId = auto.ProductId },
+                        new ProductItem { Name = "Autositz", ImageUrl = "/img/tfsu-bilstol.webp", AudioUrl = "/audio/tfsu-barnstol.mp3", ProductId = auto.ProductId },
+                        new ProductItem { Name = "Vordersitz", ImageUrl = "/img/tfsu-framsate.webp", AudioUrl = "/audio/tfsu-framsate.mp3", ProductId = auto.ProductId },
+                        new ProductItem { Name = "Handbremse", ImageUrl = "/img/tfsu-handbroms.webp", AudioUrl = "/audio/tfsu-handbroms.mp3", ProductId = auto.ProductId },
+                        new ProductItem { Name = "Armaturenbrett", ImageUrl = "/img/tfsu-instrumentpanel.webp", AudioUrl = "/audio/tfsu-instrumentpanel.mp3", ProductId = auto.ProductId },
+                        new ProductItem { Name = "Lenkrad", ImageUrl = "/img/tfsu-ratt.webp", AudioUrl = "/audio/tfsu-ratt.mp3", ProductId = auto.ProductId },
+                        new ProductItem { Name = "Schalthebel", ImageUrl = "/img/tfsu-vaxel.webp", AudioUrl = "/audio/tfsu-vaxel.mp3", ProductId = auto.ProductId }
                     );
                 }
 
@@ -204,33 +207,22 @@ namespace TyskaForSmaUpptackare.Data
 
             if (!context.ProductParts.Any())
             {
-                // Hämta rum (ProductItems) med namn som matchar det du skickat
-                var kok = context.ProductItems.FirstOrDefault(i => i.Name == "Kök");
                 var kuche = context.ProductItems.FirstOrDefault(i => i.Name == "Küche");
                 var wohnzimmer = context.ProductItems.FirstOrDefault(i => i.Name == "Wohnzimmer");
-
-                if (kok != null)
-                {
-                    context.ProductParts.AddRange(
-                        new ProductPart { Name = "Sked", AudioUrl = "/audio/Affe.mp3", ImageUrl = "/img/tfsu-spoon.png", ProductItemId = kok.ItemId },
-                        new ProductPart { Name = "Kniv", AudioUrl = "/audio/Affe.mp3", ImageUrl = "/img/tfsu-knife.png", ProductItemId = kok.ItemId },
-                        new ProductPart { Name = "Mikro", AudioUrl = "/audio/Affe.mp3", ImageUrl = "/img/tfsu-mikro.png", ProductItemId = kok.ItemId },
-                        new ProductPart { Name = "Mugg", AudioUrl = "/audio/Affe.mp3", ImageUrl = "/img/tfsu-mugg.webp", ProductItemId = kok.ItemId }
-                    );
-                }
+                var saal = context.ProductItems.FirstOrDefault(i => i.Name == "Saal");
 
                 if (kuche != null)
                 {
                     context.ProductParts.AddRange(
                         new ProductPart { Name = "Löffel", AudioUrl = "/audio/tfsu-loffel.mp3", ImageUrl = "/img/tfsu-spoon.png", ProductItemId = kuche.ItemId },
                         new ProductPart { Name = "Messer", AudioUrl = "/audio/tfsu-messer.mp3", ImageUrl = "/img/tfsu-knife.png", ProductItemId = kuche.ItemId },
-                        new ProductPart { Name = "Mikrowellenofen", AudioUrl = "/audio/tfsu-mikrowellenofen.mp3", ImageUrl = "/img/tfsu-mikro.png", ProductItemId = kuche.ItemId },
+                        new ProductPart { Name = "Gabel", AudioUrl = "/audio/tfsu-gabel.mp3", ImageUrl = "/img/tfsu-gaffel.png", ProductItemId = kuche.ItemId },
                         new ProductPart { Name = "Tasse", AudioUrl = "/audio/tfsu-tasse.mp3", ImageUrl = "/img/tfsu-mugg.png", ProductItemId = kuche.ItemId },
                         new ProductPart { Name = "Topf", AudioUrl = "/audio/tfsu-topf.mp3", ImageUrl = "/img/tfsu-kastrull.png", ProductItemId = kuche.ItemId },
                         new ProductPart { Name = "Bratpfanne", AudioUrl = "/audio/tfsu-bratpfanne.mp3", ImageUrl = "/img/tfsu-stekpanna.png", ProductItemId = kuche.ItemId },
                         new ProductPart { Name = "Tisch", AudioUrl = "/audio/tfsu-tisch.mp3", ImageUrl = "/img/tfsu-bord.png", ProductItemId = kuche.ItemId },
                         new ProductPart { Name = "Stuhl", AudioUrl = "/audio/tfsu-stuhl.mp3", ImageUrl = "/img/tfsu-stol.png", ProductItemId = kuche.ItemId },
-                        new ProductPart { Name = "Gabel", AudioUrl = "/audio/tfsu-gabel.mp3", ImageUrl = "/img/tfsu-gaffel.png", ProductItemId = kuche.ItemId }
+                        new ProductPart { Name = "Mikrowellenofen", AudioUrl = "/audio/tfsu-mikrowellenofen.mp3", ImageUrl = "/img/tfsu-mikro.png", ProductItemId = kuche.ItemId }
                     );
                 }
 
@@ -245,8 +237,21 @@ namespace TyskaForSmaUpptackare.Data
                     );
                 }
 
+                if (saal != null)
+                {
+                    context.ProductParts.AddRange(
+                        new ProductPart { Name = "Element", AudioUrl = "/audio/tfsu-element.mp3", ImageUrl = "/img/tfsu-element.webp", ProductItemId = saal.ItemId },
+                        new ProductPart { Name = "Schlüsselschrank", AudioUrl = "/audio/tfsu-nycklar.mp3", ImageUrl = "/img/tfsu-nyckelskap.webp", ProductItemId = saal.ItemId },
+                        new ProductPart { Name = "Haustür", AudioUrl = "/audio/tfsu-ytterdorr.mp3", ImageUrl = "/img/tfsu-ytterdorr.webp", ProductItemId = saal.ItemId },
+                        new ProductPart { Name = "Spiegel", AudioUrl = "/audio/tfsu-spegel.mp3", ImageUrl = "/img/tfsu-spegel.webp", ProductItemId = saal.ItemId }
+                    );
+                }
+
                 context.SaveChanges();
             }
+
+
+
 
 
         }
