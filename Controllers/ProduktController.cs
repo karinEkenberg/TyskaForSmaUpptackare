@@ -47,9 +47,26 @@ namespace TyskaForSmaUpptackare.Controllers
             return View(product);
         }
 
+        private List<string> GetFileList(string folder, string extension)
+        {
+            string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", folder);
+            if (!Directory.Exists(path))
+            {
+                return new List<string>();
+            }
+
+            return Directory.GetFiles(path, $"*.{extension}")
+                .Select(f => $"/{folder}/{Path.GetFileName(f)}")
+                .ToList();
+        }
+
         [Authorize(Roles = "Administrators")]
         public IActionResult Create()
         {
+            ViewBag.ImageFiles = GetFileList("img", "webp")
+                .Concat(GetFileList("img", "jpg"))
+              .Concat(GetFileList("img", "png")).ToList();
+            ViewBag.AudioFiles = GetFileList("audio", "mp3");
             return View();
         }
 
@@ -58,6 +75,8 @@ namespace TyskaForSmaUpptackare.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Product product)
         {
+
+
             if (ModelState.IsValid)
             {
                 if(product.Items != null)
@@ -85,6 +104,11 @@ namespace TyskaForSmaUpptackare.Controllers
         [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> Edit(int id)
         {
+            ViewBag.ImageFiles = GetFileList("img", "webp")
+              .Concat(GetFileList("img", "jpg"))
+            .Concat(GetFileList("img", "png")).ToList();
+            ViewBag.AudioFiles = GetFileList("audio", "mp3");
+
             var product = await _context.Products
                 .Include(p => p.Items)
                 .ThenInclude(item => item.Parts)

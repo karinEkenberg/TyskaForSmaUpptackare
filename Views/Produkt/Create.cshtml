@@ -11,9 +11,7 @@
             <div class="row pb-5">
                 <div class="col-6">
                     <p>Tänk på att dina produkter läggs in som ett grid, ha det i åtanke av ordningen när du lägger in dem.</p>
-
                     <p>Exempelvis om du lägger in ett hus så läggs först huset > rummet > saker.</p>
-
                     <p>Varje hus kan ha max 9 "rum" och varje rum kan ha max 9 "saker".</p>
                 </div>
                 <div class="col-6">
@@ -23,7 +21,6 @@
 
             <h3>Hus</h3>
             <form asp-action="Create" method="post">
-                <!-- Produktens egna fält -->
                 <div class="form-group">
                     <label asp-for="Name" class="control-label">Namn</label>
                     <input asp-for="Name" class="form-control" />
@@ -40,123 +37,155 @@
                     <span asp-validation-for="Price" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="ImageUrl" class="control-label">Bild URL (/img/bild.png)</label>
-                    <input asp-for="ImageUrl" class="form-control" />
+                    <label asp-for="ImageUrl" class="control-label">Bild (från wwwroot/img)</label>
+                    <select asp-for="ImageUrl" class="form-control">
+                        <option value="">-- Välj en bild --</option>
+                        @foreach (var img in ViewBag.ImageFiles as List<string>)
+                        {
+                            <option value="@img">@img</option>
+                        }
+                    </select>
                     <span asp-validation-for="ImageUrl" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="AudioUrl" class="control-label">Ljud URL (/audio/bild.mp3)</label>
-                    <input asp-for="AudioUrl" class="form-control" />
+                    <label asp-for="AudioUrl" class="control-label">Ljud (från wwwroot/audio)</label>
+                    <select asp-for="AudioUrl" class="form-control">
+                        <option value="">-- Välj ett ljud --</option>
+                        @foreach (var audio in ViewBag.AudioFiles as List<string>)
+                        {
+                            <option value="@audio">@audio</option>
+                        }
+                    </select>
                     <span asp-validation-for="AudioUrl" class="text-danger"></span>
                 </div>
 
                 <hr />
-                <div id="rooms-container">
-                    <!-- Här renderas de dynamiskt tillagda rummen -->
-                </div>
+                <div id="rooms-container"></div>
                 <button type="button" id="add-room" class="btn btn-primary">+</button>
 
                 <hr />
-                <!-- Gemensam submit-knapp för att spara allt -->
                 <input type="submit" value="Skapa" class="btn btn-primary" />
             </form>
         </div>
     </div>
 </div>
 
-<!-- Mall för rum -->
+<!-- Templates -->
 <div id="room-template" style="display: none;">
     <div class="room ms-5">
-                <h3>Rum</h3>
+        <h3>Rum</h3>
         <div class="form-group">
             <label>Rumsnamn</label>
-            <input type="text" name="Items[{{roomIndex}}].Name" class="form-control" placeholder="Ange rumsnamn" data-val="true" data-val-required="Rumsnamn är obligatoriskt." />
+            <input type="text" name="Items[{{roomIndex}}].Name" class="form-control" placeholder="Ange rumsnamn" required />
             <label>Bild</label>
-            <input type="text" name="Items[{{roomIndex}}].ImageUrl" class="form-control" placeholder="Ange bildurl" />
+            <select name="Items[{{roomIndex}}].ImageUrl" class="form-control image-select">
+                <option value="">-- Välj en bild --</option>
+            </select>
             <label>Ljud</label>
-            <input type="text" name="Items[{{roomIndex}}].AudioUrl" class="form-control" placeholder="Ange ljudurl" />
+            <select name="Items[{{roomIndex}}].AudioUrl" class="form-control audio-select">
+                <option value="">-- Välj ett ljud --</option>
+            </select>
         </div>
-        <div class="items-container mb-3">
-            <!-- Här läggs dynamiskt saker (ProductPart) till -->
-        </div>
+        <div class="items-container mb-3"></div>
         <button type="button" class="btn btn-primary add-part">+</button>
         <button type="button" class="btn btn-danger remove-room" style="border: 2px black solid; border-radius: 7px;">X</button>
     </div>
 </div>
 
-<!-- Mall för sak -->
 <div id="part-template" style="display: none;">
     <div class="part ms-5">
         <h3>Sak</h3>
         <div class="form-group">
             <label>Saknamn</label>
-            <input type="text" name="Items[{{roomIndex}}].Parts[{{partIndex}}].Name" class="form-control" placeholder="Ange saknamn" data-val="true" data-val-required="Saknamn är obligatoriskt." />
+            <input type="text" name="Items[{{roomIndex}}].Parts[{{partIndex}}].Name" class="form-control" placeholder="Ange saknamn" required />
             <label>Bild</label>
-            <input type="text" name="Items[{{roomIndex}}].Parts[{{partIndex}}].ImageUrl" class="form-control" placeholder="Ange bildurl" />
+            <select name="Items[{{roomIndex}}].Parts[{{partIndex}}].ImageUrl" class="form-control image-select">
+                <option value="">-- Välj en bild --</option>
+            </select>
             <label>Ljud</label>
-            <input type="text" name="Items[{{roomIndex}}].Parts[{{partIndex}}].AudioUrl" class="form-control" placeholder="Ange ljudurl" />
+            <select name="Items[{{roomIndex}}].Parts[{{partIndex}}].AudioUrl" class="form-control audio-select">
+                <option value="">-- Välj ett ljud --</option>
+            </select>
         </div>
         <button type="button" class="btn btn-danger remove-part" style="border: 2px black solid; border-radius: 7px;">X</button>
     </div>
 </div>
 
-<script>
-    let roomCount = 0;
+@section Scripts {
+    <script>
+        const imageOptions = @Html.Raw(Json.Serialize(ViewBag.ImageFiles));
+        const audioOptions = @Html.Raw(Json.Serialize(ViewBag.AudioFiles));
 
-    // Lägg till nytt rum
-    document.getElementById('add-room').addEventListener('click', function () {
-        if (roomCount >= 9) {
-            alert("Maximalt 9 rum är tillåtna.");
-            return;
+        function populateSelect(selectElement, optionsArray) {
+            optionsArray.forEach(opt => {
+                const option = document.createElement("option");
+                option.value = opt;
+                option.text = opt;
+                selectElement.appendChild(option);
+            });
         }
-        let template = document.getElementById('room-template').innerHTML;
-        template = template.replace(/{{roomIndex}}/g, roomCount);
-        let container = document.getElementById('rooms-container');
-        let div = document.createElement('div');
-        div.innerHTML = template;
-        container.appendChild(div);
-        // Re-parsa de nya fälten för validering
-        $.validator.unobtrusive.parse(div);
-        roomCount++;
-    });
 
-    // Hantera klick på "Lägg till sak", ta bort rum och ta bort sak via event delegation
-    document.getElementById('rooms-container').addEventListener('click', function (e) {
-        // Lägg till sak
-        if (e.target && e.target.classList.contains('add-part')) {
-            let roomDiv = e.target.closest('.room');
-            let itemsContainer = roomDiv.querySelector('.items-container');
-            let roomIndexMatch = roomDiv.querySelector('input').name.match(/Items\[(\d+)\]/);
-            if (!roomIndexMatch) return;
-            let roomIndex = roomIndexMatch[1];
-            let partCount = itemsContainer.children.length;
-            if (partCount >= 9) {
-                alert("Maximalt 9 saker per rum är tillåtna.");
+        let roomCount = 0;
+
+        document.getElementById('add-room').addEventListener('click', function () {
+            if (roomCount >= 9) {
+                alert("Maximalt 9 rum är tillåtna.");
                 return;
             }
-            let partTemplate = document.getElementById('part-template').innerHTML;
-            partTemplate = partTemplate.replace(/{{roomIndex}}/g, roomIndex)
-                .replace(/{{partIndex}}/g, partCount);
-            let newPart = document.createElement('div');
-            newPart.innerHTML = partTemplate;
-            itemsContainer.appendChild(newPart);
-            // Re-parsa den nya delen för validering
-            $.validator.unobtrusive.parse(newPart);
-        }
-        // Ta bort rum
-        if (e.target && e.target.classList.contains('remove-room')) {
-            e.target.closest('.room').remove();
-        }
-        // Ta bort sak
-        if (e.target && e.target.classList.contains('remove-part')) {
-            e.target.closest('.part').remove();
-        }
-    });
-</script>
 
+            let template = document.getElementById('room-template').innerHTML;
+            template = template.replace(/{{roomIndex}}/g, roomCount);
+            let container = document.getElementById('rooms-container');
+            let div = document.createElement('div');
+            div.innerHTML = template;
+            container.appendChild(div);
 
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+            let imageSelect = div.querySelector(".image-select");
+            let audioSelect = div.querySelector(".audio-select");
+            populateSelect(imageSelect, imageOptions);
+            populateSelect(audioSelect, audioOptions);
+
+            $.validator.unobtrusive.parse(div);
+            roomCount++;
+        });
+
+        document.getElementById('rooms-container').addEventListener('click', function (e) {
+            if (e.target && e.target.classList.contains('add-part')) {
+                let roomDiv = e.target.closest('.room');
+                let itemsContainer = roomDiv.querySelector('.items-container');
+                let roomIndexMatch = roomDiv.querySelector('input').name.match(/Items\[(\d+)\]/);
+                if (!roomIndexMatch) return;
+                let roomIndex = roomIndexMatch[1];
+                let partCount = itemsContainer.children.length;
+                if (partCount >= 9) {
+                    alert("Maximalt 9 saker per rum är tillåtna.");
+                    return;
+                }
+
+                let partTemplate = document.getElementById('part-template').innerHTML;
+                partTemplate = partTemplate.replace(/{{roomIndex}}/g, roomIndex)
+                                           .replace(/{{partIndex}}/g, partCount);
+                let newPart = document.createElement('div');
+                newPart.innerHTML = partTemplate;
+                itemsContainer.appendChild(newPart);
+
+                let imageSelect = newPart.querySelector(".image-select");
+                let audioSelect = newPart.querySelector(".audio-select");
+                populateSelect(imageSelect, imageOptions);
+                populateSelect(audioSelect, audioOptions);
+
+                $.validator.unobtrusive.parse(newPart);
+            }
+
+            if (e.target && e.target.classList.contains('remove-room')) {
+                e.target.closest('.room').remove();
+            }
+
+            if (e.target && e.target.classList.contains('remove-part')) {
+                e.target.closest('.part').remove();
+            }
+        });
+    </script>
+
+    @await Html.PartialAsync("_ValidationScriptsPartial")
 }
