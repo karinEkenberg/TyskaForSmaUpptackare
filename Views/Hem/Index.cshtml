@@ -46,13 +46,15 @@
     {
         <div class="col-md-4 mb-4">
             <div class="card">
+                <a asp-controller="Produkt" asp-action="Details" asp-route-id="@product.ProductId" class="text-decoration-none text-dark">
                 @if (!string.IsNullOrEmpty(product.ImageUrl))
                 {
                     <img src="@product.ImageUrl" class="card-img-top" alt="@product.Name" />
                 }
                 <div class="card-body">
-                    <h3 class="card-title">@product.Name</h3>
+                    <h3 class="card-title text-center">@product.Name</h3>
                 </div>
+                </a>
             </div>
         </div>
     }
@@ -208,7 +210,7 @@
             <p>“Som lärare i åk 3 är det underbart att se eleverna engagera sig i tyska på det här sättet.”<br><strong>– Sara, lärare i Malmö</strong></p>
         </div>
         <div class="col-md-3 mb-4">
-            <img src="~/img/tfsu-happier-man.webp" class="img-fluid rounded-circle mb-3" alt="Nöjd morfar" />
+            <img src="~/img/tfsu-happier-man.webp" class="img-fluid rounded-circle mb-3" alt="Nöjd pappa" />
             <p>“Jag är pensionerad språklärare och blev imponerad av innehållet. Barnen lär sig verkligen.”<br><strong>– Anders, pappa och språknörd</strong></p>
         </div>
     </div>
