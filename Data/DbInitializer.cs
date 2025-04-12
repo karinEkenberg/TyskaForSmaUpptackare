@@ -209,7 +209,7 @@ namespace TyskaForSmaUpptackare.Data
             {
                 var kuche = context.ProductItems.FirstOrDefault(i => i.Name == "Küche");
                 var wohnzimmer = context.ProductItems.FirstOrDefault(i => i.Name == "Wohnzimmer");
-                var saal = context.ProductItems.FirstOrDefault(i => i.Name == "Saal");
+                var flur = context.ProductItems.FirstOrDefault(i => i.Name == "Flur");
 
                 if (kuche != null)
                 {
@@ -237,13 +237,13 @@ namespace TyskaForSmaUpptackare.Data
                     );
                 }
                 
-                if (saal != null)
+                if (flur != null)
                 {
                     context.ProductParts.AddRange(
-                        new ProductPart { Name = "Heizungskörper", AudioUrl = "/audio/tfsu-element.mp3", ImageUrl = "/img/tfsu-element.webp", ProductItemId = saal.ItemId },
-                        new ProductPart { Name = "Schlüssel", AudioUrl = "/audio/tfsu-nycklar.mp3", ImageUrl = "/img/tfsu-nyckelskap.webp", ProductItemId = saal.ItemId },
-                        new ProductPart { Name = "Haustür", AudioUrl = "/audio/tfsu-ytterdorr.mp3", ImageUrl = "/img/tfsu-ytterdorr.webp", ProductItemId = saal.ItemId },
-                        new ProductPart { Name = "Spiegel", AudioUrl = "/audio/tfsu-spegel.mp3", ImageUrl = "/img/tfsu-spegel.webp", ProductItemId = saal.ItemId }
+                        new ProductPart { Name = "Heizungskörper", AudioUrl = "/audio/tfsu-element.mp3", ImageUrl = "/img/tfsu-element.webp", ProductItemId = flur.ItemId },
+                        new ProductPart { Name = "Schlüssel", AudioUrl = "/audio/tfsu-nycklar.mp3", ImageUrl = "/img/tfsu-nyckelskap.webp", ProductItemId = flur.ItemId },
+                        new ProductPart { Name = "Haustür", AudioUrl = "/audio/tfsu-ytterdorr.mp3", ImageUrl = "/img/tfsu-ytterdorr.webp", ProductItemId = flur.ItemId },
+                        new ProductPart { Name = "Spiegel", AudioUrl = "/audio/tfsu-spegel.mp3", ImageUrl = "/img/tfsu-spegel.webp", ProductItemId = flur.ItemId }
                     );
                 }
 
