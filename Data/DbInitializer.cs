@@ -174,7 +174,7 @@ namespace TyskaForSmaUpptackare.Data
                     context.ProductItems.AddRange(
                         new ProductItem { Name = "Küche", ImageUrl = "/img/tfsu-kok.webp", AudioUrl = "/audio/tfsu-kuche.mp3", ProductId = haus.ProductId },
                         new ProductItem { Name = "Wohnzimmer", ImageUrl = "/img/tfsu-vardagsrum.webp", AudioUrl = "/audio/tfsu-vardagsrum.mp3", ProductId = haus.ProductId },
-                        new ProductItem { Name = "Saal", ImageUrl = "/img/tfsu-hall.webp", AudioUrl = "/audio/tfsu-hall.mp3", ProductId = haus.ProductId }
+                        new ProductItem { Name = "Flur", ImageUrl = "/img/tfsu-hall.webp", AudioUrl = "/audio/tfsu-hall.mp3", ProductId = haus.ProductId }
                     );
                 }
 
@@ -184,21 +184,21 @@ namespace TyskaForSmaUpptackare.Data
                             new ProductItem { Name = "Cockpit", ImageUrl = "/img/tfsu-cockpit.webp", AudioUrl = "/audio/tfsu-cockpit.mp3", ProductId = flugzeug.ProductId },
                             new ProductItem { Name = "Fenster", ImageUrl = "/img/tfsu-flygfonster.webp", AudioUrl = "/audio/tfsu-fonster.mp3", ProductId = flugzeug.ProductId },
                             new ProductItem { Name = "Fernseher", ImageUrl = "/img/tfsu-flygtv.webp", AudioUrl = "/audio/tfsu-tv.mp3", ProductId = flugzeug.ProductId },
-                            new ProductItem { Name = "Flugbegleiterin", ImageUrl = "/img/tfsu-flygvardinna.webp", AudioUrl = "/audio/tfsu-flygvardinnagubbe.mp3", ProductId = flugzeug.ProductId }
+                            new ProductItem { Name = "Flugbegleiter", ImageUrl = "/img/tfsu-flygvardinna.webp", AudioUrl = "/audio/tfsu-flygvardinnagubbe.mp3", ProductId = flugzeug.ProductId }
                     );
                 }
 
                 if (auto != null)
                 {
                     context.ProductItems.AddRange(
-                        new ProductItem { Name = "Rückspiegel", ImageUrl = "/img/tfsu-backspegel.webp", AudioUrl = "/audio/tfsu-sidspegel.mp3", ProductId = auto.ProductId },
-                        new ProductItem { Name = "Gürtel", ImageUrl = "/img/tfsu-bilbalte.webp", AudioUrl = "/audio/tfsu-balte.mp3", ProductId = auto.ProductId },
-                        new ProductItem { Name = "Autositz", ImageUrl = "/img/tfsu-bilstol.webp", AudioUrl = "/audio/tfsu-barnstol.mp3", ProductId = auto.ProductId },
+                        new ProductItem { Name = "Seitenspiegel", ImageUrl = "/img/tfsu-backspegel.webp", AudioUrl = "/audio/tfsu-sidspegel.mp3", ProductId = auto.ProductId },
+                        new ProductItem { Name = "Anschnallgurt", ImageUrl = "/img/tfsu-bilbalte.webp", AudioUrl = "/audio/tfsu-balte.mp3", ProductId = auto.ProductId },
+                        new ProductItem { Name = "Kindersitz", ImageUrl = "/img/tfsu-bilstol.webp", AudioUrl = "/audio/tfsu-barnstol.mp3", ProductId = auto.ProductId },
                         new ProductItem { Name = "Vordersitz", ImageUrl = "/img/tfsu-framsate.webp", AudioUrl = "/audio/tfsu-framsate.mp3", ProductId = auto.ProductId },
                         new ProductItem { Name = "Handbremse", ImageUrl = "/img/tfsu-handbroms.webp", AudioUrl = "/audio/tfsu-handbroms.mp3", ProductId = auto.ProductId },
                         new ProductItem { Name = "Armaturenbrett", ImageUrl = "/img/tfsu-instrumentpanel.webp", AudioUrl = "/audio/tfsu-instrumentpanel.mp3", ProductId = auto.ProductId },
                         new ProductItem { Name = "Lenkrad", ImageUrl = "/img/tfsu-ratt.webp", AudioUrl = "/audio/tfsu-ratt.mp3", ProductId = auto.ProductId },
-                        new ProductItem { Name = "Schalthebel", ImageUrl = "/img/tfsu-vaxel.webp", AudioUrl = "/audio/tfsu-vaxel.mp3", ProductId = auto.ProductId }
+                        new ProductItem { Name = "Gangschaltung", ImageUrl = "/img/tfsu-vaxel.webp", AudioUrl = "/audio/tfsu-vaxel.mp3", ProductId = auto.ProductId }
                     );
                 }
 
@@ -222,7 +222,7 @@ namespace TyskaForSmaUpptackare.Data
                         new ProductPart { Name = "Bratpfanne", AudioUrl = "/audio/tfsu-bratpfanne.mp3", ImageUrl = "/img/tfsu-stekpanna.png", ProductItemId = kuche.ItemId },
                         new ProductPart { Name = "Tisch", AudioUrl = "/audio/tfsu-tisch.mp3", ImageUrl = "/img/tfsu-bord.png", ProductItemId = kuche.ItemId },
                         new ProductPart { Name = "Stuhl", AudioUrl = "/audio/tfsu-stuhl.mp3", ImageUrl = "/img/tfsu-stol.png", ProductItemId = kuche.ItemId },
-                        new ProductPart { Name = "Mikrowellenofen", AudioUrl = "/audio/tfsu-mikrowellenofen.mp3", ImageUrl = "/img/tfsu-mikro.png", ProductItemId = kuche.ItemId }
+                        new ProductPart { Name = "Mikrowelle", AudioUrl = "/audio/tfsu-mikrowellenofen.mp3", ImageUrl = "/img/tfsu-mikro.png", ProductItemId = kuche.ItemId }
                     );
                 }
 
@@ -231,7 +231,7 @@ namespace TyskaForSmaUpptackare.Data
                     context.ProductParts.AddRange(
                         new ProductPart { Name = "Sofa", AudioUrl = "/audio/tfsu-soffa.mp3", ImageUrl = "/img/tfsu-soffa.png", ProductItemId = wohnzimmer.ItemId },
                         new ProductPart { Name = "Fernseher", AudioUrl = "/audio/tfsu-tv.mp3", ImageUrl = "/img/tfsu-tv.png", ProductItemId = wohnzimmer.ItemId },
-                        new ProductPart { Name = "Fernsehbox", AudioUrl = "/audio/tfsu-dosa.mp3", ImageUrl = "/img/tfsu-dosa.png", ProductItemId = wohnzimmer.ItemId },
+                        new ProductPart { Name = "Fernbediehnung", AudioUrl = "/audio/tfsu-dosa.mp3", ImageUrl = "/img/tfsu-dosa.png", ProductItemId = wohnzimmer.ItemId },
                         new ProductPart { Name = "Sessel", AudioUrl = "/audio/tfsu-fotolj.mp3", ImageUrl = "/img/tfsu-fotolj.png", ProductItemId = wohnzimmer.ItemId },
                         new ProductPart { Name = "Lampe", AudioUrl = "/audio/tfsu-lampa.mp3", ImageUrl = "/img/tfsu-lampa.png", ProductItemId = wohnzimmer.ItemId }
                     );
@@ -240,8 +240,8 @@ namespace TyskaForSmaUpptackare.Data
                 if (saal != null)
                 {
                     context.ProductParts.AddRange(
-                        new ProductPart { Name = "Element", AudioUrl = "/audio/tfsu-element.mp3", ImageUrl = "/img/tfsu-element.webp", ProductItemId = saal.ItemId },
-                        new ProductPart { Name = "Schlüsselschrank", AudioUrl = "/audio/tfsu-nycklar.mp3", ImageUrl = "/img/tfsu-nyckelskap.webp", ProductItemId = saal.ItemId },
+                        new ProductPart { Name = "Heizungskörper", AudioUrl = "/audio/tfsu-element.mp3", ImageUrl = "/img/tfsu-element.webp", ProductItemId = saal.ItemId },
+                        new ProductPart { Name = "Schlüssel", AudioUrl = "/audio/tfsu-nycklar.mp3", ImageUrl = "/img/tfsu-nyckelskap.webp", ProductItemId = saal.ItemId },
                         new ProductPart { Name = "Haustür", AudioUrl = "/audio/tfsu-ytterdorr.mp3", ImageUrl = "/img/tfsu-ytterdorr.webp", ProductItemId = saal.ItemId },
                         new ProductPart { Name = "Spiegel", AudioUrl = "/audio/tfsu-spegel.mp3", ImageUrl = "/img/tfsu-spegel.webp", ProductItemId = saal.ItemId }
                     );
