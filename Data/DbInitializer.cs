@@ -236,7 +236,7 @@ namespace TyskaForSmaUpptackare.Data
                         new ProductPart { Name = "Lampe", AudioUrl = "/audio/tfsu-lampa.mp3", ImageUrl = "/img/tfsu-lampa.png", ProductItemId = wohnzimmer.ItemId }
                     );
                 }
-
+                
                 if (saal != null)
                 {
                     context.ProductParts.AddRange(
