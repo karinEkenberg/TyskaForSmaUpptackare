@@ -7,6 +7,33 @@ The site combines audio, images, and interactive UI elements, where users can ex
 It supports user authentication, paid content via Stripe, and admin-level content management.
 
 ---
+## 🎥 Demo Video
+
+Watch the demo video here:  
+👉 [Watch on YouTube](https://youtu.be/NOC9z29z6b0)
+
+Or click the image below to play:
+
+[![Watch the demo](https://img.youtube.com/vi/NOC9z29z6b0/hqdefault.jpg)](https://youtu.be/NOC9z29z6b0)
+
+
+## 🖼️ Screenshots
+### Free content (tablet view)
+
+![tfsudjur](https://github.com/user-attachments/assets/a5d386d7-c469-45c9-b48f-832321601e56)
+
+### Paid content (tablet view)
+
+![tfsuflyg](https://github.com/user-attachments/assets/aa9f7739-123d-4070-a490-5dc04d056b1c)
+
+### Inside the house (mobile view)
+
+![tfsumobil](https://github.com/user-attachments/assets/1ac6d74c-edb7-4f0d-889c-c1ac693eab91)
+
+### Inside the living room (mobile view)
+
+![tfsuvrum](https://github.com/user-attachments/assets/f7e77570-947b-492c-b871-f3b620559895)
+
 
 ## 🚀 Features
 
