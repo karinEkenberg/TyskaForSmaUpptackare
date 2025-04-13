@@ -7,15 +7,13 @@ The site combines audio, images, and interactive UI elements, where users can ex
 It supports user authentication, paid content via Stripe, and admin-level content management.
 
 ---
-## 🎥 Demo Video
 
-Watch the demo video here:  
-👉 [Watch on YouTube](https://youtu.be/NOC9z29z6b0)
+### 🎥 Demo Video
 
-Or click the image below to play:
+To see how the application works in action, watch the short demo here:  
+👉 [Watch the demo on YouTube](https://youtu.be/j39x3eS74AA)
 
-[![Watch the demo](https://img.youtube.com/vi/NOC9z29z6b0/hqdefault.jpg)](https://youtu.be/NOC9z29z6b0)
-
+[![Watch the demo](https://img.youtube.com/vi/j39x3eS74AA/hqdefault.jpg)](https://youtu.be/j39x3eS74AA)
 
 ## 🖼️ Screenshots
 ### Free content (tablet view)
